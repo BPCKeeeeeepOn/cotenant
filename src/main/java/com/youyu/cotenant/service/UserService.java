@@ -120,7 +120,8 @@ public class UserService {
         userOutVM.setId(String.valueOf(id));
         userOutVM.setMobile(mobile);
         userOutVM.setStatus(selectUserStatus(id));
-        userOutVM.setUnreadCount(StringUtils.isBlank(unreadCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadCount));
+        userOutVM.setUnreadGroupCount(StringUtils.isBlank(unreadCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadCount));
+        userOutVM.setUnreadMsgCount(0);
         return userOutVM;
     }
 

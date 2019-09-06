@@ -12,6 +12,9 @@ public class UserOutVM {
 
     private Integer status;
 
-    @JsonProperty("unread_count")
-    private int unreadCount; //未读消息数量
+    @JsonProperty("unread_group_count")
+    private int unreadGroupCount; //未读消息数量
+
+    @JsonProperty("unread_ssg_count")
+    private int unreadMsgCount;
 }

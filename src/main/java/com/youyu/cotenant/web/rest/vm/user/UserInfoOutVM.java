@@ -8,6 +8,7 @@ import java.time.LocalDateTime;
 @Data
 public class UserInfoOutVM {
 
+    @JsonProperty("user_id")
     private String userId;
 
     private String mobile;

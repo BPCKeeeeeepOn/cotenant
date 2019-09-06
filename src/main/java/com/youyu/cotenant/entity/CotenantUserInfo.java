@@ -1,13 +1,19 @@
 package com.youyu.cotenant.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class CotenantUserInfo implements Serializable {
+
+    @JsonProperty("user_id")
     private Long userId;
 
+    @JsonProperty("nick_name")
     private String nickName;
 
+    @JsonProperty("user_name")
     private String userName;
 
     private Integer sex;
@@ -16,20 +22,26 @@ public class CotenantUserInfo implements Serializable {
 
     private String degree;
 
+    @JsonProperty("start_time")
     private LocalDateTime startTime;
 
+    @JsonProperty("end_time")
     private LocalDateTime endTime;
 
+    @JsonProperty("id_card_url")
     private String idCardUrl;
 
+    @JsonProperty("diploma_url")
     private String diplomaUrl;
 
     private String interest;
 
     private Integer status;
 
+    @JsonProperty("created_time")
     private LocalDateTime createdTime;
 
+    @JsonProperty("updated_time")
     private LocalDateTime updatedTime;
 
     private Boolean isDeleted;
