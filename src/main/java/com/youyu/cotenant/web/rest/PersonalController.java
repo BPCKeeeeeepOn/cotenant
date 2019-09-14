@@ -4,6 +4,7 @@ package com.youyu.cotenant.web.rest;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.PersonalService;
 import com.youyu.cotenant.web.rest.vm.personal.GroupExamineInVM;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 public class PersonalController {
 
 
+    @Autowired
     private PersonalService personalService;
 
     @GetMapping("/list")

@@ -136,11 +136,10 @@ public class PersonalService {
     public boolean isGroupLeader(Long groupId, Long userId) {
         //查询该租房团是否属于登录用户
         Long leaderId = cotenantGroupBizMapper.selectGroupLeader(groupId);
-        if (userId != leaderId) {
-            //您无权限操作
-            return false;
+        if (userId.equals(leaderId)) {
+            return true;
         }
-        return true;
+        return false;
     }
 
 }

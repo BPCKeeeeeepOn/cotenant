@@ -116,7 +116,7 @@ public class UserService {
         CotenantUser cotenantUser = currentUserUtils.getCurrUser();
         String mobile = cotenantUser.getMobile();
         Long id = cotenantUser.getId();
-        String unreadCount = redisUtils.getCache(UNREAD_MESSAGE_KEY);
+        String unreadCount = redisUtils.getCache(UNREAD_MESSAGE_KEY + id);
         userOutVM.setId(String.valueOf(id));
         userOutVM.setMobile(mobile);
         userOutVM.setStatus(selectUserStatus(id));

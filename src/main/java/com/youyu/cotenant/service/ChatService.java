@@ -1,6 +1,11 @@
 package com.youyu.cotenant.service;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youyu.cotenant.common.GeneratorID;
+import com.youyu.cotenant.entity.CotenantCommunication;
+import com.youyu.cotenant.entity.CotenantCommunicationExample;
+import com.youyu.cotenant.entity.CotenantUserInfo;
 import com.youyu.cotenant.repository.CotenantCommunicationMapper;
 import com.youyu.cotenant.repository.CotenantUserInfoMapper;
 import com.youyu.cotenant.utils.SpringRedisUtils;
@@ -11,10 +16,12 @@ import io.goeasy.publish.GoEasyError;
 import io.goeasy.publish.PublishListener;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -38,12 +45,41 @@ public class ChatService {
     private ObjectMapper objectMapper;
 
     /**
-     * 建立唯一通讯,并返回聊天记录
+     * 建立唯一通讯
      *
      * @param communicationInVM
      */
     public ChatMessageOutVM buildCommunication(CommunicationInVM communicationInVM) throws IOException {
-        ChatMessageOutVM chatMessageOutVM = null;
+        Long sendUserId = communicationInVM.getSendUserId();
+        Long receiveUserId = communicationInVM.getReceiveUserId();
+        ChatMessageOutVM chatMessageOutVM = new ChatMessageOutVM();
+
+        //生成channel
+        String channel = generateChannel(sendUserId, receiveUserId);
+        CotenantCommunicationExample cotenantCommunicationExample = new CotenantCommunicationExample();
+        cotenantCommunicationExample.createCriteria().andChannelEqualTo(channel);
+
+        if (mSpringRedisUtils.hasKey(channel)) {
+            String communication = mSpringRedisUtils.lIndex(channel, NumberUtils.INTEGER_ZERO);
+            chatMessageOutVM = objectMapper.readValue(communication, ChatMessageOutVM.class);
+        } else {
+            long count = cotenantCommunicationMapper.countByExample(cotenantCommunicationExample);
+            if (count == NumberUtils.INTEGER_ZERO) {
+                CotenantCommunication cotenantCommunication = new CotenantCommunication();
+                cotenantCommunication.setId(GeneratorID.getId());
+                cotenantCommunication.setChannel(channel);
+                cotenantCommunication.setSendUserId(sendUserId);
+                cotenantCommunication.setReceiveUserId(receiveUserId);
+                cotenantCommunicationMapper.insertSelective(cotenantCommunication);
+            }
+            //获取用户昵称头像信息
+            CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(receiveUserId);
+            String nickName = cotenantUserInfo.getNickName();
+            chatMessageOutVM.setSendUserId(String.valueOf(sendUserId));
+            chatMessageOutVM.setReceiveUserId(String.valueOf(receiveUserId));
+            chatMessageOutVM.setReceiveUserName(nickName);
+            mSpringRedisUtils.lLeftPush(channel, objectMapper.writeValueAsString(chatMessageOutVM));
+        }
         return chatMessageOutVM;
     }
 
@@ -53,22 +89,29 @@ public class ChatService {
      * @param channel
      */
     public List<ChatMessageOutVM> getMessage(String channel) {
-        List<ChatMessageOutVM> chatMessageOutVMList = null;
+        List<String> msgList;
+        List<ChatMessageOutVM> chatMessageOutVMList = new ArrayList<>();
+        try {
+            //缓存验证
+            if (mSpringRedisUtils.hasKey(channel)) {
+                //获取聊天记录
+                msgList = mSpringRedisUtils.lRange(channel, NumberUtils.INTEGER_ZERO, mSpringRedisUtils.lLen(channel) - 1);
+                for (String msg : msgList) {
+                    ChatMessageOutVM chatMessageOutVM = objectMapper.readValue(msg, ChatMessageOutVM.class);
+                    chatMessageOutVMList.add(chatMessageOutVM);
+                }
+            }
+        } catch (Exception e) {
 
+        }
         return chatMessageOutVMList;
     }
+
 
     /**
      * 获取聊天列表
      */
     public void list() {
-
-    }
-
-    /**
-     * 发送消息
-     */
-    public void send(){
 
     }
 
@@ -84,7 +127,7 @@ public class ChatService {
             @Override
             public void onSuccess() {
                 //消息发送成功处理
-                log.info("send success!");
+                log.info("发送成功！");
             }
 
             @Override

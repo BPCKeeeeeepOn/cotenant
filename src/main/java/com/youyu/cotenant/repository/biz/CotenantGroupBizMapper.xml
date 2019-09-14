@@ -100,7 +100,7 @@
           where cgu.cotenant_group_id = #{id} and cgu.role = 2 and cgu.status = 10
     </select>
 
-    <select id="selectGroupLeader">
+    <select id="selectGroupLeader" resultType="Long">
         select cotenant_user_id from cotenant_group_user where cotenant_group_id = #{groupId} and role = 1
     </select>
 
