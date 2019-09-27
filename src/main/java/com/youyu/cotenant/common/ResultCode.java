@@ -90,7 +90,12 @@ public enum ResultCode {
     /**
      * 用户信息审核未通过
      */
-    UNPASS_USER(100090, "抱歉，您的审毕业证/学生证核未通过");
+    UNPASS_USER(100090, "抱歉，您的审毕业证/学生证核未通过"),
+
+    /**
+     * 即时消息发送失败
+     */
+    SEND_MSG_ERROR(100200, "消息发送失败，请稍后重试");
 
 
     ResultCode(Integer code, String msg) {

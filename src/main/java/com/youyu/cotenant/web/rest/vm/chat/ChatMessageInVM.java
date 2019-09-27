@@ -6,10 +6,6 @@ import lombok.Data;
 @Data
 public class ChatMessageInVM {
 
-
-    @JsonProperty("send_user_id")
-    private Long sendUserId;
-
     @JsonProperty("receive_user_id")
     private Long receiveUserId;
 

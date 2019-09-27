@@ -18,7 +18,7 @@ public class JWTUtil {
     /**
      * 过期时间,单位毫秒
      */
-    private static final long EXPIRATIONTIME = 2 * 60 * 60 * 1000;
+    private static final long EXPIRATIONTIME = 360 * 60 * 60 * 1000;
 
     /**
      * 签名密钥

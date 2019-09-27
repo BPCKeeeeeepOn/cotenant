@@ -4,7 +4,9 @@ import com.youyu.cotenant.entity.CotenantChatMsg;
 import com.youyu.cotenant.entity.CotenantChatMsgExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
+@Repository
 public interface CotenantChatMsgMapper {
     long countByExample(CotenantChatMsgExample example);
 

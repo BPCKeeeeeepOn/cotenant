@@ -1,27 +1,31 @@
 package com.youyu.cotenant.service;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youyu.cotenant.common.CotenantConstants;
 import com.youyu.cotenant.common.GeneratorID;
+import com.youyu.cotenant.common.ResponseResult;
+import com.youyu.cotenant.common.ResultCode;
+import com.youyu.cotenant.entity.CotenantChatMsg;
 import com.youyu.cotenant.entity.CotenantCommunication;
 import com.youyu.cotenant.entity.CotenantCommunicationExample;
 import com.youyu.cotenant.entity.CotenantUserInfo;
+import com.youyu.cotenant.exception.BizException;
+import com.youyu.cotenant.repository.CotenantChatMsgMapper;
 import com.youyu.cotenant.repository.CotenantCommunicationMapper;
 import com.youyu.cotenant.repository.CotenantUserInfoMapper;
-import com.youyu.cotenant.utils.SpringRedisUtils;
-import com.youyu.cotenant.web.rest.vm.chat.ChatMessageOutVM;
-import com.youyu.cotenant.web.rest.vm.chat.CommunicationInVM;
+import com.youyu.cotenant.repository.biz.CotenantChatMsgBizMapper;
+import com.youyu.cotenant.utils.CurrentUserUtils;
+import com.youyu.cotenant.utils.RedisUtils;
+import com.youyu.cotenant.web.rest.vm.chat.*;
 import io.goeasy.GoEasy;
 import io.goeasy.publish.GoEasyError;
 import io.goeasy.publish.PublishListener;
 import lombok.extern.slf4j.Slf4j;
+import net.logstash.logback.encoder.org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -36,104 +40,136 @@ public class ChatService {
     private CotenantCommunicationMapper cotenantCommunicationMapper;
 
     @Autowired
+    private CotenantChatMsgMapper cotenantChatMsgMapper;
+
+    @Autowired
     private CotenantUserInfoMapper cotenantUserInfoMapper;
 
     @Autowired
-    private SpringRedisUtils mSpringRedisUtils;
+    private CotenantChatMsgBizMapper cotenantChatMsgBizMapper;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    private RedisUtils mRedisUtils;
+
+    @Autowired
+    private CurrentUserUtils currentUserUtils;
 
     /**
      * 建立唯一通讯
      *
      * @param communicationInVM
      */
-    public ChatMessageOutVM buildCommunication(CommunicationInVM communicationInVM) throws IOException {
-        Long sendUserId = communicationInVM.getSendUserId();
+    public void buildCommunication(CommunicationInVM communicationInVM) {
+        //如通道
+        Long sendUserId = currentUserUtils.getCurrUserId();
         Long receiveUserId = communicationInVM.getReceiveUserId();
-        ChatMessageOutVM chatMessageOutVM = new ChatMessageOutVM();
-
         //生成channel
         String channel = generateChannel(sendUserId, receiveUserId);
-        CotenantCommunicationExample cotenantCommunicationExample = new CotenantCommunicationExample();
-        cotenantCommunicationExample.createCriteria().andChannelEqualTo(channel);
-
-        if (mSpringRedisUtils.hasKey(channel)) {
-            String communication = mSpringRedisUtils.lIndex(channel, NumberUtils.INTEGER_ZERO);
-            chatMessageOutVM = objectMapper.readValue(communication, ChatMessageOutVM.class);
-        } else {
-            long count = cotenantCommunicationMapper.countByExample(cotenantCommunicationExample);
-            if (count == NumberUtils.INTEGER_ZERO) {
-                CotenantCommunication cotenantCommunication = new CotenantCommunication();
-                cotenantCommunication.setId(GeneratorID.getId());
-                cotenantCommunication.setChannel(channel);
-                cotenantCommunication.setSendUserId(sendUserId);
-                cotenantCommunication.setReceiveUserId(receiveUserId);
-                cotenantCommunicationMapper.insertSelective(cotenantCommunication);
-            }
-            //获取用户昵称头像信息
-            CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(receiveUserId);
-            String nickName = cotenantUserInfo.getNickName();
-            chatMessageOutVM.setSendUserId(String.valueOf(sendUserId));
-            chatMessageOutVM.setReceiveUserId(String.valueOf(receiveUserId));
-            chatMessageOutVM.setReceiveUserName(nickName);
-            mSpringRedisUtils.lLeftPush(channel, objectMapper.writeValueAsString(chatMessageOutVM));
+        //判断是否存在唯一通信id，如存在不插入，直接返回。如存在插入数据库
+        CotenantCommunicationExample example = new CotenantCommunicationExample();
+        example.createCriteria().andChannelEqualTo(channel);
+        long count = cotenantCommunicationMapper.countByExample(example);
+        if (count > 0) {
+            return;
         }
-        return chatMessageOutVM;
+        CotenantCommunication cotenantCommunication = new CotenantCommunication();
+        cotenantCommunication.setChannel(channel);
+        cotenantCommunication.setId(GeneratorID.getId());
+        cotenantCommunication.setSendUserId(sendUserId);
+        cotenantCommunication.setReceiveUserId(receiveUserId);
+        cotenantCommunicationMapper.insertSelective(cotenantCommunication);
     }
 
     /**
      * 获取聊天记录
      *
-     * @param channel
+     * @param receiveUserId 接收人id
      */
-    public List<ChatMessageOutVM> getMessage(String channel) {
-        List<String> msgList;
-        List<ChatMessageOutVM> chatMessageOutVMList = new ArrayList<>();
-        try {
-            //缓存验证
-            if (mSpringRedisUtils.hasKey(channel)) {
-                //获取聊天记录
-                msgList = mSpringRedisUtils.lRange(channel, NumberUtils.INTEGER_ZERO, mSpringRedisUtils.lLen(channel) - 1);
-                for (String msg : msgList) {
-                    ChatMessageOutVM chatMessageOutVM = objectMapper.readValue(msg, ChatMessageOutVM.class);
-                    chatMessageOutVMList.add(chatMessageOutVM);
-                }
+    public ChatMessageOutVM getMessage(Long receiveUserId) {
+        Long currUserId = currentUserUtils.getCurrUserId();
+        CotenantUserInfo currUser = cotenantUserInfoMapper.selectByPrimaryKey(currUserId);
+        CotenantUserInfo receiveUser = cotenantUserInfoMapper.selectByPrimaryKey(receiveUserId);
+        String channel = generateChannel(currUserId, receiveUserId);
+        String key = CotenantConstants.CHAT_RECEIVE_KEY + channel;
+        ChatMessageOutVM chatMessageOutVM = new ChatMessageOutVM();
+        List<ChatMessageVM> result = (List<ChatMessageVM>) (Object) mRedisUtils.lGetObjectAll(key);
+        if (result.size() == 0) {
+            result = cotenantChatMsgBizMapper.selectCotenantChatMsgList(channel);
+            if (result.size() == 0) {
+                return null;
             }
-        } catch (Exception e) {
-
+            mRedisUtils.lRightPushAllObject(key, (List<Object>) (Object) result);
         }
-        return chatMessageOutVMList;
+        chatMessageOutVM.setChatMessageVMList(result);
+        chatMessageOutVM.setSendUserId(String.valueOf(currUserId));
+        chatMessageOutVM.setSendUserName(currUser.getUserName());
+        chatMessageOutVM.setReceiveUserId(String.valueOf(receiveUserId));
+        chatMessageOutVM.setReceiveUserName(receiveUser.getUserName());
+        return chatMessageOutVM;
     }
-
 
     /**
      * 获取聊天列表
      */
-    public void list() {
+    public List<ChatMessageListOutVM> list() {
+        Long userId = currentUserUtils.getCurrUserId();
+        List<ChatMessageListOutVM> chatMessageListOutVMList;
+        chatMessageListOutVMList = cotenantChatMsgBizMapper.selectCommunicationListByUserId(userId);
+        return chatMessageListOutVMList;
+    }
 
+    /**
+     * 发送消息存储持久层，redis中å
+     *
+     * @param chatMessageInVM 发送消息bean
+     */
+    public void send(ChatMessageInVM chatMessageInVM) {
+        Long sendUserId = currentUserUtils.getCurrUserId();
+        Long receiveUserId = chatMessageInVM.getReceiveUserId();
+        String content = chatMessageInVM.getContent();
+        String channel = generateChannel(sendUserId, receiveUserId);
+        CotenantChatMsg cotenantChatMsg = new CotenantChatMsg();
+        cotenantChatMsg.setChannel(channel);
+        cotenantChatMsg.setSendUserId(Long.valueOf(sendUserId));
+        cotenantChatMsg.setReceiveUserId(Long.valueOf(receiveUserId));
+        cotenantChatMsg.setContent(content);
+        cotenantChatMsg.setId(GeneratorID.getId());
+        cotenantChatMsg.setSendTime(LocalDateTime.now());
+        //保存消息
+        cotenantChatMsgMapper.insertSelective(cotenantChatMsg);
+        //发送消息
+        sendSocket(String.valueOf(sendUserId), String.valueOf(receiveUserId), channel, cotenantChatMsg, content);
     }
 
     /**
      * 向指定channel推送消息
      *
-     * @param channel
+     * @param receiveUserId 接收方的userid
      * @param content
      */
-    public void send(String channel, String content) {
-        goEasy.publish(channel, content, new PublishListener() {
-
+    public void sendSocket(String sendUserId, String receiveUserId, String channel, CotenantChatMsg cotenantChatMsg, String content) {
+        goEasy.publish(receiveUserId, content, new PublishListener() {
             @Override
             public void onSuccess() {
                 //消息发送成功处理
-                log.info("发送成功！");
+                log.info("send success!");
+                cotenantChatMsg.setSendStatus(NumberUtils.INTEGER_ONE);
+                cotenantChatMsg.setReceiveStatus(NumberUtils.INTEGER_ONE);
+                cotenantChatMsgMapper.updateByPrimaryKeySelective(cotenantChatMsg);
+                //放入缓存
+                ChatMessageVM chatMessageVM = new ChatMessageVM();
+                chatMessageVM.setSendUserId(sendUserId);
+                chatMessageVM.setReceiveUserId(receiveUserId);
+                chatMessageVM.setContent(content);
+                chatMessageVM.setSendTime(cotenantChatMsg.getSendTime());
+                mRedisUtils.lRightPush(CotenantConstants.CHAT_RECEIVE_KEY + channel, chatMessageVM);
             }
 
             @Override
             public void onFailed(GoEasyError error) {
                 //消息发送异常处理
-                log.warn("send message failed,code:{},content:{}, channel:{}", error.getCode(), error.getContent(), channel);
+                log.warn("send message failed,code:{},content:{}, channel:{}", error.getCode(), error.getContent(), receiveUserId);
+                throw new BizException(ResponseResult.fail(ResultCode.SEND_MSG_ERROR));
             }
 
         });

@@ -126,7 +126,7 @@ public class GroupService {
             unreadCount = Integer.valueOf(unreadCountStr);
             unreadCount++;
         }
-        redisUtils.putCache(UNREAD_MESSAGE_KEY, String.valueOf(unreadCount));
+        redisUtils.putCache(UNREAD_MESSAGE_KEY + leaderUserId, String.valueOf(unreadCount));
         //加入租房团
         CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
         cotenantGroupUser.setId(GeneratorID.getId());

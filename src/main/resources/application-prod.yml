@@ -14,10 +14,10 @@ spring:
       connection-timeout: 30000
       connection-test-query: SELECT 1
 qiniu:
-  access-key: tM193uNBWVubyf1od06tTI50euAd31tOOg3GXsA4
-  secret-key: U7pSQxlKAq8sMDXFC2wFH53mdvPR9mG9gzgYRVjq
-  bucket: test001
-  bucket-url: test001.pnlyy.com
+  access-key: JfvKpmCZqfM2nzKXP49Bhe3LUIo1nX_9UneS3EL0
+  secret-key: JFBrCeLMSeMvkzQUQ-Jr5RbZoX7PzSEiFvyMxuOG
+  bucket: xiaoyouhezu_dev
+  bucket-url: qiniutest001.fensibox.com
 goeasy:
   cdn-host: cdn.goeasy.io
   rest-host: rest-hangzhou.goeasy.io

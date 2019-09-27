@@ -45,4 +45,10 @@ public class PersonalController {
         return ResponseResult.success();
     }
 
+    @GetMapping("/clean/unread/{action_type}")
+    public ResponseResult cleanUnread(@PathVariable("action_type") Integer actionType) {
+        personalService.cleanUnread(actionType);
+        return ResponseResult.success();
+    }
+
 }

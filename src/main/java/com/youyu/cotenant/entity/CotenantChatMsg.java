@@ -14,7 +14,7 @@ public class CotenantChatMsg implements Serializable {
 
     private String content;
 
-    private Integer snedStatus;
+    private Integer sendStatus;
 
     private Integer receiveStatus;
 
@@ -68,12 +68,12 @@ public class CotenantChatMsg implements Serializable {
         this.content = content;
     }
 
-    public Integer getSnedStatus() {
-        return snedStatus;
+    public Integer getSendStatus() {
+        return sendStatus;
     }
 
-    public void setSnedStatus(Integer snedStatus) {
-        this.snedStatus = snedStatus;
+    public void setSendStatus(Integer sendStatus) {
+        this.sendStatus = sendStatus;
     }
 
     public Integer getReceiveStatus() {

@@ -1,18 +1,20 @@
 package com.youyu.cotenant.web.rest.vm.chat;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.deser.LocalDateTimeDeserializer;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
+import com.youyu.cotenant.common.CotenantConstants;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
+import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
-public class ChatMessageOutVM {
+public class ChatMessageVM {
 
     @JsonProperty("send_user_id")
     private String sendUserId;
@@ -20,20 +22,11 @@ public class ChatMessageOutVM {
     @JsonProperty("receive_user_id")
     private String receiveUserId;
 
-    @JsonProperty("send_user_name")
-    private String sendUserName;
+    private String content;
 
-    @JsonProperty("receive_user_name")
-    private String receiveUserName;
-
-    @JsonProperty("send_user_head")
-    private String sendUserHead;
-
-    @JsonProperty("receive_user_head")
-    private String receiveUserHead;
-
-
-    @JsonUnwrapped
-    private List<ChatMessageVM> chatMessageVMList;
-
+    @JsonProperty("send_time")
+    @JsonDeserialize(using = LocalDateTimeDeserializer.class)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = FULL_DATE_TIME)
+    private LocalDateTime sendTime;
 }

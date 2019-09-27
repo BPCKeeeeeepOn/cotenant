@@ -17,5 +17,5 @@ public class CommunicationOutVM {
     private String head;
 
     @JsonUnwrapped
-    private List<ChatMessageOutVM> chatMessageOutVMList;
+    private List<ChatMessageListOutVM> chatMessageListOutVMList;
 }

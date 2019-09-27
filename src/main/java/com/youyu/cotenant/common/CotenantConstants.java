@@ -61,6 +61,28 @@ public interface CotenantConstants {
         int CANCEL_STATUS = 20; //解散(取消)
     }
 
+    enum unreadActionType {
+        CHAT(1),
+        MESSAGE(2);
+
+        int code;
+
+        unreadActionType(int code) {
+            this.code = code;
+        }
+
+        public int getCode() {
+            return this.code;
+        }
+    }
+
     String UNREAD_MESSAGE_KEY = "unread_message_key_";
+
+    String UNREAD_MSG_COUNT = "unread_msg_count";
+
+    /**
+     * 即时通讯发送内容key
+     */
+    String CHAT_RECEIVE_KEY = "chat_receive_key_";
 
 }

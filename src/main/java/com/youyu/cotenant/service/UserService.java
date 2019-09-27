@@ -28,6 +28,7 @@ import java.util.List;
 
 import static com.youyu.cotenant.common.CotenantConstants.CODE_CACHE;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MESSAGE_KEY;
+import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 
 @Service
 @Slf4j
@@ -117,11 +118,12 @@ public class UserService {
         String mobile = cotenantUser.getMobile();
         Long id = cotenantUser.getId();
         String unreadCount = redisUtils.getCache(UNREAD_MESSAGE_KEY + id);
+        String unreadMsgCount = redisUtils.getCache(UNREAD_MSG_COUNT + id);
         userOutVM.setId(String.valueOf(id));
         userOutVM.setMobile(mobile);
         userOutVM.setStatus(selectUserStatus(id));
         userOutVM.setUnreadGroupCount(StringUtils.isBlank(unreadCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadCount));
-        userOutVM.setUnreadMsgCount(0);
+        userOutVM.setUnreadMsgCount(StringUtils.isBlank(unreadMsgCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadMsgCount));
         return userOutVM;
     }
 

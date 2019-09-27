@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-public class ChatConfig {
+public class GoEasyConfig {
 
     @Value("${goeasy.rest-host}")
     private String restHost;

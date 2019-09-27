@@ -2,11 +2,12 @@ package com.youyu.cotenant.web.rest;
 
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.ChatService;
+import com.youyu.cotenant.web.rest.vm.chat.ChatMessageInVM;
+import com.youyu.cotenant.web.rest.vm.chat.CommunicationInVM;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/chat")
@@ -15,9 +16,25 @@ public class ChatController {
     @Autowired
     private ChatService chatService;
 
-    @PostMapping("/send")
-    public ResponseResult send() {
-        chatService.send("my_channel_1","第一条java测试");
+    @PostMapping("/buildCommunication")
+    public ResponseResult buildCommunication(@RequestBody @Valid CommunicationInVM communicationInVM) {
+        chatService.buildCommunication(communicationInVM);
         return ResponseResult.success();
+    }
+
+    @PostMapping("/send")
+    public ResponseResult send(@RequestBody @Valid ChatMessageInVM chatMessageInVM) {
+        chatService.send(chatMessageInVM);
+        return ResponseResult.success();
+    }
+
+    @GetMapping("/getMessage")
+    public ResponseResult getMessage(@RequestParam("receive_user_id") Long receiveUserId) {
+        return ResponseResult.success().body(chatService.getMessage(receiveUserId));
+    }
+
+    @GetMapping("/list")
+    public ResponseResult list(){
+        return ResponseResult.success().body(chatService.list());
     }
 }
