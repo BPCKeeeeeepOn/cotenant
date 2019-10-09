@@ -45,4 +45,11 @@ public interface CotenantGroupBizMapper {
      */
     Long selectGroupLeader(@Param("groupId") Long groupId);
 
+    /**
+     * 查询是否加入该团
+     * @param userId
+     * @return
+     */
+    Long selectJoinGroup(@Param("userId")Long userId);
+
 }

@@ -28,7 +28,7 @@ public class SmsService {
 
     final String SIGN_NAME = "fansbox";
 
-    final String TEMPLATE_CODE = "SMS_165119162";
+    final String TEMPLATE_CODE = "SMS_174990727";
 
     final String ACCESSKEY_ID = "LTAIv2RRVdS1dJJ9";
 
@@ -48,6 +48,10 @@ public class SmsService {
     @Autowired
     ObjectMapper objectMapper;
 
+    /**
+     * 发送短信验证码
+     * @param phoneNumber
+     */
     public void sendSms(String phoneNumber) {
         DefaultProfile profile = DefaultProfile.getProfile(SMS_DEFAULT, ACCESSKEY_ID, ACCESSKEY_SECRET);
         IAcsClient client = new DefaultAcsClient(profile);

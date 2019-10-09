@@ -107,6 +107,10 @@
         select cotenant_user_id from cotenant_group_user where cotenant_group_id = #{groupId} and role = 1
     </select>
 
+    <select id="selectJoinGroup" resultType="Long">
+        select count(1) from cotenant_group_user where cotenant_user_id = #{userId} and (status = 0 or status = 10)
+    </select>
+
 
 
 </mapper>

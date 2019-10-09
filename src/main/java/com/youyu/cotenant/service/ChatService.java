@@ -119,7 +119,7 @@ public class ChatService {
     }
 
     /**
-     * 发送消息存储持久层，redis中å
+     * 发送消息存储持久层，redis中
      *
      * @param chatMessageInVM 发送消息bean
      */
@@ -171,7 +171,6 @@ public class ChatService {
                 log.warn("send message failed,code:{},content:{}, channel:{}", error.getCode(), error.getContent(), receiveUserId);
                 throw new BizException(ResponseResult.fail(ResultCode.SEND_MSG_ERROR));
             }
-
         });
     }
 

@@ -174,6 +174,7 @@ public class GroupService {
 
     /**
      * 举报租房团
+     *
      * @param groupId
      * @param content
      */
@@ -200,9 +201,7 @@ public class GroupService {
      * @return
      */
     public boolean isCotenant(Long userId) {
-        CotenantGroupUserExample example1 = new CotenantGroupUserExample();
-        example1.createCriteria().andCotenantUserIdEqualTo(userId).andStatusEqualTo(PASS_DEFAULT_STATUS).andStatusEqualTo(PASS);
-        long count = cotenantGroupUserMapper.countByExample(example1);
+        long count = cotenantGroupBizMapper.selectJoinGroup(userId);
         if (count > NumberUtils.INTEGER_ZERO) {
             return Boolean.TRUE;
         }

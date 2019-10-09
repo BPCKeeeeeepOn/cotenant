@@ -75,7 +75,7 @@ public enum ResultCode {
     /**
      * 已参加过租房团
      */
-    EXIST_COTENANT_GROUP(100030, "已加入其他租房团"),
+    EXIST_COTENANT_GROUP(100030, "已加入租房团或已建团"),
 
     /**
      * 该租房团人数已满

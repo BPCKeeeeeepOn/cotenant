@@ -10,6 +10,10 @@ public class SystemService {
     @Autowired
     private RedisUtils mRedisUtils;
 
+    /**
+     * 删除指定缓存
+     * @param key
+     */
     public void delCache(String key){
         mRedisUtils.delCache(key);
     }
