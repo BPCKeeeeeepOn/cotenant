@@ -28,7 +28,7 @@ public class SmsService {
 
     final String SIGN_NAME = "fansbox";
 
-    final String TEMPLATE_CODE = "SMS_174990727";
+    final String TEMPLATE_CODE = "SMS_175125962";
 
     final String ACCESSKEY_ID = "LTAIv2RRVdS1dJJ9";
 
