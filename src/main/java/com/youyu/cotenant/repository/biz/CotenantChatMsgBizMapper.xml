@@ -29,7 +29,7 @@
                 WHERE id IN (
                     SELECT id
                     FROM (
-                        SELECT MIN(id) AS id
+                        SELECT MAX(id) AS id
                         FROM cotenant_chat_msg a
                         WHERE a.receive_user_id = #{userId}
                             OR a.send_user_id = #{userId}
