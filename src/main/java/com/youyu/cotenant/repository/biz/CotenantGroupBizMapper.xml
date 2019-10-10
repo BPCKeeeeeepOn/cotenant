@@ -42,6 +42,8 @@
         <result column="district" jdbcType="VARCHAR" property="district"/>
         <result column="leader" jdbcType="VARCHAR" property="leader"/>
         <result column="leader_id" jdbcType="VARCHAR" property="leaderId"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="college" jdbcType="VARCHAR" property="college"/>
         <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount"/>
         <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
@@ -90,7 +92,7 @@
 
     <select id="selectGroupDetail" resultMap="GroupDetailOutVM">
         select
-          cg.id,cg.title,cg.province,cg.city,cg.district,cui.user_name as leader,cui.user_id as leader_id,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.cotenant_description,cg.chamber_description,cg.chamber_video_url,cg.created_time
+          cg.id,cg.title,cg.province,cg.city,cg.district,cui.user_name as leader,cui.user_id as leader_id,cui.sex,cui.college,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.cotenant_description,cg.chamber_description,cg.chamber_video_url,cg.created_time
           from cotenant_group cg
           join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id

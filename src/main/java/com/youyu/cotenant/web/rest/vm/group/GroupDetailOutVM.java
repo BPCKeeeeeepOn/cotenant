@@ -26,6 +26,10 @@ public class GroupDetailOutVM {
     @JsonProperty("leader_id")
     private String leaderId;
 
+    private Integer sex;
+
+    private String college;
+
     @JsonProperty("cotenant_count")
     private Integer cotenantCount;
 
