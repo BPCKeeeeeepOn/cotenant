@@ -134,7 +134,6 @@ public class ChatService {
         cotenantChatMsg.setReceiveUserId(Long.valueOf(receiveUserId));
         cotenantChatMsg.setContent(content);
         cotenantChatMsg.setId(GeneratorID.getId());
-        cotenantChatMsg.setSendTime(LocalDateTime.now());
         //保存消息
         cotenantChatMsgMapper.insertSelective(cotenantChatMsg);
         //发送消息
@@ -161,7 +160,7 @@ public class ChatService {
                 chatMessageVM.setSendUserId(sendUserId);
                 chatMessageVM.setReceiveUserId(receiveUserId);
                 chatMessageVM.setContent(content);
-                chatMessageVM.setSendTime(cotenantChatMsg.getSendTime());
+                chatMessageVM.setSendTime(LocalDateTime.now());
                 mRedisUtils.lRightPush(CotenantConstants.CHAT_RECEIVE_KEY + channel, chatMessageVM);
             }
 
