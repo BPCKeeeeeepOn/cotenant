@@ -17,6 +17,8 @@ public class CotenantListOutVM {
 
     private String interest;
 
+    private Integer sex;
+
     private Integer status;
 
 }
