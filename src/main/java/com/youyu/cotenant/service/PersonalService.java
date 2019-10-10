@@ -119,7 +119,7 @@ public class PersonalService {
         }
         //更改成员状态
         CotenantGroupUserExample cotenantGroupUserExample = new CotenantGroupUserExample();
-        cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId).andCotenantUserIdEqualTo(memberId);
+        cotenantGroupUserExample.createCriteria().andIdEqualTo(memberId);
         CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
         cotenantGroupUser.setStatus(status);
         cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUser, cotenantGroupUserExample);
