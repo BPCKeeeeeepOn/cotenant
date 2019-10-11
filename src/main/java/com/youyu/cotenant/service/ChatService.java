@@ -155,6 +155,7 @@ public class ChatService {
                 cotenantChatMsg.setSendStatus(NumberUtils.INTEGER_ONE);
                 cotenantChatMsg.setReceiveStatus(NumberUtils.INTEGER_ONE);
                 cotenantChatMsgMapper.updateByPrimaryKeySelective(cotenantChatMsg);
+
                 //放入缓存
                 ChatMessageVM chatMessageVM = new ChatMessageVM();
                 chatMessageVM.setSendUserId(sendUserId);
