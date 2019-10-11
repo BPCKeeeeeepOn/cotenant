@@ -62,8 +62,8 @@ public interface CotenantConstants {
     }
 
     enum unreadActionType {
-        CHAT(1),
-        MESSAGE(2);
+        MESSAGE(1),
+        CART(2);
 
         int code;
 
