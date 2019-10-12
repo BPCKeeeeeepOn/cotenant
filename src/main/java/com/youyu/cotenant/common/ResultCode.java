@@ -63,6 +63,11 @@ public enum ResultCode {
     USER_INFO_ERROR(490, "请补全您的个人信息"),
 
     /**
+     * 个人信息状态审核
+     */
+    USER_INFO_VERIFY(495, "您的审毕业证/学生证状态审核中"),
+
+    /**
      * 服务器异常
      */
     INTERNAL_SERVER_ERROR(500, "服务器异常"),
@@ -90,7 +95,7 @@ public enum ResultCode {
     /**
      * 用户信息审核未通过
      */
-    UNPASS_USER(100090, "抱歉，您的审毕业证/学生证核未通过"),
+    UNPASS_USER(100090, "抱歉，您的审毕业证/学生证核未通过,请重新上传"),
 
     /**
      * 即时消息发送失败

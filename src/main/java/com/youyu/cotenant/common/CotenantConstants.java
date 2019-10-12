@@ -20,9 +20,10 @@ public interface CotenantConstants {
     用户审核状态
      */
     interface USER_STATUS {
-        int DEFAULT_STATUS = 0;
-        int PASS_STATUS = 10;
-        int CANCEL_STATUS = 20;
+        int DEFAULT_STATUS = 0; //待审核
+        int PASS_STATUS = 10; //审核通过
+        int CANCEL_STATUS = 20; //审核拒绝
+        int NOT_USER_STATUS = 30; //未补全信息
     }
 
     /*

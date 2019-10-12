@@ -146,22 +146,26 @@ public class UserService {
             cotenantUserInfoMapper.insertSelective(cotenantUserInfo);
         } else {
             CotenantUserInfo ins = userInfoInVM.buildCotenantUser();
+            Integer status = cotenantUserInfo.getStatus();
             ins.setCreatedTime(cotenantUserInfo.getCreatedTime());
             ins.setUserId(userId);
             ins.setStatus(cotenantUserInfo.getStatus());
+            if (CotenantConstants.USER_STATUS.CANCEL_STATUS == status) {
+                ins.setStatus(CotenantConstants.USER_STATUS.DEFAULT_STATUS);
+            }
             cotenantUserInfoMapper.updateByPrimaryKeySelective(ins);
         }
     }
 
     /**
-     * 查询是否补全
+     * 查询个人用户状态
      *
      * @param userId
      * @return
      */
     public Integer selectUserStatus(Long userId) {
         CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(userId);
-        return cotenantUserInfo.getStatus();
+        return cotenantUserInfo == null ? CotenantConstants.USER_STATUS.NOT_USER_STATUS : cotenantUserInfo.getStatus();
     }
 
 }

@@ -95,9 +95,13 @@ public class GroupService {
         }
         Long userId = currentUserUtils.getCurrUserId();
         Integer userStatus = userService.selectUserStatus(userId);
-        if (userStatus == CotenantConstants.USER_STATUS.DEFAULT_STATUS) {
+        if (userStatus == CotenantConstants.USER_STATUS.NOT_USER_STATUS) {
             //未补全用户信息
             throw new BizException(ResponseResult.fail(ResultCode.USER_INFO_ERROR));
+        }
+        if (userStatus == CotenantConstants.USER_STATUS.DEFAULT_STATUS) {
+            //用户信息待审核
+            throw new BizException(ResponseResult.fail(ResultCode.USER_INFO_VERIFY));
         }
         if (userStatus == CotenantConstants.USER_STATUS.CANCEL_STATUS) {
             //审核未通过
@@ -146,9 +150,13 @@ public class GroupService {
     public void publish(GroupInVM groupInVM) {
         Long userId = currentUserUtils.getCurrUserId();
         Integer userStatus = userService.selectUserStatus(userId);
-        if (userStatus == CotenantConstants.USER_STATUS.DEFAULT_STATUS) {
+        if (userStatus == CotenantConstants.USER_STATUS.NOT_USER_STATUS) {
             //未补全用户信息
             throw new BizException(ResponseResult.fail(ResultCode.USER_INFO_ERROR));
+        }
+        if (userStatus == CotenantConstants.USER_STATUS.DEFAULT_STATUS) {
+            //用户信息待审核
+            throw new BizException(ResponseResult.fail(ResultCode.USER_INFO_VERIFY));
         }
         if (userStatus == CotenantConstants.USER_STATUS.CANCEL_STATUS) {
             //审核未通过
