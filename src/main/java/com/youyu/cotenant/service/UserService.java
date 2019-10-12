@@ -1,6 +1,7 @@
 package com.youyu.cotenant.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.youyu.cotenant.common.CotenantConstants;
 import com.youyu.cotenant.common.GeneratorID;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.common.ResultCode;
@@ -141,11 +142,13 @@ public class UserService {
         if (cotenantUserInfo == null) {
             cotenantUserInfo = userInfoInVM.buildCotenantUser();
             cotenantUserInfo.setUserId(userId);
+            cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.CANCEL_STATUS);
             cotenantUserInfoMapper.insertSelective(cotenantUserInfo);
         } else {
             CotenantUserInfo ins = userInfoInVM.buildCotenantUser();
             ins.setCreatedTime(cotenantUserInfo.getCreatedTime());
             ins.setUserId(userId);
+            ins.setStatus(cotenantUserInfo.getStatus());
             cotenantUserInfoMapper.updateByPrimaryKeySelective(ins);
         }
     }

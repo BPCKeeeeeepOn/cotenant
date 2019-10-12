@@ -54,7 +54,6 @@ public class UserInfoInVM {
         cotenantUserInfo.setIdCardUrl(idCardUrl);
         cotenantUserInfo.setDiplomaUrl(diplomaUrl);
         cotenantUserInfo.setInterest(interest);
-        cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.CANCEL_STATUS);
         return cotenantUserInfo;
     }
 
