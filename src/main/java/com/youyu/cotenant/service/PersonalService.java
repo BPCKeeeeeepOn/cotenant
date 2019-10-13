@@ -130,6 +130,7 @@ public class PersonalService {
             cotenantGroup.setStatus(CotenantConstants.GROUP_STATUS.COMPLETE_STATUS);
             cotenantGroupMapper.updateByPrimaryKeySelective(cotenantGroup);
             //初始化其他未通过成员
+            cotenantGroupUserExample.clear();
             cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId).andStatusEqualTo(CotenantConstants.EXAMINE_STATUS.PASS_DEFAULT_STATUS);
             CotenantGroupUser cotenantGroupUserOther = new CotenantGroupUser();
             cotenantGroupUserOther.setStatus(CotenantConstants.EXAMINE_STATUS.UNPASS);
