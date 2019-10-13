@@ -107,7 +107,6 @@ public class PersonalService {
      *
      * @param groupExamineInVM
      */
-    @Transactional(value = MyBatisConfig.COTENTANT_TRANSACTION_MANAGER)
     public void examine(GroupExamineInVM groupExamineInVM) {
         Long groupId = groupExamineInVM.getGroupId();
         Long memberId = groupExamineInVM.getMemberId();
