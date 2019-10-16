@@ -20,6 +20,9 @@ public class UserInfoInVM {
     @JsonProperty("user_name")
     private String userName;
 
+    @JsonProperty("user_head")
+    private String userHead;
+
     private Integer sex;
 
     private String college;
@@ -46,6 +49,7 @@ public class UserInfoInVM {
         CotenantUserInfo cotenantUserInfo = new CotenantUserInfo();
         cotenantUserInfo.setNickName(nickName);
         cotenantUserInfo.setUserName(userName);
+        cotenantUserInfo.setUserHead(userHead);
         cotenantUserInfo.setSex(sex);
         cotenantUserInfo.setCollege(college);
         cotenantUserInfo.setDegree(degree);

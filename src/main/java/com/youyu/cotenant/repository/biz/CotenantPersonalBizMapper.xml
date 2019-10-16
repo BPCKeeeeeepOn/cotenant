@@ -52,6 +52,7 @@
 
     <resultMap id="CotenantListOutVM" type="com.youyu.cotenant.web.rest.vm.group.CotenantListOutVM">
         <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="role" jdbcType="INTEGER" property="role"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="college" jdbcType="VARCHAR" property="college"/>
@@ -80,7 +81,7 @@
     </select>
 
     <select id="selectCotenantList" resultMap="CotenantListOutVM">
-        select cgu.id,role,cui.nick_name,cui.college,cui.interest,cui.sex,cgu.status from cotenant_group_user cgu
+        select cgu.id,cui.user_id,role,cui.nick_name,cui.college,cui.interest,cui.sex,cgu.status from cotenant_group_user cgu
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
           where cgu.cotenant_group_id = #{id} and cgu.role = 2 and (cgu.status = 0 or cgu.status = 10 or cotenant_user_id = #{userId})
     </select>

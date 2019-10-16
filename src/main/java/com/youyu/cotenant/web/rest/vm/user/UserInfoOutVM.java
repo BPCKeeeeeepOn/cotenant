@@ -16,6 +16,9 @@ public class UserInfoOutVM {
     @JsonProperty("nick_name")
     private String nickName;
 
+    @JsonProperty("user_head")
+    private String userHead;
+
     @JsonProperty("user_name")
     private String userName;
 

@@ -142,7 +142,7 @@ public class UserService {
         if (cotenantUserInfo == null) {
             cotenantUserInfo = userInfoInVM.buildCotenantUser();
             cotenantUserInfo.setUserId(userId);
-            cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.CANCEL_STATUS);
+            cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.DEFAULT_STATUS);
             cotenantUserInfoMapper.insertSelective(cotenantUserInfo);
         } else {
             CotenantUserInfo ins = userInfoInVM.buildCotenantUser();

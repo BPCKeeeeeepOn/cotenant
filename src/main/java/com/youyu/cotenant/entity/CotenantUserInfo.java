@@ -13,6 +13,9 @@ public class CotenantUserInfo implements Serializable {
     @JsonProperty("nick_name")
     private String nickName;
 
+    @JsonProperty("user_head")
+    private String userHead;
+
     @JsonProperty("user_name")
     private String userName;
 
@@ -70,6 +73,14 @@ public class CotenantUserInfo implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserHead() {
+        return userHead;
+    }
+
+    public void setUserHead(String userHead) {
+        this.userHead = userHead;
     }
 
     public Integer getSex() {

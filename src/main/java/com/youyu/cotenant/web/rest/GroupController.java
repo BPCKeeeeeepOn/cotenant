@@ -42,7 +42,7 @@ public class GroupController {
     }
 
     @PostMapping("/{id}/reported")
-    public ResponseResult reported(@PathVariable("id") Long id, String content) {
+    public ResponseResult reported(@PathVariable("id") Long id, @RequestParam("content") String content) {
         groupService.reported(id, content);
         return ResponseResult.success();
     }

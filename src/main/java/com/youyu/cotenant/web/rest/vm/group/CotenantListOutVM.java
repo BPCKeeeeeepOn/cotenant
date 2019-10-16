@@ -8,6 +8,9 @@ public class CotenantListOutVM {
 
     private String id;
 
+    @JsonProperty("user_id")
+    private String userId;
+
     private Integer role;
 
     @JsonProperty("nick_name")

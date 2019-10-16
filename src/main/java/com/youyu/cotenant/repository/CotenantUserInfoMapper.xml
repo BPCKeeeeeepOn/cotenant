@@ -4,6 +4,7 @@
   <resultMap id="BaseResultMap" type="com.youyu.cotenant.entity.CotenantUserInfo">
     <id column="user_id" jdbcType="BIGINT" property="userId" />
     <result column="nick_name" jdbcType="VARCHAR" property="nickName" />
+    <result column="user_head" jdbcType="VARCHAR" property="userHead" />
     <result column="user_name" jdbcType="VARCHAR" property="userName" />
     <result column="sex" jdbcType="INTEGER" property="sex" />
     <result column="college" jdbcType="VARCHAR" property="college" />
@@ -77,8 +78,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    user_id, nick_name, user_name, sex, college, degree, start_time, end_time, id_card_url, 
-    diploma_url, interest, status, created_time, updated_time, is_deleted
+    user_id, nick_name, user_head, user_name, sex, college, degree, start_time, end_time, 
+    id_card_url, diploma_url, interest, status, created_time, updated_time, is_deleted
   </sql>
   <select id="selectByExample" parameterType="com.youyu.cotenant.entity.CotenantUserInfoExample" resultMap="BaseResultMap">
     select
@@ -111,18 +112,18 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.youyu.cotenant.entity.CotenantUserInfo">
-    insert into cotenant_user_info (user_id, nick_name, user_name, 
-      sex, college, degree, 
-      start_time, end_time, id_card_url, 
-      diploma_url, interest, status, 
-      created_time, updated_time, is_deleted
-      )
-    values (#{userId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, 
-      #{sex,jdbcType=INTEGER}, #{college,jdbcType=VARCHAR}, #{degree,jdbcType=VARCHAR}, 
-      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{idCardUrl,jdbcType=VARCHAR}, 
-      #{diplomaUrl,jdbcType=VARCHAR}, #{interest,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT}
-      )
+    insert into cotenant_user_info (user_id, nick_name, user_head, 
+      user_name, sex, college, 
+      degree, start_time, end_time, 
+      id_card_url, diploma_url, interest, 
+      status, created_time, updated_time, 
+      is_deleted)
+    values (#{userId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{userHead,jdbcType=VARCHAR}, 
+      #{userName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{college,jdbcType=VARCHAR}, 
+      #{degree,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
+      #{idCardUrl,jdbcType=VARCHAR}, #{diplomaUrl,jdbcType=VARCHAR}, #{interest,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
+      #{isDeleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.youyu.cotenant.entity.CotenantUserInfo">
     insert into cotenant_user_info
@@ -132,6 +133,9 @@
       </if>
       <if test="nickName != null">
         nick_name,
+      </if>
+      <if test="userHead != null">
+        user_head,
       </if>
       <if test="userName != null">
         user_name,
@@ -179,6 +183,9 @@
       </if>
       <if test="nickName != null">
         #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userHead != null">
+        #{userHead,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         #{userName,jdbcType=VARCHAR},
@@ -236,6 +243,9 @@
       <if test="record.nickName != null">
         nick_name = #{record.nickName,jdbcType=VARCHAR},
       </if>
+      <if test="record.userHead != null">
+        user_head = #{record.userHead,jdbcType=VARCHAR},
+      </if>
       <if test="record.userName != null">
         user_name = #{record.userName,jdbcType=VARCHAR},
       </if>
@@ -284,6 +294,7 @@
     update cotenant_user_info
     set user_id = #{record.userId,jdbcType=BIGINT},
       nick_name = #{record.nickName,jdbcType=VARCHAR},
+      user_head = #{record.userHead,jdbcType=VARCHAR},
       user_name = #{record.userName,jdbcType=VARCHAR},
       sex = #{record.sex,jdbcType=INTEGER},
       college = #{record.college,jdbcType=VARCHAR},
@@ -306,6 +317,9 @@
     <set>
       <if test="nickName != null">
         nick_name = #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="userHead != null">
+        user_head = #{userHead,jdbcType=VARCHAR},
       </if>
       <if test="userName != null">
         user_name = #{userName,jdbcType=VARCHAR},
@@ -352,6 +366,7 @@
   <update id="updateByPrimaryKey" parameterType="com.youyu.cotenant.entity.CotenantUserInfo">
     update cotenant_user_info
     set nick_name = #{nickName,jdbcType=VARCHAR},
+      user_head = #{userHead,jdbcType=VARCHAR},
       user_name = #{userName,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=INTEGER},
       college = #{college,jdbcType=VARCHAR},

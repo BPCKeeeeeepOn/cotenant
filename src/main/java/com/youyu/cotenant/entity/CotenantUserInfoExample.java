@@ -235,6 +235,76 @@ public class CotenantUserInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andUserHeadIsNull() {
+            addCriterion("user_head is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadIsNotNull() {
+            addCriterion("user_head is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadEqualTo(String value) {
+            addCriterion("user_head =", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadNotEqualTo(String value) {
+            addCriterion("user_head <>", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadGreaterThan(String value) {
+            addCriterion("user_head >", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadGreaterThanOrEqualTo(String value) {
+            addCriterion("user_head >=", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadLessThan(String value) {
+            addCriterion("user_head <", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadLessThanOrEqualTo(String value) {
+            addCriterion("user_head <=", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadLike(String value) {
+            addCriterion("user_head like", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadNotLike(String value) {
+            addCriterion("user_head not like", value, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadIn(List<String> values) {
+            addCriterion("user_head in", values, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadNotIn(List<String> values) {
+            addCriterion("user_head not in", values, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadBetween(String value1, String value2) {
+            addCriterion("user_head between", value1, value2, "userHead");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserHeadNotBetween(String value1, String value2) {
+            addCriterion("user_head not between", value1, value2, "userHead");
+            return (Criteria) this;
+        }
+
         public Criteria andUserNameIsNull() {
             addCriterion("user_name is null");
             return (Criteria) this;
