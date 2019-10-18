@@ -35,12 +35,10 @@ public class UserInfoInVM {
 
     private String degree;
 
-    @NotBlank(message = "入学日期不能为空")
     @JsonProperty("start_time")
     @JsonFormat(pattern = FULL_DATE_TIME)
     private LocalDateTime startTime;
 
-    @NotBlank(message = "毕业日期不能为空")
     @JsonProperty("end_time")
     @JsonFormat(pattern = FULL_DATE_TIME)
     private LocalDateTime endTime;
