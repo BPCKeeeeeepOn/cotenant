@@ -1,5 +1,6 @@
 package com.youyu.cotenant.web.rest.vm.group;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
@@ -7,6 +8,8 @@ import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
 public class GroupDetailOutVM {
@@ -29,6 +32,10 @@ public class GroupDetailOutVM {
     private Integer sex;
 
     private String college;
+
+    @JsonProperty("end_time")
+    @JsonFormat(pattern = FULL_DATE_TIME)
+    private LocalDateTime endTime;
 
     @JsonProperty("cotenant_count")
     private Integer cotenantCount;

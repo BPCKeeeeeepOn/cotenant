@@ -1,7 +1,7 @@
 spring:
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql://47.105.221.99:3306/cotenant?useUnicode=true&characterEncoding=utf8&useSSL=false
+      jdbc-url: jdbc:mysql://47.105.221.99:3306/cotenant?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
       username: youyu
       password: j39FK2s
       driver-class-name: com.mysql.cj.jdbc.Driver

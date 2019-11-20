@@ -54,6 +54,9 @@ public class ChatService {
     @Autowired
     private CurrentUserUtils currentUserUtils;
 
+    @Autowired
+    private SystemService systemService;
+
     /**
      * 建立唯一通讯
      *
@@ -103,8 +106,10 @@ public class ChatService {
         chatMessageOutVM.setChatMessageVMList(result);
         chatMessageOutVM.setSendUserId(String.valueOf(currUserId));
         chatMessageOutVM.setSendUserName(currUser.getUserName());
+        chatMessageOutVM.setSendUserHead(currUser.getUserHead());
         chatMessageOutVM.setReceiveUserId(String.valueOf(receiveUserId));
         chatMessageOutVM.setReceiveUserName(receiveUser.getUserName());
+        chatMessageOutVM.setReceiveUserHead(receiveUser.getUserHead());
         return chatMessageOutVM;
     }
 
@@ -183,6 +188,17 @@ public class ChatService {
     public String generateChannel(Long sendUserId, Long receiveUserId) {
         Long total = sendUserId + receiveUserId;
         return DigestUtils.md5Hex(String.valueOf(total));
+    }
+
+    /**
+     * 清理所有聊天信息的缓存
+     */
+    public void cleanCache() {
+        //查询出所有聊天信息
+        List<String> channelList = cotenantChatMsgBizMapper.selectChatList();
+        for (String channel : channelList) {
+            systemService.delCache("chat_receive_key_" + channel);
+        }
     }
 
 }

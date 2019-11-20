@@ -17,7 +17,7 @@
 
     <select id="selectCotenantChatMsgList" resultMap="ChatMessageVM">
         select send_user_id,receive_user_id,content,send_time from cotenant_chat_msg msg
-        where msg.channel = #{channel} and send_status = 1 order by send_time desc;
+        where msg.channel = #{channel} and send_status = 1 order by send_time asc;
    </select>
 
     <select id="selectCommunicationListByUserId" resultMap="ChatMessageListOutVM">
@@ -40,4 +40,8 @@
 	    INNER JOIN cotenant_user_info d ON d.user_id = c.receive_user_id
         ORDER BY c.last_time DESC
    </select>
+
+    <select id="selectChatList" resultType="String">
+        select channel from cotenant_chat_msg group by channel
+    </select>
 </mapper>

@@ -100,7 +100,12 @@ public enum ResultCode {
     /**
      * 即时消息发送失败
      */
-    SEND_MSG_ERROR(100200, "消息发送失败，请稍后重试");
+    SEND_MSG_ERROR(100200, "消息发送失败，请稍后重试"),
+
+    /**
+     * 该用户创建租房团
+     */
+    USER_NO_GROUP(100300, "该用户未创建租房团");
 
 
     ResultCode(Integer code, String msg) {

@@ -5,18 +5,17 @@ import com.youyu.cotenant.common.CotenantConstants;
 import com.youyu.cotenant.common.GeneratorID;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.common.ResultCode;
+import com.youyu.cotenant.entity.CotenantReportedProposal;
 import com.youyu.cotenant.entity.CotenantUser;
 import com.youyu.cotenant.entity.CotenantUserExample;
 import com.youyu.cotenant.entity.CotenantUserInfo;
 import com.youyu.cotenant.exception.BizException;
+import com.youyu.cotenant.repository.CotenantReportedProposalMapper;
 import com.youyu.cotenant.repository.CotenantUserInfoMapper;
 import com.youyu.cotenant.repository.CotenantUserMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
-import com.youyu.cotenant.web.rest.vm.user.UserInfoInVM;
-import com.youyu.cotenant.web.rest.vm.user.UserInfoOutVM;
-import com.youyu.cotenant.web.rest.vm.user.UserOutVM;
-import com.youyu.cotenant.web.rest.vm.user.UserRegisterInVM;
+import com.youyu.cotenant.web.rest.vm.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -43,6 +42,9 @@ public class UserService {
 
     @Autowired
     private CurrentUserUtils currentUserUtils;
+
+    @Autowired
+    private CotenantReportedProposalMapper cotenantReportedProposalMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -168,4 +170,16 @@ public class UserService {
         return cotenantUserInfo == null ? CotenantConstants.USER_STATUS.NOT_USER_STATUS : cotenantUserInfo.getStatus();
     }
 
+    /**
+     * 收集用户建议
+     * @param proposalInVM
+     */
+    public void reportedProposal(ProposalInVM proposalInVM) {
+        CotenantReportedProposal cotenantReportedProposal = new CotenantReportedProposal();
+        cotenantReportedProposal.setContent(proposalInVM.getContent());
+        cotenantReportedProposal.setCotenantUserId(currentUserUtils.getCurrUserId());
+        cotenantReportedProposal.setProposeType(0);
+        cotenantReportedProposal.setId(GeneratorID.getId());
+        cotenantReportedProposalMapper.insertSelective(cotenantReportedProposal);
+    }
 }

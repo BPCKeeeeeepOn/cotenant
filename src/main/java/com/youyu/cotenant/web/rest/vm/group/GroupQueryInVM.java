@@ -10,6 +10,8 @@ public class GroupQueryInVM {
 
     private String college;
 
+    private Integer sex;
+
     @JsonProperty("cotenant_type")
     private Integer cotenantType;
 

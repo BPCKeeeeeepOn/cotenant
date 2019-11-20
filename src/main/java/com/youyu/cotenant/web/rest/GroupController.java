@@ -46,4 +46,9 @@ public class GroupController {
         groupService.reported(id, content);
         return ResponseResult.success();
     }
+
+    @GetMapping("/user/{userId}/getGroupId")
+    public ResponseResult getGroupId(@PathVariable("userId") Long userId) {
+        return ResponseResult.success().body(groupService.getGroupId(userId));
+    }
 }

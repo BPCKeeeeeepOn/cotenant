@@ -18,7 +18,6 @@ public class UserInfoInVM {
     @JsonProperty("nick_name")
     private String nickName;
 
-
     @Size(max = 10, message = "姓名不能超过10个字符")
     @NotBlank(message = "姓名不能为空")
     @JsonProperty("user_name")

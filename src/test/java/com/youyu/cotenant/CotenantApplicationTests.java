@@ -18,7 +18,7 @@ public class CotenantApplicationTests {
 
     @Test
     public void delCache(){
-        String key = CotenantConstants.CHAT_RECEIVE_KEY + "8fef6dcd897195a0f356995f7b0135fd";
+        String key = CotenantConstants.CHAT_RECEIVE_KEY + "a875aa58f4e06291e1f0f7b1f09470df";
         systemService.delCache(key);
     }
 }

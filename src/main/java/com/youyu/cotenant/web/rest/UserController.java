@@ -2,6 +2,7 @@ package com.youyu.cotenant.web.rest;
 
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.UserService;
+import com.youyu.cotenant.web.rest.vm.user.ProposalInVM;
 import com.youyu.cotenant.web.rest.vm.user.UserInfoInVM;
 import com.youyu.cotenant.web.rest.vm.user.UserRegisterInVM;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -52,12 +53,19 @@ public class UserController {
 
     /**
      * 完善/更新个人资料
+     *
      * @param userInfoInVM
      * @return
      */
     @PutMapping("/update")
     public ResponseResult update(@Valid @RequestBody UserInfoInVM userInfoInVM) {
         userService.update(userInfoInVM);
+        return ResponseResult.success();
+    }
+
+    @PostMapping("/proposal/reported")
+    public ResponseResult reportedProposal(@Valid @RequestBody ProposalInVM proposalInVM) {
+        userService.reportedProposal(proposalInVM);
         return ResponseResult.success();
     }
 

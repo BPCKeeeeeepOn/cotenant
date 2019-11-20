@@ -22,13 +22,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.youyu.cotenant.common.CotenantConstants.EXAMINE_STATUS.PASS;
 import static com.youyu.cotenant.common.CotenantConstants.EXAMINE_STATUS.PASS_DEFAULT_STATUS;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_ROLE.LEADER;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_ROLE.MEMBER;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MESSAGE_KEY;
+import static com.youyu.cotenant.common.ResultCode.USER_NO_GROUP;
 import static com.youyu.cotenant.config.MyBatisConfig.COTENTANT_TRANSACTION_MANAGER;
 
 @Service
@@ -79,6 +82,25 @@ public class GroupService {
         List<CotenantListOutVM> cotenantListOutVM = cotenantGroupBizMapper.selectCotenantList(id);
         groupDetailOutVM.setCotenantList(cotenantListOutVM);
         return groupDetailOutVM;
+    }
+
+    /**
+     * 根据用户id获取租房
+     *
+     * @param userId
+     */
+    public Map<String, Long> getGroupId(Long userId) {
+        Map<String, Long> map = new HashMap<>();
+        Long cotenantGroupId;
+        CotenantGroupUserExample cotenantGroupUserExample = new CotenantGroupUserExample();
+        cotenantGroupUserExample.createCriteria().andCotenantUserIdEqualTo(userId).andRoleEqualTo(CotenantConstants.GROUP_ROLE.LEADER).andStatusEqualTo(CotenantConstants.EXAMINE_STATUS.PASS);
+        List<CotenantGroupUser> cotenantGroupUserList = cotenantGroupUserMapper.selectByExample(cotenantGroupUserExample);
+        if (cotenantGroupUserList.size() == 0) {
+            throw new BizException(ResponseResult.fail(USER_NO_GROUP));
+        }
+        cotenantGroupId = cotenantGroupUserList.get(0).getCotenantGroupId();
+        map.put("group_id", cotenantGroupId);
+        return map;
     }
 
     /**

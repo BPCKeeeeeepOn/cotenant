@@ -34,7 +34,14 @@ public class ChatController {
     }
 
     @GetMapping("/list")
-    public ResponseResult list(){
+    public ResponseResult list() {
         return ResponseResult.success().body(chatService.list());
     }
+
+    @GetMapping("/clean/cache")
+    public ResponseResult cleanCache() {
+        chatService.cleanCache();
+        return ResponseResult.success();
+    }
+
 }

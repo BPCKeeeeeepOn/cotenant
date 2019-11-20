@@ -15,4 +15,7 @@ public interface CotenantChatMsgBizMapper {
 
     List<ChatMessageListOutVM> selectCommunicationListByUserId(@Param("userId") Long userId);
 
+
+    List<String> selectChatList();
+
 }
