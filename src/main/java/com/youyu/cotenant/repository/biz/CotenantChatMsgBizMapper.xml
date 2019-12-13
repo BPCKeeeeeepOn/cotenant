@@ -11,6 +11,7 @@
     <resultMap id="ChatMessageListOutVM" type="com.youyu.cotenant.web.rest.vm.chat.ChatMessageListOutVM">
         <result column="receive_user_id" jdbcType="BIGINT" property="receiveUserId"/>
         <result column="receive_user_name" jdbcType="VARCHAR" property="receiveUserName"/>
+        <result column="receive_user_head" jdbcType="VARCHAR" property="receiveUserHead"/>
         <result column="last_content" jdbcType="VARCHAR" property="lastContent"/>
         <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
     </resultMap>
@@ -21,7 +22,7 @@
    </select>
 
     <select id="selectCommunicationListByUserId" resultMap="ChatMessageListOutVM">
-		SELECT receive_user_id, d.nick_name as receive_user_name,last_content, last_time
+		SELECT receive_user_id, d.nick_name as receive_user_name,d.user_head as receive_user_head,last_content, last_time
             FROM (
                 SELECT if(send_user_id = #{userId}, receive_user_id, send_user_id) AS receive_user_id
                     , content AS last_content, send_time AS last_time
