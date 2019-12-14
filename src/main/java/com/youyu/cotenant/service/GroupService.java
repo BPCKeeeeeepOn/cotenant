@@ -89,16 +89,16 @@ public class GroupService {
      *
      * @param userId
      */
-    public Map<String, Long> getGroupId(Long userId) {
-        Map<String, Long> map = new HashMap<>();
-        Long cotenantGroupId;
+    public Map<String, String> getGroupId(Long userId) {
+        Map<String, String> map = new HashMap<>();
+        String cotenantGroupId;
         CotenantGroupUserExample cotenantGroupUserExample = new CotenantGroupUserExample();
         cotenantGroupUserExample.createCriteria().andCotenantUserIdEqualTo(userId).andRoleEqualTo(CotenantConstants.GROUP_ROLE.LEADER).andStatusEqualTo(CotenantConstants.EXAMINE_STATUS.PASS);
         List<CotenantGroupUser> cotenantGroupUserList = cotenantGroupUserMapper.selectByExample(cotenantGroupUserExample);
         if (cotenantGroupUserList.size() == 0) {
             throw new BizException(ResponseResult.fail(USER_NO_GROUP));
         }
-        cotenantGroupId = cotenantGroupUserList.get(0).getCotenantGroupId();
+        cotenantGroupId = String.valueOf(cotenantGroupUserList.get(0).getCotenantGroupId());
         map.put("group_id", cotenantGroupId);
         return map;
     }
