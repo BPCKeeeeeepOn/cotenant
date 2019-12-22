@@ -13,8 +13,17 @@ public class SystemController {
     private SystemService systemService;
 
     @DeleteMapping("/cache/{key}/delete")
-    public ResponseResult delCache(@PathVariable("key")String key){
+    public ResponseResult delCache(@PathVariable("key") String key) {
         systemService.delCache(key);
         return ResponseResult.success();
+    }
+
+    /**
+     * 提示用户更新
+     * @return
+     */
+    @GetMapping("/update")
+    public ResponseResult updateSys() {
+        return ResponseResult.success().body(systemService.sysUpdate());
     }
 }
