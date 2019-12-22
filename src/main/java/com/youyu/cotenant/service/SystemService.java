@@ -40,7 +40,7 @@ public class SystemService {
             flag = "0";
         }
         map.put("flag", flag);
-        map.put("download_url", "http://xiaoyouhezu.com/download/hezu.apk");
+        map.put("download_url", "https://service.dcloud.net.cn/build/download/f4187b60-24af-11ea-b536-91ba8bd01347");
         return map;
     }
 }
