@@ -159,7 +159,8 @@ public class PersonalService {
         cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId).andCotenantUserIdEqualTo(userId);
         CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
         cotenantGroupUser.setStatus(CotenantConstants.EXAMINE_STATUS.CANCEL);
-        cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUser, cotenantGroupUserExample);
+        //cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUser, cotenantGroupUserExample);
+        cotenantGroupUserMapper.deleteByExample(cotenantGroupUserExample);
     }
 
     /**

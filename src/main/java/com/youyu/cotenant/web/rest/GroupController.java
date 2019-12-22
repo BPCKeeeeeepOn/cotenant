@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/group")
@@ -42,7 +43,8 @@ public class GroupController {
     }
 
     @PostMapping("/{id}/reported")
-    public ResponseResult reported(@PathVariable("id") Long id, @RequestParam("content") String content) {
+    public ResponseResult reported(@PathVariable("id") Long id, @RequestBody Map<String, String> map) {
+        String content = map.get("content");
         groupService.reported(id, content);
         return ResponseResult.success();
     }
