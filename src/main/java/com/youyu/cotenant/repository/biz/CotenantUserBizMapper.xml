@@ -20,7 +20,7 @@
         <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
     </resultMap>
 
-    <resultMap id="UserCollegeResultMap" type="com.youyu.cotenant.web.rest.vm.user.UserCollegeVM">
+    <resultMap id="UserCollegeResultMap" type="com.youyu.cotenant.web.rest.vm.user.UserCollegeOutVM">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="college_id" jdbcType="BIGINT" property="collegeId"/>
         <result column="college_name" jdbcType="VARCHAR" property="collegeName"/>

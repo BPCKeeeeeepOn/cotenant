@@ -1,7 +1,7 @@
 package com.youyu.cotenant.repository.biz;
 
 import com.youyu.cotenant.entity.CotenantUserInfo;
-import com.youyu.cotenant.web.rest.vm.user.UserCollegeVM;
+import com.youyu.cotenant.web.rest.vm.user.UserCollegeOutVM;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -24,6 +24,6 @@ public interface CotenantUserBizMapper {
      * @param userId
      * @return
      */
-    List<UserCollegeVM> selectUserColleges(@Param("user_id") Long userId);
+    List<UserCollegeOutVM> selectUserColleges(@Param("user_id") Long userId);
 
 }

@@ -183,10 +183,10 @@ public class UserService {
      *
      * @return
      */
-    public List<UserCollegeVM> getColleges() {
+    public List<UserCollegeOutVM> getColleges() {
         CotenantUser cotenantUser = currentUserUtils.getCurrUser();
         Long userId = cotenantUser.getId();
-        List<UserCollegeVM> userCollegeVMList;
+        List<UserCollegeOutVM> userCollegeVMList;
         userCollegeVMList = cotenantUserBizMapper.selectUserColleges(userId);
         return userCollegeVMList;
     }
@@ -197,7 +197,7 @@ public class UserService {
      * @param userCollegeVM
      */
     @Transactional
-    public void saveCollege(UserCollegeVM userCollegeVM) {
+    public void saveCollege(UserCollegeInVM userCollegeVM) {
         CotenantUser cotenantUser = currentUserUtils.getCurrUser();
         Long userId = cotenantUser.getId();
         boolean isDefault = userCollegeVM.isDefault();
@@ -217,6 +217,7 @@ public class UserService {
             }
         }
         CotenantUserCollege cotenantUserCollege = userCollegeVM.buildCotenantUserCollege();
+
         Long id = GeneratorID.getId();
         cotenantUserCollege.setId(id);
         cotenantUserCollege.setCotenantUserId(userId);
@@ -229,7 +230,7 @@ public class UserService {
      *
      * @param userCollegeVM
      */
-    public void updateCollege(UserCollegeVM userCollegeVM) {
+    public void updateCollege(UserCollegeInVM userCollegeVM) {
         CotenantUser cotenantUser = currentUserUtils.getCurrUser();
         Long userId = cotenantUser.getId();
         Long id = Long.valueOf(userCollegeVM.getId());

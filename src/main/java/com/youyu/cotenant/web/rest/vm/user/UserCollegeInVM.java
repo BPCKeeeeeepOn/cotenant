@@ -2,18 +2,16 @@ package com.youyu.cotenant.web.rest.vm.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.youyu.cotenant.common.GeneratorID;
 import com.youyu.cotenant.entity.CotenantUserCollege;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
 
 import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
-public class UserCollegeVM {
+public class UserCollegeInVM {
 
     private String id;
 

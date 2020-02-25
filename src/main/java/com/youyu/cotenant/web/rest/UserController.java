@@ -3,7 +3,7 @@ package com.youyu.cotenant.web.rest;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.UserService;
 import com.youyu.cotenant.web.rest.vm.user.ProposalInVM;
-import com.youyu.cotenant.web.rest.vm.user.UserCollegeVM;
+import com.youyu.cotenant.web.rest.vm.user.UserCollegeInVM;
 import com.youyu.cotenant.web.rest.vm.user.UserInfoInVM;
 import com.youyu.cotenant.web.rest.vm.user.UserRegisterInVM;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequestMapping("/user")
@@ -82,13 +81,13 @@ public class UserController {
     }
 
     @PostMapping("/add/colleges")
-    public ResponseResult saveColleges(@RequestBody UserCollegeVM userCollegeVM) {
+    public ResponseResult saveColleges(@RequestBody UserCollegeInVM userCollegeVM) {
         userService.saveCollege(userCollegeVM);
         return ResponseResult.success();
     }
 
     @PutMapping("/update/colleges")
-    public ResponseResult updateColleges(@RequestBody UserCollegeVM userCollegeVM) {
+    public ResponseResult updateColleges(@RequestBody UserCollegeInVM userCollegeVM) {
         userService.updateCollege(userCollegeVM);
         return ResponseResult.success();
     }
