@@ -1,6 +1,5 @@
 package com.youyu.cotenant;
 
-import com.youyu.cotenant.common.CotenantConstants;
 import com.youyu.cotenant.service.SystemService;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -17,8 +16,19 @@ public class CotenantApplicationTests {
     SystemService systemService;
 
     @Test
-    public void delCache(){
-        String key = CotenantConstants.CHAT_RECEIVE_KEY + "a875aa58f4e06291e1f0f7b1f09470df";
+    public void delCache() {
+        String key = "SYSTEM_UPDATE_KEY";
         systemService.delCache(key);
     }
+
+    @Test
+    public void addCache() {
+        systemService.addCache("SYSTEM_UPDATE_KEY", "1", 0);
+    }
+
+    @Test
+    public void getCache(){
+
+    }
+
 }

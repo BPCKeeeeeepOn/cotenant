@@ -14,6 +14,14 @@ public class CotenantGroup implements Serializable {
 
     private String district;
 
+    private String addressName;
+
+    private String addressDetail;
+
+    private String addressLongitude;
+
+    private String addressLatitude;
+
     private Integer cotenantCount;
 
     private Integer cotenantType;
@@ -74,6 +82,38 @@ public class CotenantGroup implements Serializable {
 
     public void setDistrict(String district) {
         this.district = district;
+    }
+
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+    public String getAddressDetail() {
+        return addressDetail;
+    }
+
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
+    }
+
+    public String getAddressLongitude() {
+        return addressLongitude;
+    }
+
+    public void setAddressLongitude(String addressLongitude) {
+        this.addressLongitude = addressLongitude;
+    }
+
+    public String getAddressLatitude() {
+        return addressLatitude;
+    }
+
+    public void setAddressLatitude(String addressLatitude) {
+        this.addressLatitude = addressLatitude;
     }
 
     public Integer getCotenantCount() {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youyu.cotenant.repository.biz.CotenantUserBizMapper">
+    <resultMap id="BaseResultMap" type="com.youyu.cotenant.entity.CotenantUserInfo">
+        <id column="user_id" jdbcType="BIGINT" property="userId"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="user_head" jdbcType="VARCHAR" property="userHead"/>
+        <result column="user_name" jdbcType="VARCHAR" property="userName"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="college" jdbcType="VARCHAR" property="college"/>
+        <result column="degree" jdbcType="VARCHAR" property="degree"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="id_card_url" jdbcType="VARCHAR" property="idCardUrl"/>
+        <result column="diploma_url" jdbcType="VARCHAR" property="diplomaUrl"/>
+        <result column="interest" jdbcType="VARCHAR" property="interest"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
+        <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
+        <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
+        <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
+    </resultMap>
+
+    <resultMap id="UserCollegeResultMap" type="com.youyu.cotenant.web.rest.vm.user.UserCollegeVM">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="college_id" jdbcType="BIGINT" property="collegeId"/>
+        <result column="college_name" jdbcType="VARCHAR" property="collegeName"/>
+        <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
+        <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
+        <result column="is_default" jdbcType="BIT" property="isDefault"/>
+    </resultMap>
+
+    <select id="selectUserDetail" resultMap="BaseResultMap">
+        select
+        	cui.user_id, cui.nick_name, cui.user_head, cui.user_name, cui.sex, cc.college_name as college, cui.degree, cuc.start_time, cuc.end_time,
+    		cui.id_card_url, cui.diploma_url, cui.interest, cui.status, cui.created_time, cui.updated_time, cui.is_deleted
+    		from cotenant_user_info cui
+    		left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+    		left join cotenant_college cc on cc.id = cuc.cotenant_college_id
+    		where user_id = #{user_id}
+    </select>
+
+    <select id="selectUserColleges" resultMap="UserCollegeResultMap">
+    	select cuc.id,cotenant_college_id as college_id,college_name,start_time,end_time,is_default from cotenant_user_college cuc
+    	left join cotenant_college cc on cc.id = cuc.cotenant_college_id
+    	where cotenant_user_id = #{user_id} order by is_default desc
+    </select>
+
+</mapper>

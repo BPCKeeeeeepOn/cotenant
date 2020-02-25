@@ -4,14 +4,14 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CotenantCollegeExample {
+public class CotenantUserCollegeExample {
     protected String orderByClause;
 
     protected boolean distinct;
 
     protected List<Criteria> oredCriteria;
 
-    public CotenantCollegeExample() {
+    public CotenantUserCollegeExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -165,423 +165,373 @@ public class CotenantCollegeExample {
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameIsNull() {
-            addCriterion("college_name is null");
+        public Criteria andCotenantUserIdIsNull() {
+            addCriterion("cotenant_user_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameIsNotNull() {
-            addCriterion("college_name is not null");
+        public Criteria andCotenantUserIdIsNotNull() {
+            addCriterion("cotenant_user_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameEqualTo(String value) {
-            addCriterion("college_name =", value, "collegeName");
+        public Criteria andCotenantUserIdEqualTo(Long value) {
+            addCriterion("cotenant_user_id =", value, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameNotEqualTo(String value) {
-            addCriterion("college_name <>", value, "collegeName");
+        public Criteria andCotenantUserIdNotEqualTo(Long value) {
+            addCriterion("cotenant_user_id <>", value, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameGreaterThan(String value) {
-            addCriterion("college_name >", value, "collegeName");
+        public Criteria andCotenantUserIdGreaterThan(Long value) {
+            addCriterion("cotenant_user_id >", value, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameGreaterThanOrEqualTo(String value) {
-            addCriterion("college_name >=", value, "collegeName");
+        public Criteria andCotenantUserIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("cotenant_user_id >=", value, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameLessThan(String value) {
-            addCriterion("college_name <", value, "collegeName");
+        public Criteria andCotenantUserIdLessThan(Long value) {
+            addCriterion("cotenant_user_id <", value, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameLessThanOrEqualTo(String value) {
-            addCriterion("college_name <=", value, "collegeName");
+        public Criteria andCotenantUserIdLessThanOrEqualTo(Long value) {
+            addCriterion("cotenant_user_id <=", value, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameLike(String value) {
-            addCriterion("college_name like", value, "collegeName");
+        public Criteria andCotenantUserIdIn(List<Long> values) {
+            addCriterion("cotenant_user_id in", values, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameNotLike(String value) {
-            addCriterion("college_name not like", value, "collegeName");
+        public Criteria andCotenantUserIdNotIn(List<Long> values) {
+            addCriterion("cotenant_user_id not in", values, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameIn(List<String> values) {
-            addCriterion("college_name in", values, "collegeName");
+        public Criteria andCotenantUserIdBetween(Long value1, Long value2) {
+            addCriterion("cotenant_user_id between", value1, value2, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameNotIn(List<String> values) {
-            addCriterion("college_name not in", values, "collegeName");
+        public Criteria andCotenantUserIdNotBetween(Long value1, Long value2) {
+            addCriterion("cotenant_user_id not between", value1, value2, "cotenantUserId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameBetween(String value1, String value2) {
-            addCriterion("college_name between", value1, value2, "collegeName");
+        public Criteria andCotenantCollegeIdIsNull() {
+            addCriterion("cotenant_college_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeNameNotBetween(String value1, String value2) {
-            addCriterion("college_name not between", value1, value2, "collegeName");
+        public Criteria andCotenantCollegeIdIsNotNull() {
+            addCriterion("cotenant_college_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentIsNull() {
-            addCriterion("college_department is null");
+        public Criteria andCotenantCollegeIdEqualTo(Long value) {
+            addCriterion("cotenant_college_id =", value, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentIsNotNull() {
-            addCriterion("college_department is not null");
+        public Criteria andCotenantCollegeIdNotEqualTo(Long value) {
+            addCriterion("cotenant_college_id <>", value, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentEqualTo(String value) {
-            addCriterion("college_department =", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdGreaterThan(Long value) {
+            addCriterion("cotenant_college_id >", value, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentNotEqualTo(String value) {
-            addCriterion("college_department <>", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("cotenant_college_id >=", value, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentGreaterThan(String value) {
-            addCriterion("college_department >", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdLessThan(Long value) {
+            addCriterion("cotenant_college_id <", value, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentGreaterThanOrEqualTo(String value) {
-            addCriterion("college_department >=", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdLessThanOrEqualTo(Long value) {
+            addCriterion("cotenant_college_id <=", value, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentLessThan(String value) {
-            addCriterion("college_department <", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdIn(List<Long> values) {
+            addCriterion("cotenant_college_id in", values, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentLessThanOrEqualTo(String value) {
-            addCriterion("college_department <=", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdNotIn(List<Long> values) {
+            addCriterion("cotenant_college_id not in", values, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentLike(String value) {
-            addCriterion("college_department like", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdBetween(Long value1, Long value2) {
+            addCriterion("cotenant_college_id between", value1, value2, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentNotLike(String value) {
-            addCriterion("college_department not like", value, "collegeDepartment");
+        public Criteria andCotenantCollegeIdNotBetween(Long value1, Long value2) {
+            addCriterion("cotenant_college_id not between", value1, value2, "cotenantCollegeId");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentIn(List<String> values) {
-            addCriterion("college_department in", values, "collegeDepartment");
+        public Criteria andIsDefaultIsNull() {
+            addCriterion("is_default is null");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentNotIn(List<String> values) {
-            addCriterion("college_department not in", values, "collegeDepartment");
+        public Criteria andIsDefaultIsNotNull() {
+            addCriterion("is_default is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentBetween(String value1, String value2) {
-            addCriterion("college_department between", value1, value2, "collegeDepartment");
+        public Criteria andIsDefaultEqualTo(Boolean value) {
+            addCriterion("is_default =", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andCollegeDepartmentNotBetween(String value1, String value2) {
-            addCriterion("college_department not between", value1, value2, "collegeDepartment");
+        public Criteria andIsDefaultNotEqualTo(Boolean value) {
+            addCriterion("is_default <>", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceIsNull() {
-            addCriterion("province is null");
+        public Criteria andIsDefaultGreaterThan(Boolean value) {
+            addCriterion("is_default >", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceIsNotNull() {
-            addCriterion("province is not null");
+        public Criteria andIsDefaultGreaterThanOrEqualTo(Boolean value) {
+            addCriterion("is_default >=", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceEqualTo(String value) {
-            addCriterion("province =", value, "province");
+        public Criteria andIsDefaultLessThan(Boolean value) {
+            addCriterion("is_default <", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceNotEqualTo(String value) {
-            addCriterion("province <>", value, "province");
+        public Criteria andIsDefaultLessThanOrEqualTo(Boolean value) {
+            addCriterion("is_default <=", value, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceGreaterThan(String value) {
-            addCriterion("province >", value, "province");
+        public Criteria andIsDefaultIn(List<Boolean> values) {
+            addCriterion("is_default in", values, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceGreaterThanOrEqualTo(String value) {
-            addCriterion("province >=", value, "province");
+        public Criteria andIsDefaultNotIn(List<Boolean> values) {
+            addCriterion("is_default not in", values, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceLessThan(String value) {
-            addCriterion("province <", value, "province");
+        public Criteria andIsDefaultBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_default between", value1, value2, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceLessThanOrEqualTo(String value) {
-            addCriterion("province <=", value, "province");
+        public Criteria andIsDefaultNotBetween(Boolean value1, Boolean value2) {
+            addCriterion("is_default not between", value1, value2, "isDefault");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceLike(String value) {
-            addCriterion("province like", value, "province");
+        public Criteria andDegreeIsNull() {
+            addCriterion("degree is null");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceNotLike(String value) {
-            addCriterion("province not like", value, "province");
+        public Criteria andDegreeIsNotNull() {
+            addCriterion("degree is not null");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceIn(List<String> values) {
-            addCriterion("province in", values, "province");
+        public Criteria andDegreeEqualTo(String value) {
+            addCriterion("degree =", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceNotIn(List<String> values) {
-            addCriterion("province not in", values, "province");
+        public Criteria andDegreeNotEqualTo(String value) {
+            addCriterion("degree <>", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceBetween(String value1, String value2) {
-            addCriterion("province between", value1, value2, "province");
+        public Criteria andDegreeGreaterThan(String value) {
+            addCriterion("degree >", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andProvinceNotBetween(String value1, String value2) {
-            addCriterion("province not between", value1, value2, "province");
+        public Criteria andDegreeGreaterThanOrEqualTo(String value) {
+            addCriterion("degree >=", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityIsNull() {
-            addCriterion("city is null");
+        public Criteria andDegreeLessThan(String value) {
+            addCriterion("degree <", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityIsNotNull() {
-            addCriterion("city is not null");
+        public Criteria andDegreeLessThanOrEqualTo(String value) {
+            addCriterion("degree <=", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityEqualTo(String value) {
-            addCriterion("city =", value, "city");
+        public Criteria andDegreeLike(String value) {
+            addCriterion("degree like", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityNotEqualTo(String value) {
-            addCriterion("city <>", value, "city");
+        public Criteria andDegreeNotLike(String value) {
+            addCriterion("degree not like", value, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityGreaterThan(String value) {
-            addCriterion("city >", value, "city");
+        public Criteria andDegreeIn(List<String> values) {
+            addCriterion("degree in", values, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityGreaterThanOrEqualTo(String value) {
-            addCriterion("city >=", value, "city");
+        public Criteria andDegreeNotIn(List<String> values) {
+            addCriterion("degree not in", values, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityLessThan(String value) {
-            addCriterion("city <", value, "city");
+        public Criteria andDegreeBetween(String value1, String value2) {
+            addCriterion("degree between", value1, value2, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityLessThanOrEqualTo(String value) {
-            addCriterion("city <=", value, "city");
+        public Criteria andDegreeNotBetween(String value1, String value2) {
+            addCriterion("degree not between", value1, value2, "degree");
             return (Criteria) this;
         }
 
-        public Criteria andCityLike(String value) {
-            addCriterion("city like", value, "city");
+        public Criteria andStartTimeIsNull() {
+            addCriterion("start_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andCityNotLike(String value) {
-            addCriterion("city not like", value, "city");
+        public Criteria andStartTimeIsNotNull() {
+            addCriterion("start_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCityIn(List<String> values) {
-            addCriterion("city in", values, "city");
+        public Criteria andStartTimeEqualTo(LocalDateTime value) {
+            addCriterion("start_time =", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andCityNotIn(List<String> values) {
-            addCriterion("city not in", values, "city");
+        public Criteria andStartTimeNotEqualTo(LocalDateTime value) {
+            addCriterion("start_time <>", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andCityBetween(String value1, String value2) {
-            addCriterion("city between", value1, value2, "city");
+        public Criteria andStartTimeGreaterThan(LocalDateTime value) {
+            addCriterion("start_time >", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andCityNotBetween(String value1, String value2) {
-            addCriterion("city not between", value1, value2, "city");
+        public Criteria andStartTimeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("start_time >=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIsNull() {
-            addCriterion("remark is null");
+        public Criteria andStartTimeLessThan(LocalDateTime value) {
+            addCriterion("start_time <", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIsNotNull() {
-            addCriterion("remark is not null");
+        public Criteria andStartTimeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("start_time <=", value, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkEqualTo(String value) {
-            addCriterion("remark =", value, "remark");
+        public Criteria andStartTimeIn(List<LocalDateTime> values) {
+            addCriterion("start_time in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotEqualTo(String value) {
-            addCriterion("remark <>", value, "remark");
+        public Criteria andStartTimeNotIn(List<LocalDateTime> values) {
+            addCriterion("start_time not in", values, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkGreaterThan(String value) {
-            addCriterion("remark >", value, "remark");
+        public Criteria andStartTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("start_time between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkGreaterThanOrEqualTo(String value) {
-            addCriterion("remark >=", value, "remark");
+        public Criteria andStartTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("start_time not between", value1, value2, "startTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLessThan(String value) {
-            addCriterion("remark <", value, "remark");
+        public Criteria andEndTimeIsNull() {
+            addCriterion("end_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLessThanOrEqualTo(String value) {
-            addCriterion("remark <=", value, "remark");
+        public Criteria andEndTimeIsNotNull() {
+            addCriterion("end_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkLike(String value) {
-            addCriterion("remark like", value, "remark");
+        public Criteria andEndTimeEqualTo(LocalDateTime value) {
+            addCriterion("end_time =", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotLike(String value) {
-            addCriterion("remark not like", value, "remark");
+        public Criteria andEndTimeNotEqualTo(LocalDateTime value) {
+            addCriterion("end_time <>", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkIn(List<String> values) {
-            addCriterion("remark in", values, "remark");
+        public Criteria andEndTimeGreaterThan(LocalDateTime value) {
+            addCriterion("end_time >", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotIn(List<String> values) {
-            addCriterion("remark not in", values, "remark");
+        public Criteria andEndTimeGreaterThanOrEqualTo(LocalDateTime value) {
+            addCriterion("end_time >=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkBetween(String value1, String value2) {
-            addCriterion("remark between", value1, value2, "remark");
+        public Criteria andEndTimeLessThan(LocalDateTime value) {
+            addCriterion("end_time <", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andRemarkNotBetween(String value1, String value2) {
-            addCriterion("remark not between", value1, value2, "remark");
+        public Criteria andEndTimeLessThanOrEqualTo(LocalDateTime value) {
+            addCriterion("end_time <=", value, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCpllegeLevelIsNull() {
-            addCriterion("cpllege_level is null");
+        public Criteria andEndTimeIn(List<LocalDateTime> values) {
+            addCriterion("end_time in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCpllegeLevelIsNotNull() {
-            addCriterion("cpllege_level is not null");
+        public Criteria andEndTimeNotIn(List<LocalDateTime> values) {
+            addCriterion("end_time not in", values, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCpllegeLevelEqualTo(String value) {
-            addCriterion("cpllege_level =", value, "cpllegeLevel");
+        public Criteria andEndTimeBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("end_time between", value1, value2, "endTime");
             return (Criteria) this;
         }
 
-        public Criteria andCpllegeLevelNotEqualTo(String value) {
-            addCriterion("cpllege_level <>", value, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelGreaterThan(String value) {
-            addCriterion("cpllege_level >", value, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelGreaterThanOrEqualTo(String value) {
-            addCriterion("cpllege_level >=", value, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelLessThan(String value) {
-            addCriterion("cpllege_level <", value, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelLessThanOrEqualTo(String value) {
-            addCriterion("cpllege_level <=", value, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelLike(String value) {
-            addCriterion("cpllege_level like", value, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelNotLike(String value) {
-            addCriterion("cpllege_level not like", value, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelIn(List<String> values) {
-            addCriterion("cpllege_level in", values, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelNotIn(List<String> values) {
-            addCriterion("cpllege_level not in", values, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelBetween(String value1, String value2) {
-            addCriterion("cpllege_level between", value1, value2, "cpllegeLevel");
-            return (Criteria) this;
-        }
-
-        public Criteria andCpllegeLevelNotBetween(String value1, String value2) {
-            addCriterion("cpllege_level not between", value1, value2, "cpllegeLevel");
+        public Criteria andEndTimeNotBetween(LocalDateTime value1, LocalDateTime value2) {
+            addCriterion("end_time not between", value1, value2, "endTime");
             return (Criteria) this;
         }
 

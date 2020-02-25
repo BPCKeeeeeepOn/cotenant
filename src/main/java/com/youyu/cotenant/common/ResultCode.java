@@ -105,7 +105,18 @@ public enum ResultCode {
     /**
      * 该用户创建租房团
      */
-    USER_NO_GROUP(100300, "该用户未创建租房团");
+    USER_NO_GROUP(100300, "该用户未创建租房团"),
+
+    /**
+     * 该学校已添加，请重新选择
+     */
+    USER_COLLEGE_EXISZTS(100400, "该学校已添加，请重新选择"),
+
+    USER_COLLEGE_NOT_IS_DEFAULT(100500,"只保留一条学校必须设置为默认"),
+
+    USER_COLLEGE_MUST_ONE(100600,"学校必须保留一条"),
+
+    USER_COLLEGE_MUST_IS_DEFAULT(100700,"请设置默认学校");
 
 
     ResultCode(Integer code, String msg) {

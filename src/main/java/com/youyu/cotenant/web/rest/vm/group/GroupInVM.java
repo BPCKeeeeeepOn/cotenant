@@ -18,10 +18,21 @@ public class GroupInVM {
 
     private String district;
 
+    @JsonProperty("address_name")
+    private String addressName;
+
+    @JsonProperty("address_detail")
+    private String addressDetail;
+
+    @JsonProperty("address_latitude")
+    private String addressLatitude;
+
+    @JsonProperty("address_longitude")
+    private String addressLongitude;
+
     @Size(max = 20, message = "标题不能超过20个字符")
     @NotBlank(message = "标题不能为空")
     private String title;
-
 
     @JsonProperty("cotenant_count")
     private Integer cotenantCount;
@@ -51,6 +62,10 @@ public class GroupInVM {
         cotenantGroup.setProvince(province);
         cotenantGroup.setCity(city);
         cotenantGroup.setDistrict(district);
+        cotenantGroup.setAddressName(addressName);
+        cotenantGroup.setAddressDetail(addressDetail);
+        cotenantGroup.setAddressLatitude(addressLatitude);
+        cotenantGroup.setAddressLongitude(addressLongitude);
         cotenantGroup.setTitle(title);
         cotenantGroup.setCotenantCount(cotenantCount);
         cotenantGroup.setCotenantType(cotenantType);

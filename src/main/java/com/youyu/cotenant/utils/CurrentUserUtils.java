@@ -26,9 +26,9 @@ public class CurrentUserUtils {
      */
     public String getCurrentLoginUserName() {
         String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (StringUtils.isBlank(userName)) {
+/*        if (StringUtils.isBlank(userName)) {
             throw new BizException(ResponseResult.fail(ResultCode.INVALID_AUTHTOKEN));
-        }
+        }*/
         return userName;
     }
 

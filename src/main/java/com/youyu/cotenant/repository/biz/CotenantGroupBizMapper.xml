@@ -7,6 +7,10 @@
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address_name" jdbcType="VARCHAR" property="addressName"/>
+        <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+        <result column="address_longitude" jdbcType="VARCHAR" property="addressLongitude"/>
+        <result column="address_latitude" jdbcType="VARCHAR" property="addressLatitude"/>
         <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount"/>
         <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
@@ -40,6 +44,10 @@
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address_name" jdbcType="VARCHAR" property="addressName"/>
+        <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+        <result column="address_longitude" jdbcType="VARCHAR" property="addressLongitude"/>
+        <result column="address_latitude" jdbcType="VARCHAR" property="addressLatitude"/>
         <result column="leader" jdbcType="VARCHAR" property="leader"/>
         <result column="leader_id" jdbcType="VARCHAR" property="leaderId"/>
         <result column="sex" jdbcType="INTEGER" property="sex"/>
@@ -66,7 +74,9 @@
     </resultMap>
 
     <select id="selectGroupList" resultMap="GroupListOutVM">
-        select cg.id,cg.title,cg.province,cg.city,cg.district,cui.nick_name as
+        select
+        cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail,cg.address_longitude,cg.address_latitude,cui.nick_name
+        as
         leader,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time from cotenant_group cg
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
@@ -96,17 +106,21 @@
     </select>
 
     <select id="selectGroupDetail" resultMap="GroupDetailOutVM">
-        select
-          cg.id,cg.title,cg.province,cg.city,cg.district,cui.nick_name as leader,cui.user_id as leader_id,cui.sex,cui.college,cui.end_time,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.cotenant_description,cg.chamber_description,cg.chamber_video_url,cg.created_time
+          select
+          cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail,cg.address_longitude,cg.address_latitude,cui.nick_name as leader,cui.user_id as leader_id,cui.sex,cc.college_name as college,cui.end_time,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.cotenant_description,cg.chamber_description,cg.chamber_video_url,cg.created_time
           from cotenant_group cg
           join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
+          left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+          left join cotenant_college cc on cc.id = cuc.cotenant_college_id
           where cgu.status = 10 and cgu.role=1 and cg.id = #{id}
     </select>
 
     <select id="selectCotenantList" resultMap="CotenantListOutVM">
-        select cui.user_id,role,cui.nick_name,cui.college,cgu.status,cui.interest,cui.sex from cotenant_group_user cgu
+          select cui.user_id,role,cui.nick_name,cgu.status,cc.college_name as college,cui.interest,cui.sex from cotenant_group_user cgu
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
+          left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+          left join cotenant_college cc on cc.id = cuc.cotenant_college_id
           where cgu.cotenant_group_id = #{id} and cgu.role = 2 and cgu.status = 10
     </select>
 
@@ -117,7 +131,6 @@
     <select id="selectJoinGroup" resultType="Long">
         select count(1) from cotenant_group_user where cotenant_user_id = #{userId} and (status = 0 or status = 10)
     </select>
-
 
 
 </mapper>

@@ -196,9 +196,7 @@ public class ChatService {
     public void cleanCache() {
         //查询出所有聊天信息
         List<String> channelList = cotenantChatMsgBizMapper.selectChatList();
-        for (String channel : channelList) {
-            systemService.delCache("chat_receive_key_" + channel);
-        }
+        channelList.stream().forEach(channel -> systemService.delCache("chat_receive_key_" + channel));
     }
 
 }

@@ -5,14 +5,13 @@ import com.youyu.cotenant.common.CotenantConstants;
 import com.youyu.cotenant.common.GeneratorID;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.common.ResultCode;
-import com.youyu.cotenant.entity.CotenantReportedProposal;
-import com.youyu.cotenant.entity.CotenantUser;
-import com.youyu.cotenant.entity.CotenantUserExample;
-import com.youyu.cotenant.entity.CotenantUserInfo;
+import com.youyu.cotenant.entity.*;
 import com.youyu.cotenant.exception.BizException;
 import com.youyu.cotenant.repository.CotenantReportedProposalMapper;
+import com.youyu.cotenant.repository.CotenantUserCollegeMapper;
 import com.youyu.cotenant.repository.CotenantUserInfoMapper;
 import com.youyu.cotenant.repository.CotenantUserMapper;
+import com.youyu.cotenant.repository.biz.CotenantUserBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
 import com.youyu.cotenant.web.rest.vm.user.*;
@@ -22,13 +21,17 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import static com.youyu.cotenant.common.CotenantConstants.CODE_CACHE;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MESSAGE_KEY;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
+import static com.youyu.cotenant.common.CotenantConstants.USER_STATUS.NOT_LOGIN;
 
 @Service
 @Slf4j
@@ -45,6 +48,12 @@ public class UserService {
 
     @Autowired
     private CotenantReportedProposalMapper cotenantReportedProposalMapper;
+
+    @Autowired
+    private CotenantUserCollegeMapper cotenantUserCollegeMapper;
+
+    @Autowired
+    private CotenantUserBizMapper cotenantUserBizMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -86,6 +95,30 @@ public class UserService {
     }
 
     /**
+     * 查询个人信息
+     *
+     * @return
+     */
+    public UserOutVM info() {
+        UserOutVM userOutVM = new UserOutVM();
+        CotenantUser cotenantUser = currentUserUtils.getCurrUser();
+        if (cotenantUser == null) {
+            userOutVM.setStatus(NOT_LOGIN);
+            return userOutVM;
+        }
+        String mobile = cotenantUser.getMobile();
+        Long id = cotenantUser.getId();
+        String unreadCount = redisUtils.getCache(UNREAD_MESSAGE_KEY + id);
+        String unreadMsgCount = redisUtils.getCache(UNREAD_MSG_COUNT + id);
+        userOutVM.setId(String.valueOf(id));
+        userOutVM.setMobile(mobile);
+        userOutVM.setStatus(selectUserStatus(id));
+        userOutVM.setUnreadGroupCount(StringUtils.isBlank(unreadCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadCount));
+        userOutVM.setUnreadMsgCount(StringUtils.isBlank(unreadMsgCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadMsgCount));
+        return userOutVM;
+    }
+
+    /**
      * 查询用户详情
      *
      * @return
@@ -95,7 +128,7 @@ public class UserService {
         Long userId = cotenantUser.getId();
         String mobile = cotenantUser.getMobile();
         UserInfoOutVM userInfoOutVM = new UserInfoOutVM();
-        CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(userId);
+        CotenantUserInfo cotenantUserInfo = cotenantUserBizMapper.selectUserDetail(userId);
         if (cotenantUserInfo == null) {
             //返回提示该用户补全信息
             throw new BizException(ResponseResult.fail(ResultCode.USER_INFO_ERROR));
@@ -111,33 +144,15 @@ public class UserService {
     }
 
     /**
-     * 查询个人信息
-     *
-     * @return
-     */
-    public UserOutVM info() {
-        UserOutVM userOutVM = new UserOutVM();
-        CotenantUser cotenantUser = currentUserUtils.getCurrUser();
-        String mobile = cotenantUser.getMobile();
-        Long id = cotenantUser.getId();
-        String unreadCount = redisUtils.getCache(UNREAD_MESSAGE_KEY + id);
-        String unreadMsgCount = redisUtils.getCache(UNREAD_MSG_COUNT + id);
-        userOutVM.setId(String.valueOf(id));
-        userOutVM.setMobile(mobile);
-        userOutVM.setStatus(selectUserStatus(id));
-        userOutVM.setUnreadGroupCount(StringUtils.isBlank(unreadCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadCount));
-        userOutVM.setUnreadMsgCount(StringUtils.isBlank(unreadMsgCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadMsgCount));
-        return userOutVM;
-    }
-
-    /**
      * 编辑/新增个人信息
      *
      * @param userInfoInVM
      * @return
      */
+    @Transactional
     public void update(UserInfoInVM userInfoInVM) {
         //查询出用户信息
+        //需要修改大学信息
         CotenantUser cotenantUser = currentUserUtils.getCurrUser();
         Long userId = cotenantUser.getId();
         CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(userId);
@@ -146,6 +161,10 @@ public class UserService {
             cotenantUserInfo.setUserId(userId);
             cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.DEFAULT_STATUS);
             cotenantUserInfoMapper.insertSelective(cotenantUserInfo);
+            //首次保存学校信息
+            CotenantUserCollege cotenantUserCollege = userInfoInVM.buildCotenantUserCollege();
+            cotenantUserCollege.setCotenantUserId(userId);
+            cotenantUserCollegeMapper.insertSelective(cotenantUserCollege);
         } else {
             CotenantUserInfo ins = userInfoInVM.buildCotenantUser();
             Integer status = cotenantUserInfo.getStatus();
@@ -160,18 +179,131 @@ public class UserService {
     }
 
     /**
+     * 获取用户大学信息
+     *
+     * @return
+     */
+    public List<UserCollegeVM> getColleges() {
+        CotenantUser cotenantUser = currentUserUtils.getCurrUser();
+        Long userId = cotenantUser.getId();
+        List<UserCollegeVM> userCollegeVMList;
+        userCollegeVMList = cotenantUserBizMapper.selectUserColleges(userId);
+        return userCollegeVMList;
+    }
+
+    /**
+     * 保存大学信息
+     *
+     * @param userCollegeVM
+     */
+    @Transactional
+    public void saveCollege(UserCollegeVM userCollegeVM) {
+        CotenantUser cotenantUser = currentUserUtils.getCurrUser();
+        Long userId = cotenantUser.getId();
+        boolean isDefault = userCollegeVM.isDefault();
+        //判断该学校是否存在
+        CotenantUserCollegeExample cotenantUserCollegeExample = new CotenantUserCollegeExample();
+        cotenantUserCollegeExample.createCriteria().andCotenantUserIdEqualTo(userId);
+        List<CotenantUserCollege> cotenantUserCollegeList = cotenantUserCollegeMapper.selectByExample(cotenantUserCollegeExample);
+        if (CollectionUtils.isEmpty(cotenantUserCollegeList)) {
+            isDefault = true;
+        } else {
+            if (isDefault) {
+                //更新之前的学校默认状态成false
+                cotenantUserCollegeList.stream().forEach(item -> {
+                    item.setIsDefault(false);
+                    cotenantUserCollegeMapper.updateByPrimaryKey(item);
+                });
+            }
+        }
+        CotenantUserCollege cotenantUserCollege = userCollegeVM.buildCotenantUserCollege();
+        Long id = GeneratorID.getId();
+        cotenantUserCollege.setId(id);
+        cotenantUserCollege.setCotenantUserId(userId);
+        cotenantUserCollege.setIsDefault(isDefault);
+        cotenantUserCollegeMapper.insertSelective(cotenantUserCollege);
+    }
+
+    /**
+     * 更新大学信息
+     *
+     * @param userCollegeVM
+     */
+    public void updateCollege(UserCollegeVM userCollegeVM) {
+        CotenantUser cotenantUser = currentUserUtils.getCurrUser();
+        Long userId = cotenantUser.getId();
+        Long id = Long.valueOf(userCollegeVM.getId());
+        boolean isDefault = userCollegeVM.isDefault();
+        CotenantUserCollegeExample cotenantUserCollegeExample = new CotenantUserCollegeExample();
+        cotenantUserCollegeExample.createCriteria().andCotenantUserIdEqualTo(userId);
+        List<CotenantUserCollege> cotenantUserCollegeList = cotenantUserCollegeMapper.selectByExample(cotenantUserCollegeExample);
+        if (cotenantUserCollegeList.size() < 2) {
+            if (!isDefault) {
+                throw new BizException(ResponseResult.fail(ResultCode.USER_COLLEGE_NOT_IS_DEFAULT));
+            }
+        } else {
+            if (cotenantUserCollegeMapper.selectByPrimaryKey(id).getIsDefault() && !isDefault) {
+                throw new BizException(ResponseResult.fail(ResultCode.USER_COLLEGE_MUST_IS_DEFAULT));
+            }
+        }
+
+        if (isDefault) {
+            //更新之前的学校默认状态成false
+            cotenantUserCollegeList.stream().forEach(item -> {
+                item.setIsDefault(false);
+                cotenantUserCollegeMapper.updateByPrimaryKey(item);
+            });
+        }
+
+        CotenantUserCollege cotenantUserCollege = userCollegeVM.buildCotenantUserCollege();
+        cotenantUserCollege.setId(id);
+        cotenantUserCollegeMapper.updateByPrimaryKeySelective(cotenantUserCollege);
+    }
+
+    /**
+     * 删除用户大学
+     *
+     * @param id
+     */
+    public void deleteCollege(Long id) {
+        CotenantUser cotenantUser = currentUserUtils.getCurrUser();
+        Long userId = cotenantUser.getId();
+        CotenantUserCollege cotenantUserCollege = cotenantUserCollegeMapper.selectByPrimaryKey(id);
+        CotenantUserCollegeExample cotenantUserCollegeExample = new CotenantUserCollegeExample();
+        cotenantUserCollegeExample.createCriteria().andCotenantUserIdEqualTo(userId);
+        List<CotenantUserCollege> cotenantUserCollegeList = cotenantUserCollegeMapper.selectByExample(cotenantUserCollegeExample);
+        if (cotenantUserCollegeList.size() < 2) {
+            throw new BizException(ResponseResult.fail(ResultCode.USER_COLLEGE_MUST_ONE));
+        }
+        boolean isDefault = cotenantUserCollege.getIsDefault();
+        if (isDefault) {
+            cotenantUserCollegeExample = new CotenantUserCollegeExample();
+            cotenantUserCollegeExample.createCriteria().andCotenantUserIdEqualTo(userId).andIdNotEqualTo(id);
+            CotenantUserCollege updateCotenantUserCollege = cotenantUserCollegeMapper.selectByExample(cotenantUserCollegeExample).get(0);
+            updateCotenantUserCollege.setIsDefault(true);
+            cotenantUserCollegeMapper.updateByPrimaryKey(updateCotenantUserCollege);
+        }
+
+        cotenantUserCollegeMapper.deleteByPrimaryKey(id);
+    }
+
+    /**
      * 查询个人用户状态
      *
      * @param userId
      * @return
      */
     public Integer selectUserStatus(Long userId) {
+        if (userId == null) {
+            return NOT_LOGIN;
+        }
         CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(userId);
         return cotenantUserInfo == null ? CotenantConstants.USER_STATUS.NOT_USER_STATUS : cotenantUserInfo.getStatus();
     }
 
     /**
      * 收集用户建议
+     *
      * @param proposalInVM
      */
     public void reportedProposal(ProposalInVM proposalInVM) {

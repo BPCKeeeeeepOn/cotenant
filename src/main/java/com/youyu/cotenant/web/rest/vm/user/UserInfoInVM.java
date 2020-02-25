@@ -2,24 +2,30 @@ package com.youyu.cotenant.web.rest.vm.user;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.youyu.cotenant.common.GeneratorID;
+import com.youyu.cotenant.entity.CotenantCollege;
+import com.youyu.cotenant.entity.CotenantUserCollege;
 import com.youyu.cotenant.entity.CotenantUserInfo;
 import lombok.Data;
+import lombok.ToString;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.time.LocalDateTime;
+import java.util.List;
 
 import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
+@ToString
 public class UserInfoInVM {
 
-
+    @Size(max = 10, message = "昵称不能超过10个字符")
+    @NotBlank(message = "昵称不能为空")
     @JsonProperty("nick_name")
     private String nickName;
 
-    @Size(max = 10, message = "姓名不能超过10个字符")
-    @NotBlank(message = "姓名不能为空")
     @JsonProperty("user_name")
     private String userName;
 
@@ -28,9 +34,8 @@ public class UserInfoInVM {
 
     private Integer sex;
 
-    @Size(max = 50, message = "大学名称不能超过50个字符")
-    @NotBlank(message = "大学名称不能为空")
-    private String college;
+    @JsonProperty("college_id")
+    private Long collegeId;
 
     private String degree;
 
@@ -57,7 +62,6 @@ public class UserInfoInVM {
         cotenantUserInfo.setUserName(userName);
         cotenantUserInfo.setUserHead(userHead);
         cotenantUserInfo.setSex(sex);
-        cotenantUserInfo.setCollege(college);
         cotenantUserInfo.setDegree(degree);
         cotenantUserInfo.setStartTime(startTime);
         cotenantUserInfo.setEndTime(endTime);
@@ -67,4 +71,13 @@ public class UserInfoInVM {
         return cotenantUserInfo;
     }
 
+    public CotenantUserCollege buildCotenantUserCollege() {
+        CotenantUserCollege cotenantUserCollege = new CotenantUserCollege();
+        cotenantUserCollege.setId(GeneratorID.getId());
+        cotenantUserCollege.setStartTime(startTime);
+        cotenantUserCollege.setEndTime(endTime);
+        cotenantUserCollege.setIsDefault(true);
+        cotenantUserCollege.setCotenantCollegeId(collegeId);
+        return cotenantUserCollege;
+    }
 }

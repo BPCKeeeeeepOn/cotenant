@@ -22,6 +22,18 @@ public class GroupDetailOutVM {
 
     private String district;
 
+    @JsonProperty("address_name")
+    private String addressName;
+
+    @JsonProperty("address_detail")
+    private String addressDetail;
+
+    @JsonProperty("address_latitude")
+    private String addressLatitude;
+
+    @JsonProperty("address_longitude")
+    private String addressLongitude;
+
     private String title;
 
     private String leader;

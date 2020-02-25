@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youyu.cotenant.repository.biz.CotenantCommonBizMapper">
+    <resultMap id="CollegeOutVM" type="com.youyu.cotenant.web.rest.vm.college.CollegeOutVM">
+        <id column="id" jdbcType="BIGINT" property="id"/>
+        <result column="college_name" jdbcType="VARCHAR" property="collegeName"/>
+    </resultMap>
+    <select id="selectCollege" resultMap="CollegeOutVM">
+        select id,college_name from cotenant_college
+        where 1=1
+        <if test="name != null and name != ''">
+            <bind name="college_name" value=" '%' + name + '%' "/>
+            and college_name like #{college_name}
+        </if>
+    </select>
+
+
+</mapper>

@@ -24,6 +24,7 @@ public interface CotenantConstants {
         int PASS_STATUS = 10; //审核通过
         int CANCEL_STATUS = 20; //审核拒绝
         int NOT_USER_STATUS = 30; //未补全信息
+        int NOT_LOGIN = 40;
     }
 
     /*

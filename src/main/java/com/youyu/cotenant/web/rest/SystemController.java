@@ -18,8 +18,14 @@ public class SystemController {
         return ResponseResult.success();
     }
 
+    @GetMapping("/college/list")
+    public ResponseResult getCollege(String name) {
+        return ResponseResult.success().body(systemService.getCollege(name));
+    }
+
     /**
      * 提示用户更新
+     *
      * @return
      */
     @GetMapping("/update")
