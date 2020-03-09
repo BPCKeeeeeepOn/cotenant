@@ -1,27 +1,27 @@
 package com.youyu.cotenant.web.rest.vm.user;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.youyu.cotenant.entity.CotenantUserCollege;
 import lombok.Data;
 
-import javax.validation.constraints.NotBlank;
 import java.time.LocalDateTime;
-
-import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
 public class UserCollegeOutVM {
 
     private String id;
 
-    @NotBlank(message = "college_id不能为空")
     @JsonProperty("college_id")
     private String collegeId;
 
-    @NotBlank(message = "学校名称不能为空")
     @JsonProperty("college_name")
     private String collegeName;
+
+    private String province;
+
+    private String city;
+
+    private String coordinate;
 
     @JsonProperty("start_time")
     private LocalDateTime startTime;

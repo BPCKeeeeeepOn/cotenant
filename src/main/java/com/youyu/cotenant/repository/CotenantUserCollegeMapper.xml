@@ -5,6 +5,7 @@
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="cotenant_user_id" jdbcType="BIGINT" property="cotenantUserId" />
     <result column="cotenant_college_id" jdbcType="BIGINT" property="cotenantCollegeId" />
+    <result column="coordinate" jdbcType="VARCHAR" property="coordinate" />
     <result column="is_default" jdbcType="BIT" property="isDefault" />
     <result column="degree" jdbcType="VARCHAR" property="degree" />
     <result column="start_time" jdbcType="TIMESTAMP" property="startTime" />
@@ -71,8 +72,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, cotenant_user_id, cotenant_college_id, is_default, degree, start_time, end_time, 
-    created_time, updated_time
+    id, cotenant_user_id, cotenant_college_id, coordinate, is_default, degree, start_time, 
+    end_time, created_time, updated_time
   </sql>
   <select id="selectByExample" parameterType="com.youyu.cotenant.entity.CotenantUserCollegeExample" resultMap="BaseResultMap">
     select
@@ -106,13 +107,13 @@
   </delete>
   <insert id="insert" parameterType="com.youyu.cotenant.entity.CotenantUserCollege">
     insert into cotenant_user_college (id, cotenant_user_id, cotenant_college_id, 
-      is_default, degree, start_time, 
-      end_time, created_time, updated_time
-      )
+      coordinate, is_default, degree, 
+      start_time, end_time, created_time, 
+      updated_time)
     values (#{id,jdbcType=BIGINT}, #{cotenantUserId,jdbcType=BIGINT}, #{cotenantCollegeId,jdbcType=BIGINT}, 
-      #{isDefault,jdbcType=BIT}, #{degree,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, 
-      #{endTime,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
-      )
+      #{coordinate,jdbcType=VARCHAR}, #{isDefault,jdbcType=BIT}, #{degree,jdbcType=VARCHAR}, 
+      #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
   <insert id="insertSelective" parameterType="com.youyu.cotenant.entity.CotenantUserCollege">
     insert into cotenant_user_college
@@ -125,6 +126,9 @@
       </if>
       <if test="cotenantCollegeId != null">
         cotenant_college_id,
+      </if>
+      <if test="coordinate != null">
+        coordinate,
       </if>
       <if test="isDefault != null">
         is_default,
@@ -154,6 +158,9 @@
       </if>
       <if test="cotenantCollegeId != null">
         #{cotenantCollegeId,jdbcType=BIGINT},
+      </if>
+      <if test="coordinate != null">
+        #{coordinate,jdbcType=VARCHAR},
       </if>
       <if test="isDefault != null">
         #{isDefault,jdbcType=BIT},
@@ -193,6 +200,9 @@
       <if test="record.cotenantCollegeId != null">
         cotenant_college_id = #{record.cotenantCollegeId,jdbcType=BIGINT},
       </if>
+      <if test="record.coordinate != null">
+        coordinate = #{record.coordinate,jdbcType=VARCHAR},
+      </if>
       <if test="record.isDefault != null">
         is_default = #{record.isDefault,jdbcType=BIT},
       </if>
@@ -221,6 +231,7 @@
     set id = #{record.id,jdbcType=BIGINT},
       cotenant_user_id = #{record.cotenantUserId,jdbcType=BIGINT},
       cotenant_college_id = #{record.cotenantCollegeId,jdbcType=BIGINT},
+      coordinate = #{record.coordinate,jdbcType=VARCHAR},
       is_default = #{record.isDefault,jdbcType=BIT},
       degree = #{record.degree,jdbcType=VARCHAR},
       start_time = #{record.startTime,jdbcType=TIMESTAMP},
@@ -239,6 +250,9 @@
       </if>
       <if test="cotenantCollegeId != null">
         cotenant_college_id = #{cotenantCollegeId,jdbcType=BIGINT},
+      </if>
+      <if test="coordinate != null">
+        coordinate = #{coordinate,jdbcType=VARCHAR},
       </if>
       <if test="isDefault != null">
         is_default = #{isDefault,jdbcType=BIT},
@@ -265,6 +279,7 @@
     update cotenant_user_college
     set cotenant_user_id = #{cotenantUserId,jdbcType=BIGINT},
       cotenant_college_id = #{cotenantCollegeId,jdbcType=BIGINT},
+      coordinate = #{coordinate,jdbcType=VARCHAR},
       is_default = #{isDefault,jdbcType=BIT},
       degree = #{degree,jdbcType=VARCHAR},
       start_time = #{startTime,jdbcType=TIMESTAMP},

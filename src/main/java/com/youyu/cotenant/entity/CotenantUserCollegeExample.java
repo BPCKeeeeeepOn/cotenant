@@ -285,6 +285,76 @@ public class CotenantUserCollegeExample {
             return (Criteria) this;
         }
 
+        public Criteria andCoordinateIsNull() {
+            addCriterion("coordinate is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateIsNotNull() {
+            addCriterion("coordinate is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateEqualTo(String value) {
+            addCriterion("coordinate =", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateNotEqualTo(String value) {
+            addCriterion("coordinate <>", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateGreaterThan(String value) {
+            addCriterion("coordinate >", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateGreaterThanOrEqualTo(String value) {
+            addCriterion("coordinate >=", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateLessThan(String value) {
+            addCriterion("coordinate <", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateLessThanOrEqualTo(String value) {
+            addCriterion("coordinate <=", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateLike(String value) {
+            addCriterion("coordinate like", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateNotLike(String value) {
+            addCriterion("coordinate not like", value, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateIn(List<String> values) {
+            addCriterion("coordinate in", values, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateNotIn(List<String> values) {
+            addCriterion("coordinate not in", values, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateBetween(String value1, String value2) {
+            addCriterion("coordinate between", value1, value2, "coordinate");
+            return (Criteria) this;
+        }
+
+        public Criteria andCoordinateNotBetween(String value1, String value2) {
+            addCriterion("coordinate not between", value1, value2, "coordinate");
+            return (Criteria) this;
+        }
+
         public Criteria andIsDefaultIsNull() {
             addCriterion("is_default is null");
             return (Criteria) this;

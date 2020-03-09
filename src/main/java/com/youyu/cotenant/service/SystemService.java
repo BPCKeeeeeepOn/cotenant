@@ -6,8 +6,10 @@ import com.youyu.cotenant.repository.biz.CotenantCommonBizMapper;
 import com.youyu.cotenant.utils.RedisUtils;
 import com.youyu.cotenant.web.rest.vm.college.CollegeOutVM;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.CollectionUtils;
 
 import java.util.HashMap;
 import java.util.List;
@@ -53,6 +55,12 @@ public class SystemService {
      */
     public List<CollegeOutVM> getCollege(String name) {
         List<CollegeOutVM> list = cotenantCommonBizMapper.selectCollege(name);
+        if (!CollectionUtils.isEmpty(list)) {
+            CollegeOutVM collegeOutVM = new CollegeOutVM();
+            collegeOutVM.setCollegeName("请选择");
+            collegeOutVM.setId(NumberUtils.LONG_ZERO);
+            list.set(NumberUtils.INTEGER_ZERO, collegeOutVM);
+        }
         return list;
     }
 

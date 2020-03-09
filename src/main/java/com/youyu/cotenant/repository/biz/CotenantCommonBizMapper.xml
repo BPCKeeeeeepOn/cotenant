@@ -8,11 +8,8 @@
     <select id="selectCollege" resultMap="CollegeOutVM">
         select id,college_name from cotenant_college
         where 1=1
-        <if test="name != null and name != ''">
-            <bind name="college_name" value=" '%' + name + '%' "/>
-            and college_name like #{college_name}
+        <if test="city != null and city != ''">
+            and city = #{city}
         </if>
     </select>
-
-
 </mapper>

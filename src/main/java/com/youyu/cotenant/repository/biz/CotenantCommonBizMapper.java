@@ -14,6 +14,6 @@ public interface CotenantCommonBizMapper {
      * @param name
      * @return
      */
-    List<CollegeOutVM> selectCollege(@Param("name") String name);
+    List<CollegeOutVM> selectCollege(@Param("city") String name);
 
 }

@@ -10,6 +10,8 @@ public class CotenantUserCollege implements Serializable {
 
     private Long cotenantCollegeId;
 
+    private String coordinate;
+
     private Boolean isDefault;
 
     private String degree;
@@ -46,6 +48,14 @@ public class CotenantUserCollege implements Serializable {
 
     public void setCotenantCollegeId(Long cotenantCollegeId) {
         this.cotenantCollegeId = cotenantCollegeId;
+    }
+
+    public String getCoordinate() {
+        return coordinate;
+    }
+
+    public void setCoordinate(String coordinate) {
+        this.coordinate = coordinate;
     }
 
     public Boolean getIsDefault() {

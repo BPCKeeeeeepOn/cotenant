@@ -23,6 +23,8 @@ public class UserCollegeInVM {
     @JsonProperty("college_name")
     private String collegeName;
 
+    private String coordinate;
+
     @JsonProperty("start_time")
     @JsonFormat(pattern = FULL_DATE_TIME)
     private LocalDateTime startTime;
@@ -37,6 +39,7 @@ public class UserCollegeInVM {
     public CotenantUserCollege buildCotenantUserCollege() {
         CotenantUserCollege cotenantUserCollege = new CotenantUserCollege();
         cotenantUserCollege.setCotenantCollegeId(Long.valueOf(collegeId));
+        cotenantUserCollege.setCoordinate(coordinate);
         cotenantUserCollege.setStartTime(startTime);
         cotenantUserCollege.setEndTime(endTime);
         cotenantUserCollege.setIsDefault(isDefault);

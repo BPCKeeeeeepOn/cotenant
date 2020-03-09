@@ -24,6 +24,9 @@
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="college_id" jdbcType="BIGINT" property="collegeId"/>
         <result column="college_name" jdbcType="VARCHAR" property="collegeName"/>
+        <result column="province" jdbcType="VARCHAR" property="province"/>
+        <result column="city" jdbcType="VARCHAR" property="city"/>
+        <result column="coordinate" jdbcType="VARCHAR" property="coordinate"/>
         <result column="start_time" jdbcType="TIMESTAMP" property="startTime"/>
         <result column="end_time" jdbcType="TIMESTAMP" property="endTime"/>
         <result column="is_default" jdbcType="BIT" property="isDefault"/>
@@ -40,7 +43,7 @@
     </select>
 
     <select id="selectUserColleges" resultMap="UserCollegeResultMap">
-    	select cuc.id,cotenant_college_id as college_id,college_name,start_time,end_time,is_default from cotenant_user_college cuc
+    	select cuc.id,cotenant_college_id as college_id,college_name,coordinate,cc.province,cc.city,start_time,end_time,is_default from cotenant_user_college cuc
     	left join cotenant_college cc on cc.id = cuc.cotenant_college_id
     	where cotenant_user_id = #{user_id} order by is_default desc
     </select>

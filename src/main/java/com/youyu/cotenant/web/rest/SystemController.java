@@ -19,8 +19,8 @@ public class SystemController {
     }
 
     @GetMapping("/college/list")
-    public ResponseResult getCollege(String name) {
-        return ResponseResult.success().body(systemService.getCollege(name));
+    public ResponseResult getCollege(@RequestParam("city") String city) {
+        return ResponseResult.success().body(systemService.getCollege(city));
     }
 
     /**

@@ -37,6 +37,8 @@ public class UserInfoInVM {
     @JsonProperty("college_id")
     private Long collegeId;
 
+    private String coordinate;//学校坐标
+
     private String degree;
 
     @JsonProperty("start_time")
@@ -78,6 +80,7 @@ public class UserInfoInVM {
         cotenantUserCollege.setEndTime(endTime);
         cotenantUserCollege.setIsDefault(true);
         cotenantUserCollege.setCotenantCollegeId(collegeId);
+        cotenantUserCollege.setCoordinate(coordinate);
         return cotenantUserCollege;
     }
 }
