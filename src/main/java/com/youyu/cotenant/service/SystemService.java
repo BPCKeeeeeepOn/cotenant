@@ -59,7 +59,7 @@ public class SystemService {
             CollegeOutVM collegeOutVM = new CollegeOutVM();
             collegeOutVM.setCollegeName("请选择");
             collegeOutVM.setId(NumberUtils.LONG_ZERO);
-            list.set(NumberUtils.INTEGER_ZERO, collegeOutVM);
+            list.add(NumberUtils.INTEGER_ZERO, collegeOutVM);
         }
         return list;
     }
