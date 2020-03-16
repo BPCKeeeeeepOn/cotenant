@@ -1,6 +1,7 @@
 package com.youyu.cotenant.security;
 
 import com.youyu.cotenant.entity.CotenantUser;
+import com.youyu.cotenant.service.SmsService;
 import com.youyu.cotenant.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,31 +19,36 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 自定义身份验证(账户名密码)
+ * 自定义身份验证(短信验证码)
  */
 @Component
-public class CustomAuthenticationProvider implements AuthenticationProvider {
+public class CustomSmsAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
     private UserService userService;
 
     @Autowired
-    private PasswordEncoder encoder;
+    private SmsService smsService;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
-        String phone = authentication.getName();
-        String password = authentication.getCredentials().toString();
-        CotenantUser user = userService.selectUserByUserName(phone);
-        if (user == null)
-            throw new BadCredentialsException("该用户不存在");
-        if (encoder.matches(password, user.getPassword())) {
+        String mobile = authentication.getName();
+        String code = authentication.getCredentials().toString();
+        CotenantUser user = userService.selectUserByUserName(mobile);
+
+        if (smsService.verifyCode(mobile, code)) {
+            if (user == null) {
+                //首次登录需要新增一条用户信息
+                user = new CotenantUser();
+                user.setMobile(mobile);
+                userService.insertUser(user);
+            }
             //这里设置权限和角色
             Collection<GrantedAuthority> authorities = obtionGrantedAuthorities(user);
             //生成令牌
-            return new UsernamePasswordAuthenticationToken(phone, password, authorities);
+            return new UsernamePasswordAuthenticationToken(mobile, code, authorities);
         } else {
-            throw new BadCredentialsException("密码错误");
+            throw new BadCredentialsException("验证码错误");
         }
     }
 

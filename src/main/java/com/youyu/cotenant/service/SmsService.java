@@ -14,6 +14,7 @@ import com.youyu.cotenant.result.SmsMessage;
 import com.youyu.cotenant.utils.CommonUtils;
 import com.youyu.cotenant.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -50,6 +51,7 @@ public class SmsService {
 
     /**
      * 发送短信验证码
+     *
      * @param phoneNumber
      */
     public void sendSms(String phoneNumber) {
@@ -79,5 +81,20 @@ public class SmsService {
             log.error("send sms message failed:", e.getMessage(), e);
             throw new BizException(ResponseResult.fail(ResultCode.SEND_SMS_CODE_FAILED));
         }
+    }
+
+    /**
+     * 验证短信验证码
+     *
+     * @param mobile
+     * @param code
+     * @return
+     */
+    public boolean verifyCode(String mobile, String code) {
+        String value = redisUtils.getCache(CODE_CACHE + mobile);
+        if (StringUtils.isNotBlank(value) && StringUtils.equals(value, code)) {
+            return true;
+        }
+        return false;
     }
 }

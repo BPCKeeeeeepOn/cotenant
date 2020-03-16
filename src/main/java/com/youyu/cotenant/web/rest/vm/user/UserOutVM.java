@@ -13,8 +13,8 @@ public class UserOutVM {
     private Integer status;
 
     @JsonProperty("unread_group_count")
-    private int unreadGroupCount; //未读消息数量
+    private int unreadGroupCount; //租房未读消息数量
 
     @JsonProperty("unread_msg_count")
-    private int unreadMsgCount;
+    private int unreadMsgCount; //聊天未读消息树
 }

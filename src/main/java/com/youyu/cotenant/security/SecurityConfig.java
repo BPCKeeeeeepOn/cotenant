@@ -2,6 +2,7 @@ package com.youyu.cotenant.security;
 
 import com.youyu.cotenant.jwt.JWTAuthenticationFilter;
 import com.youyu.cotenant.jwt.JWTLoginFilter;
+import com.youyu.cotenant.jwt.JWTSmsFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -31,6 +32,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
+    public JWTSmsFilter jwtSmsFilter() throws Exception{
+        return new JWTSmsFilter("/login/sms",authenticationManager());
+    }
+
+    @Bean
     public JWTAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         return new JWTAuthenticationFilter();
     }
@@ -45,13 +51,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()//对请求进行认证
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.POST, "/login", "/user/register").permitAll()//login的POST请求放行
+                .antMatchers(HttpMethod.POST, "/login","/login/sms", "/user/register").permitAll()//login的POST请求放行
                 .antMatchers(HttpMethod.GET, "/health", "/sms/send","/qiniu/token").permitAll()
                 .antMatchers("/group/list","/group/**/detail","/sys/update","/user/info").permitAll()
                 .anyRequest().authenticated()//所有请求需要身份认证
                 .and()//
                 //添加一个过滤器 所有访问/login的请求交给JWTLoginFilter
                 .addFilterBefore(jwtLoginFilter(), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtSmsFilter(),UsernamePasswordAuthenticationFilter.class)
                 //添加一个过滤器验证其他请求的Token是否合法
                 .addFilterBefore(jwtAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
                 .headers().cacheControl();//禁用缓存

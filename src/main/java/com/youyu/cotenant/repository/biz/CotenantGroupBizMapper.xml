@@ -77,12 +77,14 @@
         select
         cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail,cg.address_longitude,cg.address_latitude,cui.nick_name
         as
-        leader,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time from cotenant_group cg
+        leader,cc.college_name as college,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time from cotenant_group cg
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
+        left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+        left join cotenant_college cc on cc.id = cuc.cotenant_college_id
         where cgu.status = 10 and cgu.role=1
         <if test="groupQueryInVM != null and groupQueryInVM.college != null">
-            and cui.college = #{groupQueryInVM.college}
+            and cc.college_name like "%"#{groupQueryInVM.college}"%"
         </if>
         <if test="groupQueryInVM != null and groupQueryInVM.cotenantType != null">
             and cg.cotenant_type = #{groupQueryInVM.cotenantType}

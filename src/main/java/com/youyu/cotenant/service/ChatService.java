@@ -22,11 +22,14 @@ import io.goeasy.publish.PublishListener;
 import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.encoder.org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+
+import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 
 @Service
 @Slf4j
@@ -168,6 +171,14 @@ public class ChatService {
                 chatMessageVM.setContent(content);
                 chatMessageVM.setSendTime(LocalDateTime.now());
                 mRedisUtils.lRightPush(CotenantConstants.CHAT_RECEIVE_KEY + channel, chatMessageVM);
+                //写入未读消息数缓存
+                int unreadCount = org.apache.commons.lang3.math.NumberUtils.INTEGER_ONE;
+                String unreadCountStr = mRedisUtils.getCache(UNREAD_MSG_COUNT + receiveUserId);
+                if (StringUtils.isNotBlank(unreadCountStr)) {
+                    unreadCount = Integer.valueOf(unreadCountStr);
+                    unreadCount++;
+                }
+                mRedisUtils.putCache(UNREAD_MSG_COUNT + receiveUserId, String.valueOf(unreadCount));
             }
 
             @Override

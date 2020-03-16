@@ -29,7 +29,7 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static com.youyu.cotenant.common.CotenantConstants.CODE_CACHE;
-import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MESSAGE_KEY;
+import static com.youyu.cotenant.common.CotenantConstants.UNREAD_GROUP_KEY;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 import static com.youyu.cotenant.common.CotenantConstants.USER_STATUS.NOT_LOGIN;
 
@@ -62,6 +62,9 @@ public class UserService {
     private ObjectMapper objectMapper;
 
     @Autowired
+    private SmsService smsService;
+
+    @Autowired
     private RedisUtils redisUtils;
 
     public CotenantUser selectUserByUserName(String mobile) {
@@ -81,17 +84,23 @@ public class UserService {
         String mobile = userRegisterInVM.getMobile();
         String code = userRegisterInVM.getCode();
         String password = userRegisterInVM.getPassword();
-        String verificationCode = redisUtils.getCache(CODE_CACHE + mobile);
         if (selectUserByUserName(mobile) != null) {
             throw new BizException(ResponseResult.fail(ResultCode.USER_EXISZTS));
         }
-        if (!StringUtils.equalsIgnoreCase(verificationCode, code)) {
+        if (!smsService.verifyCode(mobile, code)) {
             throw new BizException(ResponseResult.fail(ResultCode.SMS_CODE_ERROR));
         }
         CotenantUser cotenantUser = userRegisterInVM.buildCotenantUser();
         cotenantUser.setId(GeneratorID.getId());
         cotenantUser.setPassword(passwordEncoder.encode(password));
         return cotenantUserMapper.insertSelective(cotenantUser);
+    }
+
+
+    public void insertUser(CotenantUser cotenantUser){
+        cotenantUser.setId(GeneratorID.getId());
+        cotenantUser.setEnabled(true);
+        cotenantUserMapper.insertSelective(cotenantUser);
     }
 
     /**
@@ -108,7 +117,7 @@ public class UserService {
         }
         String mobile = cotenantUser.getMobile();
         Long id = cotenantUser.getId();
-        String unreadCount = redisUtils.getCache(UNREAD_MESSAGE_KEY + id);
+        String unreadCount = redisUtils.getCache(UNREAD_GROUP_KEY + id);
         String unreadMsgCount = redisUtils.getCache(UNREAD_MSG_COUNT + id);
         userOutVM.setId(String.valueOf(id));
         userOutVM.setMobile(mobile);

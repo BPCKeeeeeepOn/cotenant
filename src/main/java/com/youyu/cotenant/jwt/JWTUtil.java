@@ -1,19 +1,28 @@
 package com.youyu.cotenant.jwt;
 
 
+import com.youyu.cotenant.utils.RedisUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
+import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+@Slf4j
+@Component
 public class JWTUtil {
 
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     /**
      * 过期时间,单位毫秒

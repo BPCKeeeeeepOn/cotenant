@@ -4,7 +4,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.common.ResultCode;
 import com.youyu.cotenant.entity.CotenantUser;
-import com.youyu.cotenant.security.CustomAuthenticationProvider;
+import com.youyu.cotenant.security.CustomSmsAuthenticationProvider;
+import com.youyu.cotenant.service.SmsService;
 import com.youyu.cotenant.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -26,15 +27,15 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
-public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
+public class JWTSmsFilter extends AbstractAuthenticationProcessingFilter {
 
     @Autowired
     private RedisUtils redisUtils;
 
     @Autowired
-    private CustomAuthenticationProvider customAuthenticationProvider;
+    private CustomSmsAuthenticationProvider customSmsAuthenticationProvider;
 
-    public JWTLoginFilter(String url, AuthenticationManager authenticationManager) {
+    public JWTSmsFilter(String url, AuthenticationManager authenticationManager) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authenticationManager);
     }
@@ -45,13 +46,13 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         CotenantUser user = new ObjectMapper().readValue(httpServletRequest.getInputStream(), CotenantUser.class);
         Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
         authSet.add(new SimpleGrantedAuthority("1"));
-        //返回一个验证令牌
-        return customAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(
+        UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken =
+                new UsernamePasswordAuthenticationToken(
                         user.getMobile(),
                         user.getPassword(),
-                        authSet
-                )
-        );
+                        authSet);
+        //返回一个验证令牌
+        return customSmsAuthenticationProvider.authenticate(usernamePasswordAuthenticationToken);
     }
 
     /**
@@ -73,7 +74,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         response.setCharacterEncoding("UTF-8");
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
 
-        response.getWriter().write(new ObjectMapper().writeValueAsString(ResponseResult.fail(ResultCode.USERNAME_OR_PWD_ERROR)));
+        response.getWriter().write(new ObjectMapper().writeValueAsString(ResponseResult.fail(ResultCode.SMS_CODE_ERROR)));
     }
 
     /**

@@ -23,7 +23,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
-import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MESSAGE_KEY;
+import static com.youyu.cotenant.common.CotenantConstants.UNREAD_GROUP_KEY;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 
 @Service
@@ -170,7 +170,7 @@ public class PersonalService {
         Long userId = currentUserUtils.getCurrUserId();
         String key;
         if (CotenantConstants.unreadActionType.MESSAGE.getCode() == actionType) {
-            key = UNREAD_MESSAGE_KEY + userId;
+            key = UNREAD_GROUP_KEY + userId;
         } else {
             key = UNREAD_MSG_COUNT + userId;
         }

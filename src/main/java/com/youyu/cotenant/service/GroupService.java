@@ -30,7 +30,7 @@ import static com.youyu.cotenant.common.CotenantConstants.EXAMINE_STATUS.PASS;
 import static com.youyu.cotenant.common.CotenantConstants.EXAMINE_STATUS.PASS_DEFAULT_STATUS;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_ROLE.LEADER;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_ROLE.MEMBER;
-import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MESSAGE_KEY;
+import static com.youyu.cotenant.common.CotenantConstants.UNREAD_GROUP_KEY;
 import static com.youyu.cotenant.common.ResultCode.USER_NO_GROUP;
 import static com.youyu.cotenant.config.MyBatisConfig.COTENTANT_TRANSACTION_MANAGER;
 
@@ -147,12 +147,12 @@ public class GroupService {
         example.createCriteria().andCotenantGroupIdEqualTo(id).andRoleEqualTo(LEADER);
         Long leaderUserId = cotenantGroupUserMapper.selectByExample(example).get(NumberUtils.INTEGER_ZERO).getCotenantUserId();
         //利用缓存写入未读消息
-        String unreadCountStr = redisUtils.getCache(UNREAD_MESSAGE_KEY + leaderUserId);
+        String unreadCountStr = redisUtils.getCache(UNREAD_GROUP_KEY + leaderUserId);
         if (StringUtils.isNotBlank(unreadCountStr)) {
             unreadCount = Integer.valueOf(unreadCountStr);
             unreadCount++;
         }
-        redisUtils.putCache(UNREAD_MESSAGE_KEY + leaderUserId, String.valueOf(unreadCount));
+        redisUtils.putCache(UNREAD_GROUP_KEY + leaderUserId, String.valueOf(unreadCount));
         //加入租房团
         CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
         cotenantGroupUser.setId(GeneratorID.getId());

@@ -24,7 +24,7 @@ public interface CotenantConstants {
         int PASS_STATUS = 10; //审核通过
         int CANCEL_STATUS = 20; //审核拒绝
         int NOT_USER_STATUS = 30; //未补全信息
-        int NOT_LOGIN = 40;
+        int NOT_LOGIN = 40;//未登录
     }
 
     /*
@@ -78,7 +78,7 @@ public interface CotenantConstants {
         }
     }
 
-    String UNREAD_MESSAGE_KEY = "unread_message_key_";
+    String UNREAD_GROUP_KEY = "unread_message_key_";
 
     String UNREAD_MSG_COUNT = "unread_msg_count";
 
