@@ -80,12 +80,12 @@ public enum ResultCode {
     /**
      * 已参加过租房团
      */
-    EXIST_COTENANT_GROUP(100030, "已加入租房团或已建团"),
+    EXIST_COTENANT_GROUP(100030, "抱歉，您已加入租房团或已建团"),
 
     /**
      * 该租房团人数已满
      */
-    COTENANT_GROUP_FULL(100050, "该租房团人数已满"),
+    COTENANT_GROUP_FULL(100050, "抱歉，该租房团人数已满"),
 
     /**
      * 无权限操作

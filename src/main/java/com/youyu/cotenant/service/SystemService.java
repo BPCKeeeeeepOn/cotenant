@@ -15,6 +15,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import static com.youyu.cotenant.common.CotenantConstants.DOWNLOAD_URL;
+
 @Service
 public class SystemService {
 
@@ -72,14 +74,9 @@ public class SystemService {
      */
     public Map<String, String> sysUpdate() {
         Map<String, String> map = new HashMap<>();
-        String flag;
-        if (StringUtils.isNotBlank(mRedisUtils.getCache(SYSTEM_UPDATE_KEY))) {
-            flag = "1";
-        } else {
-            flag = "0";
-        }
+        String flag = StringUtils.isNotBlank(mRedisUtils.getCache(SYSTEM_UPDATE_KEY)) ? "1" : "0";
         map.put("flag", flag);
-        map.put("download_url", "https://service.dcloud.net.cn/build/download/f4187b60-24af-11ea-b536-91ba8bd01347");
+        map.put("download_url", DOWNLOAD_URL);
         return map;
     }
 }

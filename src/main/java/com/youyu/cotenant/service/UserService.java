@@ -25,10 +25,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
 
-import static com.youyu.cotenant.common.CotenantConstants.CODE_CACHE;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_GROUP_KEY;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 import static com.youyu.cotenant.common.CotenantConstants.USER_STATUS.NOT_LOGIN;
@@ -97,10 +94,32 @@ public class UserService {
     }
 
 
-    public void insertUser(CotenantUser cotenantUser){
+    public void insertUser(CotenantUser cotenantUser) {
         cotenantUser.setId(GeneratorID.getId());
         cotenantUser.setEnabled(true);
         cotenantUserMapper.insertSelective(cotenantUser);
+    }
+
+    /**
+     * 重置密码
+     *
+     * @param userPasswordInVM
+     */
+    public void resetPassword(UserPasswordInVM userPasswordInVM) {
+        String mobile = userPasswordInVM.getMobile();
+        String code = userPasswordInVM.getCode();
+        String password = userPasswordInVM.getPassword();
+        CotenantUser cotenantUser = selectUserByUserName(mobile);
+        if (cotenantUser == null) {
+            throw new BizException(ResponseResult.fail(ResultCode.NOT_USER));
+        }
+
+        if (!smsService.verifyCode(mobile, code)) {
+            throw new BizException(ResponseResult.fail(ResultCode.SMS_CODE_ERROR));
+        }
+        cotenantUser.setPassword(passwordEncoder.encode(password));
+        cotenantUserMapper.updateByPrimaryKeySelective(cotenantUser);
+
     }
 
     /**
@@ -324,4 +343,5 @@ public class UserService {
         cotenantReportedProposal.setId(GeneratorID.getId());
         cotenantReportedProposalMapper.insertSelective(cotenantReportedProposal);
     }
+
 }

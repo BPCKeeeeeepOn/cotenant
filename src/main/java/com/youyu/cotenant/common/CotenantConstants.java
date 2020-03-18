@@ -87,4 +87,6 @@ public interface CotenantConstants {
      */
     String CHAT_RECEIVE_KEY = "chat_receive_key_";
 
+    String DOWNLOAD_URL = "https://service.dcloud.net.cn/build/download/f4187b60-24af-11ea-b536-91ba8bd01347";
+
 }
