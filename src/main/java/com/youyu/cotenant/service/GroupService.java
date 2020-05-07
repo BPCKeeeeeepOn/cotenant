@@ -15,7 +15,7 @@ import com.youyu.cotenant.repository.CotenantReportedViolationMapper;
 import com.youyu.cotenant.repository.biz.CotenantGroupBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
-import com.youyu.cotenant.web.rest.vm.group.*;
+import com.youyu.cotenant.web.vm.group.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;

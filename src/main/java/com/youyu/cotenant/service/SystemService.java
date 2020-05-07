@@ -1,10 +1,8 @@
 package com.youyu.cotenant.service;
 
-import com.youyu.cotenant.entity.CotenantCollegeExample;
-import com.youyu.cotenant.repository.CotenantCollegeMapper;
 import com.youyu.cotenant.repository.biz.CotenantCommonBizMapper;
 import com.youyu.cotenant.utils.RedisUtils;
-import com.youyu.cotenant.web.rest.vm.college.CollegeOutVM;
+import com.youyu.cotenant.web.vm.college.CollegeOutVM;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;

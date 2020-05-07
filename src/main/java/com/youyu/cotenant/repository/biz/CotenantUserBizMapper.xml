@@ -20,7 +20,7 @@
         <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
     </resultMap>
 
-    <resultMap id="UserCollegeResultMap" type="com.youyu.cotenant.web.rest.vm.user.UserCollegeOutVM">
+    <resultMap id="UserCollegeResultMap" type="com.youyu.cotenant.web.vm.user.UserCollegeOutVM">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="college_id" jdbcType="BIGINT" property="collegeId"/>
         <result column="college_name" jdbcType="VARCHAR" property="collegeName"/>
@@ -46,6 +46,16 @@
     	select cuc.id,cotenant_college_id as college_id,college_name,coordinate,cc.province,cc.city,start_time,end_time,is_default from cotenant_user_college cuc
     	left join cotenant_college cc on cc.id = cuc.cotenant_college_id
     	where cotenant_user_id = #{user_id} order by is_default desc
+    </select>
+
+    <select id="selectAllUser" resultMap="BaseResultMap">
+        select
+        	cui.user_id, cui.nick_name, cui.user_head, cui.user_name, cui.sex, cc.college_name as college, cui.degree, cuc.start_time, cuc.end_time,
+    		cui.id_card_url, cui.diploma_url, cui.interest, cui.status, cui.created_time, cui.updated_time, cui.is_deleted
+    		from cotenant_user_info cui
+    		left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+    		left join cotenant_college cc on cc.id = cuc.cotenant_college_id
+    		order by cui.created_time desc
     </select>
 
 </mapper>

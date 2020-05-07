@@ -15,7 +15,7 @@ import com.youyu.cotenant.repository.CotenantUserInfoMapper;
 import com.youyu.cotenant.repository.biz.CotenantChatMsgBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
-import com.youyu.cotenant.web.rest.vm.chat.*;
+import com.youyu.cotenant.web.vm.chat.*;
 import io.goeasy.GoEasy;
 import io.goeasy.publish.GoEasyError;
 import io.goeasy.publish.PublishListener;

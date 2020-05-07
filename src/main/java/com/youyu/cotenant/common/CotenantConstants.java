@@ -1,5 +1,9 @@
 package com.youyu.cotenant.common;
 
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
+
 public interface CotenantConstants {
     interface DATE_FORMATTER {
         String DATETIME_IN_CHINESE = "yyyy年MM月dd日 HH:mm:ss";
@@ -25,6 +29,7 @@ public interface CotenantConstants {
         int CANCEL_STATUS = 20; //审核拒绝
         int NOT_USER_STATUS = 30; //未补全信息
         int NOT_LOGIN = 40;//未登录
+        Set<Integer> userStatus = Stream.of(DEFAULT_STATUS, PASS_STATUS, CANCEL_STATUS).collect(Collectors.toSet());
     }
 
     /*
@@ -58,9 +63,13 @@ public interface CotenantConstants {
     租房状态
      */
     interface GROUP_STATUS {
-        int DEFAULT_STATUS = 0; //租房中
+        int DEFAULT_STATUS = 0; //审核中
+        int PASS_STATUS = 30; //审核通过 租房中
+        int UNPASS_STATUS = 40; //审核拒绝
         int COMPLETE_STATUS = 10; //完成
         int CANCEL_STATUS = 20; //解散(取消)
+        Set<Integer> groupStatus = Stream.of(PASS_STATUS, UNPASS_STATUS).collect(Collectors.toSet());
+
     }
 
     enum unreadActionType {

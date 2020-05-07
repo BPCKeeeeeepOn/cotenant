@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.youyu.cotenant.repository.biz.CotenantChatMsgBizMapper">
-    <resultMap id="ChatMessageVM" type="com.youyu.cotenant.web.rest.vm.chat.ChatMessageVM">
+    <resultMap id="ChatMessageVM" type="com.youyu.cotenant.web.vm.chat.ChatMessageVM">
         <result column="send_user_id" jdbcType="BIGINT" property="sendUserId"/>
         <result column="receive_user_id" jdbcType="BIGINT" property="receiveUserId"/>
         <result column="content" jdbcType="VARCHAR" property="content"/>
         <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
     </resultMap>
 
-    <resultMap id="ChatMessageListOutVM" type="com.youyu.cotenant.web.rest.vm.chat.ChatMessageListOutVM">
+    <resultMap id="ChatMessageListOutVM" type="com.youyu.cotenant.web.vm.chat.ChatMessageListOutVM">
         <result column="receive_user_id" jdbcType="BIGINT" property="receiveUserId"/>
         <result column="receive_user_name" jdbcType="VARCHAR" property="receiveUserName"/>
         <result column="receive_user_head" jdbcType="VARCHAR" property="receiveUserHead"/>

@@ -1,12 +1,16 @@
 package com.youyu.cotenant.entity;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class CotenantUserInfo implements Serializable {
 
+    @JsonSerialize(using = ToStringSerializer.class)
     @JsonProperty("user_id")
     private Long userId;
 

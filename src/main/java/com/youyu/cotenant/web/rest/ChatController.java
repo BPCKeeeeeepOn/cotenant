@@ -2,8 +2,8 @@ package com.youyu.cotenant.web.rest;
 
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.ChatService;
-import com.youyu.cotenant.web.rest.vm.chat.ChatMessageInVM;
-import com.youyu.cotenant.web.rest.vm.chat.CommunicationInVM;
+import com.youyu.cotenant.web.vm.chat.ChatMessageInVM;
+import com.youyu.cotenant.web.vm.chat.CommunicationInVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

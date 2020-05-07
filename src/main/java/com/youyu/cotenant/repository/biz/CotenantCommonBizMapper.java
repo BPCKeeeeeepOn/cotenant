@@ -1,6 +1,6 @@
 package com.youyu.cotenant.repository.biz;
 
-import com.youyu.cotenant.web.rest.vm.college.CollegeOutVM;
+import com.youyu.cotenant.web.vm.college.CollegeOutVM;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 

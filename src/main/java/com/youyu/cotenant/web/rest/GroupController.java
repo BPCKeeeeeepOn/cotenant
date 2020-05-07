@@ -3,8 +3,8 @@ package com.youyu.cotenant.web.rest;
 
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.GroupService;
-import com.youyu.cotenant.web.rest.vm.group.GroupInVM;
-import com.youyu.cotenant.web.rest.vm.group.GroupQueryInVM;
+import com.youyu.cotenant.web.vm.group.GroupInVM;
+import com.youyu.cotenant.web.vm.group.GroupQueryInVM;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 

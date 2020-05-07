@@ -14,7 +14,7 @@ import com.youyu.cotenant.repository.CotenantUserMapper;
 import com.youyu.cotenant.repository.biz.CotenantUserBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
-import com.youyu.cotenant.web.rest.vm.user.*;
+import com.youyu.cotenant.web.vm.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;

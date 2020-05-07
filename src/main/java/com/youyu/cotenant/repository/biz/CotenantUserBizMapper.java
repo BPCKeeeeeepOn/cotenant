@@ -1,7 +1,7 @@
 package com.youyu.cotenant.repository.biz;
 
 import com.youyu.cotenant.entity.CotenantUserInfo;
-import com.youyu.cotenant.web.rest.vm.user.UserCollegeOutVM;
+import com.youyu.cotenant.web.vm.user.UserCollegeOutVM;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -13,6 +13,7 @@ public interface CotenantUserBizMapper {
 
     /**
      * 查询用户详情信息
+     *
      * @param userId
      * @return
      */
@@ -21,9 +22,16 @@ public interface CotenantUserBizMapper {
 
     /**
      * 查询用户大学信息
+     *
      * @param userId
      * @return
      */
     List<UserCollegeOutVM> selectUserColleges(@Param("user_id") Long userId);
+
+    /**
+     * 查询所有学生
+     * @return
+     */
+    List<CotenantUserInfo> selectAllUser();
 
 }

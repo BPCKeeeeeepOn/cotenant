@@ -19,7 +19,7 @@
         <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
     </resultMap>
 
-    <resultMap id="GroupListOutVM" type="com.youyu.cotenant.web.rest.vm.group.GroupListOutVM">
+    <resultMap id="GroupListOutVM" type="com.youyu.cotenant.web.vm.group.GroupListOutVM">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
@@ -34,7 +34,7 @@
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
     </resultMap>
 
-    <resultMap id="GroupDetailOutVM" type="com.youyu.cotenant.web.rest.vm.group.GroupDetailOutVM">
+    <resultMap id="GroupDetailOutVM" type="com.youyu.cotenant.web.vm.group.GroupDetailOutVM">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
@@ -54,7 +54,7 @@
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
     </resultMap>
 
-    <resultMap id="CotenantListOutVM" type="com.youyu.cotenant.web.rest.vm.group.CotenantListOutVM">
+    <resultMap id="CotenantListOutVM" type="com.youyu.cotenant.web.vm.group.CotenantListOutVM">
         <result column="id" jdbcType="INTEGER" property="id"/>
         <result column="user_id" jdbcType="INTEGER" property="userId"/>
         <result column="role" jdbcType="INTEGER" property="role"/>
@@ -70,7 +70,7 @@
         leader,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time from cotenant_group cg
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
-        where cgu.role=#{role} and cg.status in (0,10)
+        where cgu.role=#{role} and cg.status in (0,30,40,10)
         and cgu.cotenant_user_id = #{userId}
         order by cg.created_time desc
     </select>
