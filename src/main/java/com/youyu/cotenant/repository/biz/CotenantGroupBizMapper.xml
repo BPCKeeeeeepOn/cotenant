@@ -34,8 +34,10 @@
         <result column="leader_id" jdbcType="VARCHAR" property="leaderId"/>
         <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount"/>
         <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType"/>
+        <result column="cotenant_description" jdbcType="VARCHAR" property="cotenantDescription"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="chamber_img_url" jdbcType="VARCHAR" property="chamberImgUrl"/>
+        <result column="chamber_description" jdbcType="VARCHAR" property="chamberDescription"/>
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
     </resultMap>
 
@@ -114,7 +116,7 @@
         cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail as address,cg.address_longitude,cg.address_latitude,cui.nick_name
         as
         leader,cc.college_name as
-        college,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time from cotenant_group cg
+        college,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time,cg.cotenant_description,cg.chamber_description from cotenant_group cg
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
         left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1

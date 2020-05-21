@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youyu.cotenant.repository.biz.CotenantOpinionBizMapper">
+
+    <resultMap id="OpinionOutVM" type="com.youyu.cotenant.web.vm.opinion.OpinionOutVM">
+        <result column="id" jdbcType="INTEGER" property="id"/>
+        <result column="user_id" jdbcType="INTEGER" property="userId"/>
+        <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="created_time" jdbcType="VARCHAR" property="createdTime"/>
+    </resultMap>
+
+    <select id="selectOpinionList" resultMap="OpinionOutVM">
+        select crp.id,crp.cotenant_user_id as user_id,cui.nick_name,crp.content,crp.created_time
+        from cotenant_reported_proposal crp
+        inner join cotenant_user_info cui
+        on crp.`cotenant_user_id` = cui.`user_id`
+        order by crp.created_time desc
+    </select>
+
+</mapper>

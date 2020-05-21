@@ -64,7 +64,7 @@ public interface CotenantConstants {
      */
     interface GROUP_STATUS {
         int DEFAULT_STATUS = 0; //审核中
-        int PASS_STATUS = 30; //审核通过 租房中
+        int PASS_STATUS = 30; //租房进行中
         int UNPASS_STATUS = 40; //审核拒绝
         int COMPLETE_STATUS = 10; //完成
         int CANCEL_STATUS = 20; //解散(取消)

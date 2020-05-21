@@ -37,10 +37,16 @@ public class GroupListOutVM {
     @JsonProperty("cotenant_type")
     private Integer cotenantType;
 
+    @JsonProperty("cotenant_description")
+    private String cotenantDescription;
+
     private Integer status;
 
     @JsonProperty("chamber_img_url")
     private String chamberImgUrl;
+
+    @JsonProperty("chamber_description")
+    private String chamberDescription;
 
     @JsonProperty("created_time")
     @JsonFormat(pattern = FULL_DATE_TIME)

@@ -10,7 +10,6 @@ import com.youyu.cotenant.repository.biz.CotenantGroupBizMapper;
 import com.youyu.cotenant.web.vm.group.CotenantListOutVM;
 import com.youyu.cotenant.web.vm.group.GroupDetailOutVM;
 import com.youyu.cotenant.web.vm.group.GroupListOutVM;
-import com.youyu.cotenant.web.vm.group.GroupQueryInVM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -15,7 +15,11 @@ import com.youyu.cotenant.repository.CotenantUserInfoMapper;
 import com.youyu.cotenant.repository.biz.CotenantChatMsgBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
-import com.youyu.cotenant.web.vm.chat.*;
+import com.youyu.cotenant.web.vm.chat.ChatMessageInVM;
+import com.youyu.cotenant.web.vm.chat.ChatMessageListOutVM;
+import com.youyu.cotenant.web.vm.chat.ChatMessageOutVM;
+import com.youyu.cotenant.web.vm.chat.ChatMessageVM;
+import com.youyu.cotenant.web.vm.chat.CommunicationInVM;
 import io.goeasy.GoEasy;
 import io.goeasy.publish.GoEasyError;
 import io.goeasy.publish.PublishListener;
@@ -98,6 +102,7 @@ public class ChatService {
         String channel = generateChannel(currUserId, receiveUserId);
         String key = CotenantConstants.CHAT_RECEIVE_KEY + channel;
         ChatMessageOutVM chatMessageOutVM = new ChatMessageOutVM();
+        List<Object> x1 = mRedisUtils.lGetObjectAll(key);
         List<ChatMessageVM> result = (List<ChatMessageVM>) (Object) mRedisUtils.lGetObjectAll(key);
         if (result.size() == 0) {
             result = cotenantChatMsgBizMapper.selectCotenantChatMsgList(channel);

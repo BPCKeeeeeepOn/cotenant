@@ -65,7 +65,7 @@ public enum ResultCode {
     /**
      * 个人信息状态审核
      */
-    USER_INFO_VERIFY(495, "您的审毕业证/学生证状态审核中"),
+    USER_INFO_VERIFY(495, "请补全证件信息或证件审核中"),
 
     /**
      * 服务器异常
