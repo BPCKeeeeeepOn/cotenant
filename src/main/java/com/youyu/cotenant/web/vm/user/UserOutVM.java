@@ -10,6 +10,12 @@ public class UserOutVM {
 
     private String mobile;
 
+    @JsonProperty("nick_name")
+    private String nickName;
+
+    @JsonProperty("user_head")
+    private String userHead;
+
     private Integer status;
 
     @JsonProperty("unread_group_count")

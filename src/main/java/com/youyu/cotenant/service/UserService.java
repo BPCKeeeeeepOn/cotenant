@@ -138,6 +138,12 @@ public class UserService {
         Long id = cotenantUser.getId();
         String unreadCount = redisUtils.getCache(UNREAD_GROUP_KEY + id);
         String unreadMsgCount = redisUtils.getCache(UNREAD_MSG_COUNT + id);
+        //查询用户昵称/头像
+        CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(id);
+        if (cotenantUserInfo != null) {
+            userOutVM.setNickName(cotenantUserInfo.getNickName());
+            userOutVM.setUserHead(cotenantUserInfo.getUserHead());
+        }
         userOutVM.setId(String.valueOf(id));
         userOutVM.setMobile(mobile);
         userOutVM.setStatus(selectUserStatus(id));
