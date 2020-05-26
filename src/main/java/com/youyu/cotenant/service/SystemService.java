@@ -54,7 +54,7 @@ public class SystemService {
      * @return
      */
     public List<CollegeOutVM> getCollege(String name) {
-        List<CollegeOutVM> list = cotenantCommonBizMapper.selectCollege(name);
+        List<CollegeOutVM> list = cotenantCommonBizMapper.selectCollege(name.trim());
         if (!CollectionUtils.isEmpty(list)) {
             CollegeOutVM collegeOutVM = new CollegeOutVM();
             collegeOutVM.setCollegeName("请选择");
