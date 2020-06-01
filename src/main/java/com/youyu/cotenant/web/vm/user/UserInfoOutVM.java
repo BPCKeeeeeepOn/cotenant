@@ -24,6 +24,8 @@ public class UserInfoOutVM {
 
     private Integer sex;
 
+    private Integer status;
+
     private String college;
 
     private String degree;
