@@ -16,6 +16,9 @@ public class UserOutVM {
     @JsonProperty("user_head")
     private String userHead;
 
+    @JsonProperty("user_type")
+    private Integer userType;
+
     private Integer status;
 
     @JsonProperty("unread_group_count")

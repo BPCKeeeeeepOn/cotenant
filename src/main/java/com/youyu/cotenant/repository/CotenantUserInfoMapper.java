@@ -4,9 +4,7 @@ import com.youyu.cotenant.entity.CotenantUserInfo;
 import com.youyu.cotenant.entity.CotenantUserInfoExample;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
-import org.springframework.stereotype.Repository;
 
-@Repository
 public interface CotenantUserInfoMapper {
     long countByExample(CotenantUserInfoExample example);
 

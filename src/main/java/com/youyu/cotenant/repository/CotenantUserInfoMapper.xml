@@ -14,6 +14,8 @@
     <result column="id_card_url" jdbcType="VARCHAR" property="idCardUrl" />
     <result column="diploma_url" jdbcType="VARCHAR" property="diplomaUrl" />
     <result column="interest" jdbcType="VARCHAR" property="interest" />
+    <result column="user_type" jdbcType="INTEGER" property="userType" />
+    <result column="id_number" jdbcType="VARCHAR" property="idNumber" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
@@ -79,7 +81,8 @@
   </sql>
   <sql id="Base_Column_List">
     user_id, nick_name, user_head, user_name, sex, college, degree, start_time, end_time, 
-    id_card_url, diploma_url, interest, status, created_time, updated_time, is_deleted
+    id_card_url, diploma_url, interest, user_type, id_number, status, created_time, updated_time, 
+    is_deleted
   </sql>
   <select id="selectByExample" parameterType="com.youyu.cotenant.entity.CotenantUserInfoExample" resultMap="BaseResultMap">
     select
@@ -116,14 +119,16 @@
       user_name, sex, college, 
       degree, start_time, end_time, 
       id_card_url, diploma_url, interest, 
-      status, created_time, updated_time, 
-      is_deleted)
+      user_type, id_number, status, 
+      created_time, updated_time, is_deleted
+      )
     values (#{userId,jdbcType=BIGINT}, #{nickName,jdbcType=VARCHAR}, #{userHead,jdbcType=VARCHAR}, 
       #{userName,jdbcType=VARCHAR}, #{sex,jdbcType=INTEGER}, #{college,jdbcType=VARCHAR}, 
       #{degree,jdbcType=VARCHAR}, #{startTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, 
       #{idCardUrl,jdbcType=VARCHAR}, #{diplomaUrl,jdbcType=VARCHAR}, #{interest,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, 
-      #{isDeleted,jdbcType=BIT})
+      #{userType,jdbcType=INTEGER}, #{idNumber,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, 
+      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.youyu.cotenant.entity.CotenantUserInfo">
     insert into cotenant_user_info
@@ -163,6 +168,12 @@
       </if>
       <if test="interest != null">
         interest,
+      </if>
+      <if test="userType != null">
+        user_type,
+      </if>
+      <if test="idNumber != null">
+        id_number,
       </if>
       <if test="status != null">
         status,
@@ -213,6 +224,12 @@
       </if>
       <if test="interest != null">
         #{interest,jdbcType=VARCHAR},
+      </if>
+      <if test="userType != null">
+        #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="idNumber != null">
+        #{idNumber,jdbcType=VARCHAR},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -273,6 +290,12 @@
       <if test="record.interest != null">
         interest = #{record.interest,jdbcType=VARCHAR},
       </if>
+      <if test="record.userType != null">
+        user_type = #{record.userType,jdbcType=INTEGER},
+      </if>
+      <if test="record.idNumber != null">
+        id_number = #{record.idNumber,jdbcType=VARCHAR},
+      </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
       </if>
@@ -304,6 +327,8 @@
       id_card_url = #{record.idCardUrl,jdbcType=VARCHAR},
       diploma_url = #{record.diplomaUrl,jdbcType=VARCHAR},
       interest = #{record.interest,jdbcType=VARCHAR},
+      user_type = #{record.userType,jdbcType=INTEGER},
+      id_number = #{record.idNumber,jdbcType=VARCHAR},
       status = #{record.status,jdbcType=INTEGER},
       created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       updated_time = #{record.updatedTime,jdbcType=TIMESTAMP},
@@ -348,6 +373,12 @@
       <if test="interest != null">
         interest = #{interest,jdbcType=VARCHAR},
       </if>
+      <if test="userType != null">
+        user_type = #{userType,jdbcType=INTEGER},
+      </if>
+      <if test="idNumber != null">
+        id_number = #{idNumber,jdbcType=VARCHAR},
+      </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
@@ -376,6 +407,8 @@
       id_card_url = #{idCardUrl,jdbcType=VARCHAR},
       diploma_url = #{diplomaUrl,jdbcType=VARCHAR},
       interest = #{interest,jdbcType=VARCHAR},
+      user_type = #{userType,jdbcType=INTEGER},
+      id_number = #{idNumber,jdbcType=VARCHAR},
       status = #{status,jdbcType=INTEGER},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP},

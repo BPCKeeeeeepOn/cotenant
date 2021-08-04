@@ -27,6 +27,9 @@
         <result column="district" jdbcType="VARCHAR" property="district"/>
         <result column="leader_id" jdbcType="VARCHAR" property="leaderId"/>
         <result column="leader" jdbcType="VARCHAR" property="leader"/>
+        <result column="house_price" jdbcType="VARCHAR" property="housePrice"/>
+        <result column="house_type" jdbcType="INTEGER" property="houseType"/>
+        <result column="leader" jdbcType="VARCHAR" property="leader"/>
         <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount"/>
         <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
@@ -60,6 +63,7 @@
         <result column="role" jdbcType="INTEGER" property="role"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="college" jdbcType="VARCHAR" property="college"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
         <result column="interest" jdbcType="VARCHAR" property="interest"/>
         <result column="sex" jdbcType="INTEGER" property="sex"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
@@ -67,7 +71,9 @@
 
     <select id="selectPersonalGroupList" resultMap="GroupListOutVM">
         select cg.id,cg.title,cg.province,cg.city,cg.district,cui.user_name as
-        leader,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time from cotenant_group cg
+        leader,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time,
+        cg.house_price,cg.house_type,cg.status
+        from cotenant_group cg
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
         where cgu.role=#{role} and cg.status in (0,30,40,10)
@@ -85,11 +91,11 @@
     </select>
 
     <select id="selectCotenantList" resultMap="CotenantListOutVM">
-          select cgu.id,cui.user_id,role,cui.nick_name,cc.college_name as college,cui.interest,cui.sex,cgu.status from cotenant_group_user cgu
+          select cgu.id,cui.user_id,role,cui.nick_name,cc.college_name as college,cuc.end_time,cui.interest,cui.sex,cgu.status from cotenant_group_user cgu
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
           left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
           left join cotenant_college cc on cc.id = cuc.cotenant_college_id
-          where cgu.cotenant_group_id = #{id} and cgu.role = 2 and (cgu.status = 0 or cgu.status = 10 or cgu.cotenant_user_id = #{userId})
+          where cgu.cotenant_group_id = #{id} and (cgu.status = 0 or cgu.status = 10 or cgu.cotenant_user_id = #{userId}) order by  cgu.role asc
     </select>
 
 </mapper>

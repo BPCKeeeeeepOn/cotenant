@@ -14,6 +14,8 @@
         <result column="id_card_url" jdbcType="VARCHAR" property="idCardUrl"/>
         <result column="diploma_url" jdbcType="VARCHAR" property="diplomaUrl"/>
         <result column="interest" jdbcType="VARCHAR" property="interest"/>
+        <result column="user_type" jdbcType="INTEGER" property="userType"/>
+        <result column="id_number" jdbcType="VARCHAR" property="idNumber"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
         <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime"/>
@@ -35,7 +37,7 @@
     <select id="selectUserDetail" resultMap="BaseResultMap">
         select
         	cui.user_id, cui.nick_name, cui.user_head, cui.user_name, cui.sex, cc.college_name as college, cui.degree, cuc.start_time, cuc.end_time,
-    		cui.id_card_url, cui.diploma_url, cui.interest, cui.status, cui.created_time, cui.updated_time, cui.is_deleted
+    		cui.id_card_url, cui.diploma_url, cui.interest, cui.status, cui.user_type,cui.id_number, cui.created_time, cui.updated_time, cui.is_deleted
     		from cotenant_user_info cui
     		left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
     		left join cotenant_college cc on cc.id = cuc.cotenant_college_id

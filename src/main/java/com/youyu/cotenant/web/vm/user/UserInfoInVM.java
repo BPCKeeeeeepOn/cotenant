@@ -18,11 +18,9 @@ import java.util.List;
 import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
-@ToString
 public class UserInfoInVM {
 
     @Size(max = 10, message = "昵称不能超过10个字符")
-    @NotBlank(message = "昵称不能为空")
     @JsonProperty("nick_name")
     private String nickName;
 
@@ -40,6 +38,12 @@ public class UserInfoInVM {
     private String coordinate;//学校坐标
 
     private String degree;
+
+    @JsonProperty("user_type")
+    private Integer userType;
+
+    @JsonProperty("id_number")
+    private String idNumber;
 
     @JsonProperty("start_time")
     @JsonFormat(pattern = FULL_DATE_TIME)
@@ -70,6 +74,8 @@ public class UserInfoInVM {
         cotenantUserInfo.setIdCardUrl(idCardUrl);
         cotenantUserInfo.setDiplomaUrl(diplomaUrl);
         cotenantUserInfo.setInterest(interest);
+        cotenantUserInfo.setUserType(userType);
+        cotenantUserInfo.setIdNumber(idNumber);
         return cotenantUserInfo;
     }
 

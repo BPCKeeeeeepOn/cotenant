@@ -72,7 +72,7 @@ public class SmsService {
             String result = response.getData();
             log.info("sendSms result info : {}", result);
             SmsMessage smsMessage = objectMapper.readValue(result, SmsMessage.class);
-            if (!"OK".equalsIgnoreCase(smsMessage.getCode())) {
+            if (!StringUtils.equalsIgnoreCase(smsMessage.getCode(), "OK")) {
                 throw new BizException(ResponseResult.fail(ResultCode.SEND_SMS_CODE_FAILED));
             }
             //如果消息发送成功

@@ -1,26 +1,15 @@
 package com.youyu.cotenant.entity;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
-import lombok.ToString;
-
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class CotenantUserInfo implements Serializable {
-
-    @JsonSerialize(using = ToStringSerializer.class)
-    @JsonProperty("user_id")
     private Long userId;
 
-    @JsonProperty("nick_name")
     private String nickName;
 
-    @JsonProperty("user_head")
     private String userHead;
 
-    @JsonProperty("user_name")
     private String userName;
 
     private Integer sex;
@@ -29,26 +18,24 @@ public class CotenantUserInfo implements Serializable {
 
     private String degree;
 
-    @JsonProperty("start_time")
     private LocalDateTime startTime;
 
-    @JsonProperty("end_time")
     private LocalDateTime endTime;
 
-    @JsonProperty("id_card_url")
     private String idCardUrl;
 
-    @JsonProperty("diploma_url")
     private String diplomaUrl;
 
     private String interest;
 
+    private Integer userType;
+
+    private String idNumber;
+
     private Integer status;
 
-    @JsonProperty("created_time")
     private LocalDateTime createdTime;
 
-    @JsonProperty("updated_time")
     private LocalDateTime updatedTime;
 
     private Boolean isDeleted;
@@ -71,20 +58,20 @@ public class CotenantUserInfo implements Serializable {
         this.nickName = nickName;
     }
 
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
     public String getUserHead() {
         return userHead;
     }
 
     public void setUserHead(String userHead) {
         this.userHead = userHead;
+    }
+
+    public String getUserName() {
+        return userName;
+    }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
     public Integer getSex() {
@@ -149,6 +136,22 @@ public class CotenantUserInfo implements Serializable {
 
     public void setInterest(String interest) {
         this.interest = interest;
+    }
+
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
     }
 
     public Integer getStatus() {

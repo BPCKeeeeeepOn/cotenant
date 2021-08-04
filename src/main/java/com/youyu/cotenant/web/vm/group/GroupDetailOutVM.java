@@ -4,14 +4,18 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
 import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GroupDetailOutVM {
 
     private String id;
@@ -55,6 +59,14 @@ public class GroupDetailOutVM {
     @JsonProperty("cotenant_type")
     private Integer cotenantType;
 
+    private String houseType;
+
+    private String toilteType;
+
+    private String kitchenType;
+
+    private BigDecimal housePrice;
+
     private Integer status;
 
     @JsonProperty("cotenant_description")
@@ -73,6 +85,7 @@ public class GroupDetailOutVM {
     private String chamberVideoUrl;
 
     @JsonProperty("created_time")
+    @JsonFormat(pattern = FULL_DATE_TIME)
     private LocalDateTime createdTime;
 
     @JsonProperty("cotenant_list")

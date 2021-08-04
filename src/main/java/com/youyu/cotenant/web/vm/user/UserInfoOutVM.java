@@ -1,6 +1,8 @@
 package com.youyu.cotenant.web.vm.user;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -8,8 +10,8 @@ import java.time.LocalDateTime;
 @Data
 public class UserInfoOutVM {
 
-    @JsonProperty("user_id")
-    private String userId;
+    @JsonSerialize(using = ToStringSerializer.class)
+    private Long userId;
 
     private String mobile;
 
@@ -43,6 +45,12 @@ public class UserInfoOutVM {
     private String diplomaUrl;
 
     private String interest;
+
+    @JsonProperty("user_type")
+    private Integer userType;
+
+    @JsonProperty("id_number")
+    private String idNumber;
 
     @JsonProperty("created_time")
     private LocalDateTime createdTime;

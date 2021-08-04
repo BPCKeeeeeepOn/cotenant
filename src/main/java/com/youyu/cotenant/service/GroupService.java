@@ -16,6 +16,7 @@ import com.youyu.cotenant.repository.biz.CotenantGroupBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
 import com.youyu.cotenant.web.vm.group.*;
+import com.youyu.cotenant.web.vm.user.UserOutVM;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +26,16 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Objects;
 
+import static com.youyu.cotenant.common.CotenantConstants.COTENANT_TYPE.TYPE_1;
+import static com.youyu.cotenant.common.CotenantConstants.COTENANT_TYPE.TYPE_2;
 import static com.youyu.cotenant.common.CotenantConstants.EXAMINE_STATUS.PASS;
 import static com.youyu.cotenant.common.CotenantConstants.EXAMINE_STATUS.PASS_DEFAULT_STATUS;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_ROLE.LEADER;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_ROLE.MEMBER;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_GROUP_KEY;
+import static com.youyu.cotenant.common.CotenantConstants.USER_TYPE.PERSONAL;
 import static com.youyu.cotenant.common.ResultCode.USER_NO_GROUP;
 import static com.youyu.cotenant.config.MyBatisConfig.COTENTANT_TRANSACTION_MANAGER;
 
@@ -111,7 +116,7 @@ public class GroupService {
     public void join(Long id) {
         int unreadCount = NumberUtils.INTEGER_ONE;
         CotenantGroup cotenantGroup = cotenantGroupMapper.selectByPrimaryKey(id);
-        if (cotenantGroup == null) {
+        if (Objects.isNull(cotenantGroup)) {
             //没有该租房团
             throw new BizException(ResponseResult.fail(ResultCode.NO_COTENANT_GROUP));
         }
@@ -138,9 +143,11 @@ public class GroupService {
         long count = cotenantGroupUserMapper.countByExample(example);
         Integer cotenantCount = cotenantGroup.getCotenantCount();
         //nInteger cotenantType = cotenantGroup.getCotenantType();
-        if (count == cotenantCount) {
-            //该租房团入驻人数已满
-            throw new BizException(ResponseResult.fail(ResultCode.COTENANT_GROUP_FULL));
+        if (Objects.equals(cotenantGroup.getCotenantType(), TYPE_1) || Objects.equals(cotenantGroup.getCotenantType(), TYPE_2)) {
+            if (count >= cotenantCount - 1) {
+                //该租房团入驻人数已满
+                throw new BizException(ResponseResult.fail(ResultCode.COTENANT_GROUP_FULL));
+            }
         }
         //查询该合租团团长id
         example.clear();
@@ -164,14 +171,16 @@ public class GroupService {
     }
 
     /**
-     * 发布预租/合租团
+     * 发布房源
      *
      * @param groupInVM
      */
     @Transactional(COTENTANT_TRANSACTION_MANAGER)
     public void publish(GroupInVM groupInVM) {
+
         Long userId = currentUserUtils.getCurrUserId();
         Integer userStatus = userService.selectUserStatus(userId);
+        UserOutVM info = userService.info();
         if (userStatus == CotenantConstants.USER_STATUS.NOT_USER_STATUS) {
             //未补全用户信息
             throw new BizException(ResponseResult.fail(ResultCode.USER_INFO_ERROR));
@@ -184,9 +193,11 @@ public class GroupService {
             //审核未通过
             throw new BizException(ResponseResult.fail(ResultCode.UNPASS_USER));
         }
-        if (isCotenant(userId)) {
-            //参加过合租团
-            throw new BizException(ResponseResult.fail(ResultCode.EXIST_COTENANT_GROUP));
+        if (Objects.equals(PERSONAL, info.getUserType())) {
+            if (isCotenant(userId)) {
+                //参加过合租团
+                throw new BizException(ResponseResult.fail(ResultCode.EXIST_COTENANT_GROUP));
+            }
         }
         CotenantGroup cotenantGroup = groupInVM.buildCotenantGroup();
         Long id = GeneratorID.getId();

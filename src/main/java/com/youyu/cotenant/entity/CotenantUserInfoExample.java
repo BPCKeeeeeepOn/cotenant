@@ -905,6 +905,136 @@ public class CotenantUserInfoExample {
             return (Criteria) this;
         }
 
+        public Criteria andUserTypeIsNull() {
+            addCriterion("user_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeIsNotNull() {
+            addCriterion("user_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeEqualTo(Integer value) {
+            addCriterion("user_type =", value, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeNotEqualTo(Integer value) {
+            addCriterion("user_type <>", value, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeGreaterThan(Integer value) {
+            addCriterion("user_type >", value, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("user_type >=", value, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeLessThan(Integer value) {
+            addCriterion("user_type <", value, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("user_type <=", value, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeIn(List<Integer> values) {
+            addCriterion("user_type in", values, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeNotIn(List<Integer> values) {
+            addCriterion("user_type not in", values, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeBetween(Integer value1, Integer value2) {
+            addCriterion("user_type between", value1, value2, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andUserTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("user_type not between", value1, value2, "userType");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberIsNull() {
+            addCriterion("id_number is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberIsNotNull() {
+            addCriterion("id_number is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberEqualTo(String value) {
+            addCriterion("id_number =", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberNotEqualTo(String value) {
+            addCriterion("id_number <>", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberGreaterThan(String value) {
+            addCriterion("id_number >", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberGreaterThanOrEqualTo(String value) {
+            addCriterion("id_number >=", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberLessThan(String value) {
+            addCriterion("id_number <", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberLessThanOrEqualTo(String value) {
+            addCriterion("id_number <=", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberLike(String value) {
+            addCriterion("id_number like", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberNotLike(String value) {
+            addCriterion("id_number not like", value, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberIn(List<String> values) {
+            addCriterion("id_number in", values, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberNotIn(List<String> values) {
+            addCriterion("id_number not in", values, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberBetween(String value1, String value2) {
+            addCriterion("id_number between", value1, value2, "idNumber");
+            return (Criteria) this;
+        }
+
+        public Criteria andIdNumberNotBetween(String value1, String value2) {
+            addCriterion("id_number not between", value1, value2, "idNumber");
+            return (Criteria) this;
+        }
+
         public Criteria andStatusIsNull() {
             addCriterion("status is null");
             return (Criteria) this;
