@@ -28,10 +28,11 @@ import net.logstash.logback.encoder.org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.*;
 
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 
@@ -213,6 +214,14 @@ public class ChatService {
         //查询出所有聊天信息
         List<String> channelList = cotenantChatMsgBizMapper.selectChatList();
         channelList.stream().forEach(channel -> systemService.delCache("chat_receive_key_" + channel));
+    }
+
+    public static void main(String[] args) {
+        Map<String, Object> x1 = new HashMap<>();
+        Map<String, Object> x5 = new LinkedHashMap<>();
+        Map<String, Object> x2 = new Hashtable<>();
+        Set<String> x3 = new HashSet<>();
+        List<String> x4 = new LinkedList<>();
     }
 
 }

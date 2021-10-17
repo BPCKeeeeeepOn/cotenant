@@ -1,5 +1,6 @@
 package com.youyu.cotenant.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -842,6 +843,276 @@ public class CotenantGroupExample {
 
         public Criteria andCotenantTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("cotenant_type not between", value1, value2, "cotenantType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeIsNull() {
+            addCriterion("house_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeIsNotNull() {
+            addCriterion("house_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeEqualTo(String value) {
+            addCriterion("house_type =", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotEqualTo(String value) {
+            addCriterion("house_type <>", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeGreaterThan(String value) {
+            addCriterion("house_type >", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("house_type >=", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeLessThan(String value) {
+            addCriterion("house_type <", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeLessThanOrEqualTo(String value) {
+            addCriterion("house_type <=", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeLike(String value) {
+            addCriterion("house_type like", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotLike(String value) {
+            addCriterion("house_type not like", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeIn(List<String> values) {
+            addCriterion("house_type in", values, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotIn(List<String> values) {
+            addCriterion("house_type not in", values, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeBetween(String value1, String value2) {
+            addCriterion("house_type between", value1, value2, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotBetween(String value1, String value2) {
+            addCriterion("house_type not between", value1, value2, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeIsNull() {
+            addCriterion("toilte_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeIsNotNull() {
+            addCriterion("toilte_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeEqualTo(String value) {
+            addCriterion("toilte_type =", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotEqualTo(String value) {
+            addCriterion("toilte_type <>", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeGreaterThan(String value) {
+            addCriterion("toilte_type >", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("toilte_type >=", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeLessThan(String value) {
+            addCriterion("toilte_type <", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeLessThanOrEqualTo(String value) {
+            addCriterion("toilte_type <=", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeLike(String value) {
+            addCriterion("toilte_type like", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotLike(String value) {
+            addCriterion("toilte_type not like", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeIn(List<String> values) {
+            addCriterion("toilte_type in", values, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotIn(List<String> values) {
+            addCriterion("toilte_type not in", values, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeBetween(String value1, String value2) {
+            addCriterion("toilte_type between", value1, value2, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotBetween(String value1, String value2) {
+            addCriterion("toilte_type not between", value1, value2, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeIsNull() {
+            addCriterion("kitchen_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeIsNotNull() {
+            addCriterion("kitchen_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeEqualTo(String value) {
+            addCriterion("kitchen_type =", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotEqualTo(String value) {
+            addCriterion("kitchen_type <>", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeGreaterThan(String value) {
+            addCriterion("kitchen_type >", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("kitchen_type >=", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeLessThan(String value) {
+            addCriterion("kitchen_type <", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeLessThanOrEqualTo(String value) {
+            addCriterion("kitchen_type <=", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeLike(String value) {
+            addCriterion("kitchen_type like", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotLike(String value) {
+            addCriterion("kitchen_type not like", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeIn(List<String> values) {
+            addCriterion("kitchen_type in", values, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotIn(List<String> values) {
+            addCriterion("kitchen_type not in", values, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeBetween(String value1, String value2) {
+            addCriterion("kitchen_type between", value1, value2, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotBetween(String value1, String value2) {
+            addCriterion("kitchen_type not between", value1, value2, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceIsNull() {
+            addCriterion("house_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceIsNotNull() {
+            addCriterion("house_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceEqualTo(BigDecimal value) {
+            addCriterion("house_price =", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceNotEqualTo(BigDecimal value) {
+            addCriterion("house_price <>", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceGreaterThan(BigDecimal value) {
+            addCriterion("house_price >", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("house_price >=", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceLessThan(BigDecimal value) {
+            addCriterion("house_price <", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("house_price <=", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceIn(List<BigDecimal> values) {
+            addCriterion("house_price in", values, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceNotIn(List<BigDecimal> values) {
+            addCriterion("house_price not in", values, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("house_price between", value1, value2, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("house_price not between", value1, value2, "housePrice");
             return (Criteria) this;
         }
 

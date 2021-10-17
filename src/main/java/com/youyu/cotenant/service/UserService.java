@@ -18,6 +18,7 @@ import com.youyu.cotenant.web.vm.user.*;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -25,10 +26,13 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_GROUP_KEY;
 import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 import static com.youyu.cotenant.common.CotenantConstants.USER_STATUS.NOT_LOGIN;
+import static com.youyu.cotenant.common.CotenantConstants.USER_TYPE.LANDLORD;
+import static com.youyu.cotenant.common.CotenantConstants.USER_TYPE.PERSONAL;
 
 @Service
 @Slf4j
@@ -140,11 +144,15 @@ public class UserService {
         String unreadMsgCount = redisUtils.getCache(UNREAD_MSG_COUNT + id);
         //查询用户昵称/头像
         CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(id);
-        if (cotenantUserInfo != null) {
-            userOutVM.setNickName(cotenantUserInfo.getNickName());
-            userOutVM.setUserHead(cotenantUserInfo.getUserHead());
+
+        if (Objects.isNull(cotenantUserInfo)) {
+            userOutVM.setStatus(NOT_LOGIN);
+            return userOutVM;
         }
+        userOutVM.setNickName(cotenantUserInfo.getNickName());
+        userOutVM.setUserHead(cotenantUserInfo.getUserHead());
         userOutVM.setId(String.valueOf(id));
+        userOutVM.setUserType(cotenantUserInfo.getUserType());
         userOutVM.setMobile(mobile);
         userOutVM.setStatus(selectUserStatus(id));
         userOutVM.setUnreadGroupCount(StringUtils.isBlank(unreadCount) ? NumberUtils.INTEGER_ZERO : Integer.valueOf(unreadCount));
@@ -162,14 +170,14 @@ public class UserService {
         Long userId = cotenantUser.getId();
         String mobile = cotenantUser.getMobile();
         UserInfoOutVM userInfoOutVM = new UserInfoOutVM();
+
         CotenantUserInfo cotenantUserInfo = cotenantUserBizMapper.selectUserDetail(userId);
         if (cotenantUserInfo == null) {
             //返回提示该用户补全信息
             throw new BizException(ResponseResult.fail(ResultCode.USER_INFO_ERROR));
         }
         try {
-            String userStr = objectMapper.writeValueAsString(cotenantUserInfo);
-            userInfoOutVM = objectMapper.readValue(userStr, UserInfoOutVM.class);
+            BeanUtils.copyProperties(cotenantUserInfo, userInfoOutVM);
             userInfoOutVM.setMobile(mobile);
         } catch (Exception e) {
             log.error("detail user info failed:", e.getMessage(), e);
@@ -193,12 +201,21 @@ public class UserService {
         if (cotenantUserInfo == null) {
             cotenantUserInfo = userInfoInVM.buildCotenantUser();
             cotenantUserInfo.setUserId(userId);
-            cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.DEFAULT_STATUS);
+            switch (cotenantUserInfo.getUserType()) {
+                case PERSONAL:
+                    cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.PASS_STATUS);
+                case LANDLORD:
+                    cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.DEFAULT_STATUS);
+                default:
+                    cotenantUserInfo.setStatus(CotenantConstants.USER_STATUS.DEFAULT_STATUS);
+            }
             cotenantUserInfoMapper.insertSelective(cotenantUserInfo);
             //首次保存学校信息
-            CotenantUserCollege cotenantUserCollege = userInfoInVM.buildCotenantUserCollege();
-            cotenantUserCollege.setCotenantUserId(userId);
-            cotenantUserCollegeMapper.insertSelective(cotenantUserCollege);
+            if (Objects.equals(userInfoInVM.getUserType(), PERSONAL)) {
+                CotenantUserCollege cotenantUserCollege = userInfoInVM.buildCotenantUserCollege();
+                cotenantUserCollege.setCotenantUserId(userId);
+                cotenantUserCollegeMapper.insertSelective(cotenantUserCollege);
+            }
         } else {
             CotenantUserInfo ins = userInfoInVM.buildCotenantUser();
             Integer status = cotenantUserInfo.getStatus();

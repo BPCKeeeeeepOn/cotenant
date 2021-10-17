@@ -57,7 +57,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .authorizeRequests()//对请求进行认证
                 .antMatchers(HttpMethod.OPTIONS).permitAll()
-                .antMatchers(HttpMethod.POST, "/login", "/login/sms", "/login/cms", "/user/register").permitAll()//login的POST请求放行
+                .antMatchers(HttpMethod.POST, "/login", "/login/sms", "/login/cms", "/user/register","/ma/**").permitAll()//login的POST请求放行
                 .antMatchers(HttpMethod.GET, "/health", "/sms/send", "/qiniu/token").permitAll()
                 .antMatchers("/group/list", "/group/**/detail", "/sys/update", "/user/info", "/user/reset/password").permitAll()
                 .anyRequest().authenticated()//所有请求需要身份认证

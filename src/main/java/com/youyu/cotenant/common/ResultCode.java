@@ -116,7 +116,9 @@ public enum ResultCode {
 
     USER_COLLEGE_MUST_ONE(100600,"学校必须保留一条"),
 
-    USER_COLLEGE_MUST_IS_DEFAULT(100700,"请设置默认学校");
+    USER_COLLEGE_MUST_IS_DEFAULT(100700,"请设置默认学校"),
+
+    ADDRESS_LOCATION_NOT_FOUND(100900,"请设置默认学校");
 
 
     ResultCode(Integer code, String msg) {

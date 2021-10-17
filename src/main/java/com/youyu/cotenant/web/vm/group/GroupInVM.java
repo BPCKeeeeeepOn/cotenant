@@ -1,15 +1,20 @@
 package com.youyu.cotenant.web.vm.group;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.youyu.cotenant.entity.CotenantGroup;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import java.math.BigDecimal;
+
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_STATUS.DEFAULT_STATUS;
 
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GroupInVM {
 
     private String province;
@@ -18,27 +23,29 @@ public class GroupInVM {
 
     private String district;
 
-    @JsonProperty("address_name")
     private String addressName;
 
-    @JsonProperty("address_detail")
     private String addressDetail;
 
-    @JsonProperty("address_latitude")
     private String addressLatitude;
 
-    @JsonProperty("address_longitude")
     private String addressLongitude;
 
     @Size(max = 20, message = "标题不能超过20个字符")
     @NotBlank(message = "标题不能为空")
     private String title;
 
-    @JsonProperty("cotenant_count")
     private Integer cotenantCount;
 
-    @JsonProperty("cotenant_type")
     private Integer cotenantType;
+
+    private String houseType;
+
+    private String toilteType;
+
+    private String kitchenType;
+
+    private BigDecimal housePrice;
 
     private Integer status;
 
@@ -69,6 +76,10 @@ public class GroupInVM {
         cotenantGroup.setTitle(title);
         cotenantGroup.setCotenantCount(cotenantCount);
         cotenantGroup.setCotenantType(cotenantType);
+        cotenantGroup.setHouseType(houseType);
+        cotenantGroup.setToilteType(toilteType);
+        cotenantGroup.setKitchenType(kitchenType);
+        cotenantGroup.setHousePrice(housePrice);
         cotenantGroup.setStatus(DEFAULT_STATUS);
         cotenantGroup.setCotenantDescription(cotenantDescription);
         cotenantGroup.setChamberImgUrl(chamberImgUrl);
@@ -76,6 +87,5 @@ public class GroupInVM {
         cotenantGroup.setChamberVideoUrl(chamberVideoUrl);
         return cotenantGroup;
     }
-
 
 }

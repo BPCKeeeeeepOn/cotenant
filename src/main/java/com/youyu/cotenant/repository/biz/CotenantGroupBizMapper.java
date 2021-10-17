@@ -23,9 +23,10 @@ public interface CotenantGroupBizMapper {
 
     /**
      * 后台查询租房列表
+     *
      * @return
      */
-    List<GroupListOutVM> selectManagerGroupList();
+    List<GroupListOutVM> selectManagerGroupList(@Param("state") Integer state);
 
 
     /**
@@ -38,6 +39,7 @@ public interface CotenantGroupBizMapper {
 
     /**
      * 后台查询租房详情
+     *
      * @param id
      * @return
      */
@@ -53,6 +55,7 @@ public interface CotenantGroupBizMapper {
 
     /**
      * 查询该团
+     *
      * @param groupId
      * @return
      */
@@ -60,9 +63,10 @@ public interface CotenantGroupBizMapper {
 
     /**
      * 查询是否加入该团
+     *
      * @param userId
      * @return
      */
-    Long selectJoinGroup(@Param("userId")Long userId);
+    Long selectJoinGroup(@Param("userId") Long userId);
 
 }

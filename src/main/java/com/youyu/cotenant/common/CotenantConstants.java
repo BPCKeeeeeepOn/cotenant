@@ -16,6 +16,8 @@ public interface CotenantConstants {
 
     String FULL_DATE_TIME = "yyyy-MM-dd HH:mm:ss";
 
+    String DATE_TIME = "yyyy-MM-dd";
+
     String DEFAULT_PASSWORD = "123456";
 
     String CODE_CACHE = "code_";
@@ -43,12 +45,23 @@ public interface CotenantConstants {
     }
 
     /*
+    用户类型
+     */
+    interface USER_TYPE {
+        int PERSONAL = 0;  //个人
+
+        int LANDLORD = 1;  //房东
+    }
+
+    /*
     租房类型
      */
     interface COTENANT_TYPE {
         int TYPE_1 = 1;  //预租房
 
         int TYPE_2 = 2;  //合租房
+
+        int TYPE_3 = 3;  //房东直租
     }
 
     /*

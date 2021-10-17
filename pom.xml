@@ -5,7 +5,7 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
-        <version>2.1.6.RELEASE</version>
+        <version>2.2.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.youyu</groupId>
@@ -58,7 +58,7 @@
         <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <optional>true</optional>
+            <version>1.18.20</version>
         </dependency>
 
         <dependency>
@@ -112,7 +112,7 @@
         <dependency>
             <groupId>com.qiniu</groupId>
             <artifactId>qiniu-java-sdk</artifactId>
-            <version>[7.2.0, 7.2.99]</version>
+            <version>7.2.23</version>
         </dependency>
         <dependency>
             <groupId>commons-io</groupId>
@@ -128,17 +128,45 @@
         <dependency>
             <groupId>io.goeasy</groupId>
             <artifactId>goeasy-sdk</artifactId>
-            <version>0.3.8</version>
+            <version>0.3.16</version>
+        </dependency>
+        <!--        小程序-->
+        <dependency>
+            <groupId>com.github.binarywang</groupId>
+            <artifactId>weixin-java-miniapp</artifactId>
+            <version>4.1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>commons-collections</groupId>
+            <artifactId>commons-collections</artifactId>
+            <version>3.2.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.eclipse.jetty</groupId>
+            <artifactId>jetty-util</artifactId>
+            <version>9.2.28.v20190418</version>
         </dependency>
     </dependencies>
 
     <repositories>
+        <!--        <repository>-->
+        <!--            <id>goeasy</id>-->
+        <!--            <name>goeasy</name>-->
+        <!--            <url>-->
+        <!--                http://maven.goeasy.io/content/repositories/releases/-->
+        <!--            </url>-->
+        <!--        </repository>-->
         <repository>
-            <id>goeasy</id>
-            <name>goeasy</name>
-            <url>
-                http://maven.goeasy.io/content/repositories/releases/
-            </url>
+            <id>public</id>
+            <name>aliyun nexus</name>
+            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+        </repository>
+        <repository>
+            <id>getui-nexus</id>
+            <url>http://mvn.gt.getui.com/nexus/content/repositories/releases/</url>
         </repository>
     </repositories>
 
@@ -147,6 +175,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
+                <version>2.2.4.RELEASE</version>
             </plugin>
         </plugins>
         <resources>

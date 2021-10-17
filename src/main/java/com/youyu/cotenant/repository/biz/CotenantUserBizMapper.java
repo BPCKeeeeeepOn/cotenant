@@ -30,8 +30,9 @@ public interface CotenantUserBizMapper {
 
     /**
      * 查询所有学生
+     *
      * @return
      */
-    List<CotenantUserInfo> selectAllUser();
+    List<CotenantUserInfo> selectAllUser(@Param("certificate") String certificate, @Param("state") Integer state);
 
 }

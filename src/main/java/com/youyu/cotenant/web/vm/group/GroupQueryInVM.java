@@ -5,6 +5,8 @@ import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import com.youyu.cotenant.web.vm.BaseVM;
 import lombok.Data;
 
+import java.math.BigDecimal;
+
 @Data
 public class GroupQueryInVM {
 
@@ -23,6 +25,20 @@ public class GroupQueryInVM {
 
     @JsonProperty("cotenant_count")
     private Integer cotenantCount;
+
+    private BigDecimal startPrice;
+
+    private BigDecimal endPrice;
+
+    private int timeSort;
+
+    private int priceSort;
+
+    private String houseType;
+
+    private String toilteType;
+
+    private String kitchenType;
 
     @JsonUnwrapped
     private BaseVM baseVM;

@@ -3,6 +3,7 @@ package com.youyu.cotenant.web.rest;
 
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.GroupService;
+import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.web.vm.group.GroupInVM;
 import com.youyu.cotenant.web.vm.group.GroupQueryInVM;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,9 @@ import java.util.Map;
 @RestController
 @RequestMapping("/group")
 public class GroupController {
+
+    @Autowired
+    private CurrentUserUtils currentUserUtils;
 
     @Autowired
     private GroupService groupService;
@@ -38,7 +42,8 @@ public class GroupController {
 
     @PostMapping("/publish")
     public ResponseResult publish(@Valid @RequestBody GroupInVM groupInVM) {
-        groupService.publish(groupInVM);
+        Long userId = currentUserUtils.getCurrUserId();
+        groupService.publish(groupInVM,userId);
         return ResponseResult.success();
     }
 

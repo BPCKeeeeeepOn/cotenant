@@ -23,13 +23,15 @@ public class UserManagerController {
 
     @GetMapping("/list")
     public ResponseResult list(@RequestParam(required = false, defaultValue = "" + DEFAULT_PAGE_OFFSET) int offset,
-                               @RequestParam(required = false, defaultValue = "" + DEFAULT_PAGE_SIZE) int limit) {
-        return ResponseResult.success().body(userManagerService.list(limit, offset));
+                               @RequestParam(required = false, defaultValue = "" + DEFAULT_PAGE_SIZE) int limit,
+                               @RequestParam(required = false, name = "certificate") String certificate,
+                               @RequestParam(required = false, name = "state") Integer state) {
+        return ResponseResult.success().body(userManagerService.list(limit, offset, certificate, state));
     }
 
-    @PutMapping("/examine/{id}/{status}")
-    public ResponseResult verify(@PathVariable("id") Long id, @PathVariable("status") Integer status) {
-        userManagerService.examine(id, status);
+    @PutMapping("/examine/{id}/{status}/{reason}")
+    public ResponseResult verify(@PathVariable("id") Long id, @PathVariable("status") Integer status, @PathVariable("reason") String reason) {
+        userManagerService.examine(id, status, reason);
         return ResponseResult.success();
     }
 

@@ -2,15 +2,20 @@ package com.youyu.cotenant.web.vm.group;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 import lombok.Data;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import static com.youyu.cotenant.common.CotenantConstants.DATE_TIME;
 import static com.youyu.cotenant.common.CotenantConstants.FULL_DATE_TIME;
 
 @Data
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class GroupListOutVM {
 
     @JsonSerialize(using = ToStringSerializer.class)
@@ -37,6 +42,16 @@ public class GroupListOutVM {
     @JsonProperty("cotenant_type")
     private Integer cotenantType;
 
+    @JsonProperty("house_price")
+    private BigDecimal housePrice;
+
+    @JsonProperty("house_type")
+    private String houseType;
+
+    private String toilteType;
+
+    private String kitchenType;
+
     @JsonProperty("cotenant_description")
     private String cotenantDescription;
 
@@ -49,7 +64,7 @@ public class GroupListOutVM {
     private String chamberDescription;
 
     @JsonProperty("created_time")
-    @JsonFormat(pattern = FULL_DATE_TIME)
+    @JsonFormat(pattern = DATE_TIME)
     private LocalDateTime createdTime;
 
 }

@@ -1,9 +1,11 @@
+server:
+  port: 8083
 spring:
   datasource:
     hikari:
       jdbc-url: jdbc:mysql://47.105.221.99:3306/cotenant?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
-      username: youyu
-      password: j39FK2s
+      username: fensibox
+      password: fensibox123
       driver-class-name: com.mysql.cj.jdbc.Driver
       minimum-idle: 5
       maximum-pool-size: 100
@@ -27,3 +29,11 @@ goeasy:
   cdn-host: cdn.goeasy.io
   rest-host: rest-hangzhou.goeasy.io
   app-key: BC-0a302f5f67764730b09e4be87bf06f0f
+wx:
+  miniapp:
+    configs:
+      - appid: wx8d3620d5ce81a425
+        secret: bceab62992259f906713e84c67eb3a0e
+        token: bsnvyd7FbqPSRscfspBpl8JMy9yQiSv8
+        aesKey: 0ATfOnp6k3joWOsWJCMrL8CdaqHkBSX607ah37Dezs1
+        msgDataFormat: JSON

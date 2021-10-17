@@ -19,6 +19,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Objects;
 
 import static com.youyu.cotenant.common.CotenantConstants.USER_STATUS.userStatus;
 
@@ -53,9 +54,9 @@ public class UserManagerService {
         return userManagerOutVM;
     }
 
-    public List<CotenantUserInfo> list(Integer limit, Integer offset) {
+    public List<CotenantUserInfo> list(Integer limit, Integer offset, String certificate, Integer state) {
         List<CotenantUserInfo> list =
-                PageHelper.offsetPage(offset, limit).doSelectPage(() -> cotenantUserBizMapper.selectAllUser());
+                PageHelper.offsetPage(offset, limit).doSelectPage(() -> cotenantUserBizMapper.selectAllUser(certificate, state));
         return list;
     }
 
@@ -65,7 +66,7 @@ public class UserManagerService {
      * @param userId
      * @param status
      */
-    public void examine(Long userId, Integer status) {
+    public void examine(Long userId, Integer status, String reason) {
         CotenantUserInfo cotenantUserInfo = cotenantUserInfoMapper.selectByPrimaryKey(userId);
         if (cotenantUserInfo == null) {
             throw new BizException(ResponseResult.fail(ResultCode.NOT_USER));
@@ -74,6 +75,13 @@ public class UserManagerService {
             throw new BizException(ResponseResult.fail(ResultCode.PARAMS_ERROR));
         }
         cotenantUserInfo.setStatus(status);
+        cotenantUserInfo.setReason(reason);
         cotenantUserInfoMapper.updateByPrimaryKeySelective(cotenantUserInfo);
+    }
+
+    public static void main(String[] args) {
+        int x1 = 1444;
+        int x2 = 1444;
+        System.out.println(x1 == x2);
     }
 }

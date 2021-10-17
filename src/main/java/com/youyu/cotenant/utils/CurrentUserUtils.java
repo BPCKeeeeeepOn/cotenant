@@ -1,12 +1,8 @@
 package com.youyu.cotenant.utils;
 
-import com.youyu.cotenant.common.ResponseResult;
-import com.youyu.cotenant.common.ResultCode;
 import com.youyu.cotenant.entity.CotenantUser;
 import com.youyu.cotenant.entity.CustomUser;
-import com.youyu.cotenant.exception.BizException;
 import com.youyu.cotenant.service.cache.UserInfoCacheService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;

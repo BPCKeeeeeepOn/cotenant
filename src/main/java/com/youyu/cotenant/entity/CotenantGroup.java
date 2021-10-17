@@ -1,6 +1,7 @@
 package com.youyu.cotenant.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class CotenantGroup implements Serializable {
@@ -25,6 +26,14 @@ public class CotenantGroup implements Serializable {
     private Integer cotenantCount;
 
     private Integer cotenantType;
+
+    private String houseType;
+
+    private String toilteType;
+
+    private String kitchenType;
+
+    private BigDecimal housePrice;
 
     private Integer status;
 
@@ -130,6 +139,38 @@ public class CotenantGroup implements Serializable {
 
     public void setCotenantType(Integer cotenantType) {
         this.cotenantType = cotenantType;
+    }
+
+    public String getHouseType() {
+        return houseType;
+    }
+
+    public void setHouseType(String houseType) {
+        this.houseType = houseType;
+    }
+
+    public String getToilteType() {
+        return toilteType;
+    }
+
+    public void setToilteType(String toilteType) {
+        this.toilteType = toilteType;
+    }
+
+    public String getKitchenType() {
+        return kitchenType;
+    }
+
+    public void setKitchenType(String kitchenType) {
+        this.kitchenType = kitchenType;
+    }
+
+    public BigDecimal getHousePrice() {
+        return housePrice;
+    }
+
+    public void setHousePrice(BigDecimal housePrice) {
+        this.housePrice = housePrice;
     }
 
     public Integer getStatus() {

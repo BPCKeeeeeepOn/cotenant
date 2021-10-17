@@ -1,3 +1,4 @@
+/*
 package com.youyu.cotenant.service;
 
 import com.youyu.cotenant.web.vm.college.CollegeOutVM;
@@ -30,3 +31,4 @@ public class CommonServiceTest {
         System.out.print(list);
     }
 }
+*/
