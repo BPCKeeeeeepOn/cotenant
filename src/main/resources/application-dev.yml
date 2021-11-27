@@ -1,28 +1,39 @@
+server:
+  port: 8083
 spring:
   datasource:
     hikari:
-      jdbc-url: jdbc:mysql://47.105.221.99:3306/cotenant?useUnicode=true&characterEncoding=utf8&useSSL=false
-      username: youyu
-      password: j39FK2s
+      jdbc-url: jdbc:mysql://47.105.221.99:3306/cotenant?useUnicode=true&characterEncoding=utf8&useSSL=false&serverTimezone=Asia/Shanghai
+      username: fensibox
+      password: fensibox123
       driver-class-name: com.mysql.cj.jdbc.Driver
       minimum-idle: 5
       maximum-pool-size: 100
       auto-commit: true
       idle-timeout: 30000
-      pool-name: fansbox-hikari
+      pool-name: cotenant-hikari
       max-lifetime: 1800000
       connection-timeout: 30000
       connection-test-query: SELECT 1
   redis:
     host: 47.105.221.99
+    password: Xiaoyouhezu_123
   thymeleaf:
     prefix: classpath:/templates/
 qiniu:
   access-key: JfvKpmCZqfM2nzKXP49Bhe3LUIo1nX_9UneS3EL0
   secret-key: JFBrCeLMSeMvkzQUQ-Jr5RbZoX7PzSEiFvyMxuOG
-  bucket: xiaoyouhezu_dev
-  bucket-url: qiniutest001.fensibox.com
+  bucket: xiaoyouhezu-prod
+  bucket-url: upload.xiaoyouhezu.com
 goeasy:
   cdn-host: cdn.goeasy.io
   rest-host: rest-hangzhou.goeasy.io
   app-key: BC-0a302f5f67764730b09e4be87bf06f0f
+wx:
+  miniapp:
+    configs:
+      - appid: wx8d3620d5ce81a425
+        secret: bceab62992259f906713e84c67eb3a0e
+        token: bsnvyd7FbqPSRscfspBpl8JMy9yQiSv8
+        aesKey: 0ATfOnp6k3joWOsWJCMrL8CdaqHkBSX607ah37Dezs1
+        msgDataFormat: JSON

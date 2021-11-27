@@ -18,7 +18,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * 自定义身份验证
+ * 自定义身份验证(账户名密码)
  */
 @Component
 public class CustomAuthenticationProvider implements AuthenticationProvider {

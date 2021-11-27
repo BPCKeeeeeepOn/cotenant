@@ -1,6 +1,7 @@
 package com.youyu.cotenant.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 public class CotenantGroup implements Serializable {
@@ -14,9 +15,25 @@ public class CotenantGroup implements Serializable {
 
     private String district;
 
+    private String addressName;
+
+    private String addressDetail;
+
+    private String addressLongitude;
+
+    private String addressLatitude;
+
     private Integer cotenantCount;
 
     private Integer cotenantType;
+
+    private String houseType;
+
+    private String toilteType;
+
+    private String kitchenType;
+
+    private BigDecimal housePrice;
 
     private Integer status;
 
@@ -76,6 +93,38 @@ public class CotenantGroup implements Serializable {
         this.district = district;
     }
 
+    public String getAddressName() {
+        return addressName;
+    }
+
+    public void setAddressName(String addressName) {
+        this.addressName = addressName;
+    }
+
+    public String getAddressDetail() {
+        return addressDetail;
+    }
+
+    public void setAddressDetail(String addressDetail) {
+        this.addressDetail = addressDetail;
+    }
+
+    public String getAddressLongitude() {
+        return addressLongitude;
+    }
+
+    public void setAddressLongitude(String addressLongitude) {
+        this.addressLongitude = addressLongitude;
+    }
+
+    public String getAddressLatitude() {
+        return addressLatitude;
+    }
+
+    public void setAddressLatitude(String addressLatitude) {
+        this.addressLatitude = addressLatitude;
+    }
+
     public Integer getCotenantCount() {
         return cotenantCount;
     }
@@ -90,6 +139,38 @@ public class CotenantGroup implements Serializable {
 
     public void setCotenantType(Integer cotenantType) {
         this.cotenantType = cotenantType;
+    }
+
+    public String getHouseType() {
+        return houseType;
+    }
+
+    public void setHouseType(String houseType) {
+        this.houseType = houseType;
+    }
+
+    public String getToilteType() {
+        return toilteType;
+    }
+
+    public void setToilteType(String toilteType) {
+        this.toilteType = toilteType;
+    }
+
+    public String getKitchenType() {
+        return kitchenType;
+    }
+
+    public void setKitchenType(String kitchenType) {
+        this.kitchenType = kitchenType;
+    }
+
+    public BigDecimal getHousePrice() {
+        return housePrice;
+    }
+
+    public void setHousePrice(BigDecimal housePrice) {
+        this.housePrice = housePrice;
     }
 
     public Integer getStatus() {

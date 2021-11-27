@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.youyu.cotenant.repository.biz.CotenantChatMsgBizMapper">
+    <resultMap id="ChatMessageVM" type="com.youyu.cotenant.web.vm.chat.ChatMessageVM">
+        <result column="send_user_id" jdbcType="BIGINT" property="sendUserId"/>
+        <result column="receive_user_id" jdbcType="BIGINT" property="receiveUserId"/>
+        <result column="content" jdbcType="VARCHAR" property="content"/>
+        <result column="send_time" jdbcType="TIMESTAMP" property="sendTime"/>
+    </resultMap>
+
+    <resultMap id="ChatMessageListOutVM" type="com.youyu.cotenant.web.vm.chat.ChatMessageListOutVM">
+        <result column="receive_user_id" jdbcType="BIGINT" property="receiveUserId"/>
+        <result column="receive_user_name" jdbcType="VARCHAR" property="receiveUserName"/>
+        <result column="receive_user_head" jdbcType="VARCHAR" property="receiveUserHead"/>
+        <result column="last_content" jdbcType="VARCHAR" property="lastContent"/>
+        <result column="last_time" jdbcType="TIMESTAMP" property="lastTime"/>
+    </resultMap>
+
+    <select id="selectCotenantChatMsgList" resultMap="ChatMessageVM">
+        select send_user_id,receive_user_id,content,send_time from cotenant_chat_msg msg
+        where msg.channel = #{channel} and send_status = 1 order by send_time asc;
+   </select>
+
+    <select id="selectCommunicationListByUserId" resultMap="ChatMessageListOutVM">
+		SELECT receive_user_id, d.nick_name as receive_user_name,d.user_head as receive_user_head,last_content, last_time
+            FROM (
+                SELECT if(send_user_id = #{userId}, receive_user_id, send_user_id) AS receive_user_id
+                    , content AS last_content, send_time AS last_time
+                FROM cotenant_chat_msg
+                WHERE id IN (
+                    SELECT id
+                    FROM (
+                        SELECT MAX(id) AS id
+                        FROM cotenant_chat_msg a
+                        WHERE a.receive_user_id = #{userId}
+                            OR a.send_user_id = #{userId}
+                        GROUP BY a.channel
+                    ) b
+                )
+            ) c
+	    INNER JOIN cotenant_user_info d ON d.user_id = c.receive_user_id
+        ORDER BY c.last_time DESC
+   </select>
+
+    <select id="selectChatList" resultType="String">
+        select channel from cotenant_chat_msg group by channel
+    </select>
+</mapper>

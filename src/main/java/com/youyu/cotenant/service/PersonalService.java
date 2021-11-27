@@ -11,16 +11,20 @@ import com.youyu.cotenant.repository.CotenantGroupUserMapper;
 import com.youyu.cotenant.repository.biz.CotenantGroupBizMapper;
 import com.youyu.cotenant.repository.biz.CotenantPersonalBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
-import com.youyu.cotenant.web.rest.vm.group.CotenantListOutVM;
-import com.youyu.cotenant.web.rest.vm.group.GroupDetailOutVM;
-import com.youyu.cotenant.web.rest.vm.group.GroupListOutVM;
-import com.youyu.cotenant.web.rest.vm.personal.GroupExamineInVM;
+import com.youyu.cotenant.utils.RedisUtils;
+import com.youyu.cotenant.web.vm.group.CotenantListOutVM;
+import com.youyu.cotenant.web.vm.group.GroupDetailOutVM;
+import com.youyu.cotenant.web.vm.group.GroupListOutVM;
+import com.youyu.cotenant.web.vm.personal.GroupExamineInVM;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+
+import static com.youyu.cotenant.common.CotenantConstants.UNREAD_GROUP_KEY;
+import static com.youyu.cotenant.common.CotenantConstants.UNREAD_MSG_COUNT;
 
 @Service
 @Slf4j
@@ -40,6 +44,9 @@ public class PersonalService {
 
     @Autowired
     private CotenantGroupUserMapper cotenantGroupUserMapper;
+
+    @Autowired
+    private RedisUtils redisUtils;
 
     /**
      * 查询我的合租任务
@@ -111,10 +118,24 @@ public class PersonalService {
         }
         //更改成员状态
         CotenantGroupUserExample cotenantGroupUserExample = new CotenantGroupUserExample();
-        cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId).andCotenantUserIdEqualTo(memberId);
+        cotenantGroupUserExample.createCriteria().andIdEqualTo(memberId);
         CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
         cotenantGroupUser.setStatus(status);
         cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUser, cotenantGroupUserExample);
+        //判断成员是否满足
+        if (isGroupFull(groupId)) {
+            //更新租房状态
+            CotenantGroup cotenantGroup = new CotenantGroup();
+            cotenantGroup.setId(groupId);
+            cotenantGroup.setStatus(CotenantConstants.GROUP_STATUS.COMPLETE_STATUS);
+            cotenantGroupMapper.updateByPrimaryKeySelective(cotenantGroup);
+            //初始化其他未通过成员
+            cotenantGroupUserExample.clear();
+            cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId).andStatusEqualTo(CotenantConstants.EXAMINE_STATUS.PASS_DEFAULT_STATUS);
+            CotenantGroupUser cotenantGroupUserOther = new CotenantGroupUser();
+            cotenantGroupUserOther.setStatus(CotenantConstants.EXAMINE_STATUS.UNPASS);
+            cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUserOther, cotenantGroupUserExample);
+        }
 
     }
 
@@ -127,20 +148,66 @@ public class PersonalService {
         Long userId = currentUserUtils.getCurrUserId();
         //更改成员状态
         CotenantGroupUserExample cotenantGroupUserExample = new CotenantGroupUserExample();
+        //判断成员是否招满
+        if (isGroupFull(groupId)) {
+            //更改租房状态
+            CotenantGroup cotenantGroup = new CotenantGroup();
+            cotenantGroup.setId(groupId);
+            cotenantGroup.setStatus(CotenantConstants.GROUP_STATUS.COMPLETE_STATUS);
+            cotenantGroupMapper.updateByPrimaryKeySelective(cotenantGroup);
+        }
         cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId).andCotenantUserIdEqualTo(userId);
         CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
         cotenantGroupUser.setStatus(CotenantConstants.EXAMINE_STATUS.CANCEL);
-        cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUser, cotenantGroupUserExample);
+        //cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUser, cotenantGroupUserExample);
+        cotenantGroupUserMapper.deleteByExample(cotenantGroupUserExample);
     }
 
+    /**
+     * 清除请求信息
+     */
+    public void cleanUnread(Integer actionType) {
+        Long userId = currentUserUtils.getCurrUserId();
+        String key;
+        if (CotenantConstants.unreadActionType.MESSAGE.getCode() == actionType) {
+            key = UNREAD_GROUP_KEY + userId;
+        } else {
+            key = UNREAD_MSG_COUNT + userId;
+        }
+        redisUtils.delCache(key);
+    }
+
+    /**
+     * 是否是租房团团长
+     *
+     * @param groupId
+     * @param userId
+     * @return
+     */
     public boolean isGroupLeader(Long groupId, Long userId) {
         //查询该租房团是否属于登录用户
         Long leaderId = cotenantGroupBizMapper.selectGroupLeader(groupId);
-        if (userId != leaderId) {
-            //您无权限操作
-            return false;
+        if (userId.equals(leaderId)) {
+            return true;
         }
-        return true;
+        return false;
+    }
+
+    /**
+     * 租房团是否招满
+     *
+     * @param groupId
+     * @return
+     */
+    public boolean isGroupFull(Long groupId) {
+        CotenantGroupUserExample cotenantGroupUserExample = new CotenantGroupUserExample();
+        //判断成员是否招满
+        cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId).andStatusEqualTo(CotenantConstants.EXAMINE_STATUS.PASS);
+        if (cotenantGroupMapper.selectByPrimaryKey(groupId).getCotenantCount()
+                == cotenantGroupUserMapper.countByExample(cotenantGroupUserExample)) {
+            return true;
+        }
+        return false;
     }
 
 }

@@ -14,6 +14,7 @@ import com.youyu.cotenant.result.SmsMessage;
 import com.youyu.cotenant.utils.CommonUtils;
 import com.youyu.cotenant.utils.RedisUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +29,7 @@ public class SmsService {
 
     final String SIGN_NAME = "fansbox";
 
-    final String TEMPLATE_CODE = "SMS_165119162";
+    final String TEMPLATE_CODE = "SMS_175125962";
 
     final String ACCESSKEY_ID = "LTAIv2RRVdS1dJJ9";
 
@@ -48,6 +49,11 @@ public class SmsService {
     @Autowired
     ObjectMapper objectMapper;
 
+    /**
+     * 发送短信验证码
+     *
+     * @param phoneNumber
+     */
     public void sendSms(String phoneNumber) {
         DefaultProfile profile = DefaultProfile.getProfile(SMS_DEFAULT, ACCESSKEY_ID, ACCESSKEY_SECRET);
         IAcsClient client = new DefaultAcsClient(profile);
@@ -66,7 +72,7 @@ public class SmsService {
             String result = response.getData();
             log.info("sendSms result info : {}", result);
             SmsMessage smsMessage = objectMapper.readValue(result, SmsMessage.class);
-            if (!"OK".equalsIgnoreCase(smsMessage.getCode())) {
+            if (!StringUtils.equalsIgnoreCase(smsMessage.getCode(), "OK")) {
                 throw new BizException(ResponseResult.fail(ResultCode.SEND_SMS_CODE_FAILED));
             }
             //如果消息发送成功
@@ -75,5 +81,20 @@ public class SmsService {
             log.error("send sms message failed:", e.getMessage(), e);
             throw new BizException(ResponseResult.fail(ResultCode.SEND_SMS_CODE_FAILED));
         }
+    }
+
+    /**
+     * 验证短信验证码
+     *
+     * @param mobile
+     * @param code
+     * @return
+     */
+    public boolean verifyCode(String mobile, String code) {
+        String value = redisUtils.getCache(CODE_CACHE + mobile);
+        if (StringUtils.isNotBlank(value) && StringUtils.equals(value, code)) {
+            return true;
+        }
+        return false;
     }
 }

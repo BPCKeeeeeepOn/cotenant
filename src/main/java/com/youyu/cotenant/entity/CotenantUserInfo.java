@@ -1,12 +1,22 @@
 package com.youyu.cotenant.entity;
 
+import com.fasterxml.jackson.databind.PropertyNamingStrategy;
+import com.fasterxml.jackson.databind.annotation.JsonNaming;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
+
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
+@JsonNaming(PropertyNamingStrategy.SnakeCaseStrategy.class)
 public class CotenantUserInfo implements Serializable {
+
+    @JsonSerialize(using = ToStringSerializer.class)
     private Long userId;
 
     private String nickName;
+
+    private String userHead;
 
     private String userName;
 
@@ -26,7 +36,13 @@ public class CotenantUserInfo implements Serializable {
 
     private String interest;
 
+    private Integer userType;
+
+    private String idNumber;
+
     private Integer status;
+
+    private String reason;
 
     private LocalDateTime createdTime;
 
@@ -50,6 +66,14 @@ public class CotenantUserInfo implements Serializable {
 
     public void setNickName(String nickName) {
         this.nickName = nickName;
+    }
+
+    public String getUserHead() {
+        return userHead;
+    }
+
+    public void setUserHead(String userHead) {
+        this.userHead = userHead;
     }
 
     public String getUserName() {
@@ -124,12 +148,36 @@ public class CotenantUserInfo implements Serializable {
         this.interest = interest;
     }
 
+    public Integer getUserType() {
+        return userType;
+    }
+
+    public void setUserType(Integer userType) {
+        this.userType = userType;
+    }
+
+    public String getIdNumber() {
+        return idNumber;
+    }
+
+    public void setIdNumber(String idNumber) {
+        this.idNumber = idNumber;
+    }
+
     public Integer getStatus() {
         return status;
     }
 
     public void setStatus(Integer status) {
         this.status = status;
+    }
+
+    public String getReason() {
+        return reason;
+    }
+
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public LocalDateTime getCreatedTime() {

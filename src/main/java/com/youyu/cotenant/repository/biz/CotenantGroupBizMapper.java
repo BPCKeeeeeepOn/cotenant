@@ -1,9 +1,9 @@
 package com.youyu.cotenant.repository.biz;
 
-import com.youyu.cotenant.web.rest.vm.group.CotenantListOutVM;
-import com.youyu.cotenant.web.rest.vm.group.GroupDetailOutVM;
-import com.youyu.cotenant.web.rest.vm.group.GroupListOutVM;
-import com.youyu.cotenant.web.rest.vm.group.GroupQueryInVM;
+import com.youyu.cotenant.web.vm.group.CotenantListOutVM;
+import com.youyu.cotenant.web.vm.group.GroupDetailOutVM;
+import com.youyu.cotenant.web.vm.group.GroupListOutVM;
+import com.youyu.cotenant.web.vm.group.GroupQueryInVM;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
@@ -21,6 +21,13 @@ public interface CotenantGroupBizMapper {
      */
     List<GroupListOutVM> selectGroupList(@Param("groupQueryInVM") GroupQueryInVM groupQueryInVM);
 
+    /**
+     * 后台查询租房列表
+     *
+     * @return
+     */
+    List<GroupListOutVM> selectManagerGroupList(@Param("state") Integer state);
+
 
     /**
      * 查询预租/合租详情
@@ -29,6 +36,14 @@ public interface CotenantGroupBizMapper {
      * @return
      */
     GroupDetailOutVM selectGroupDetail(@Param("id") Long id);
+
+    /**
+     * 后台查询租房详情
+     *
+     * @param id
+     * @return
+     */
+    GroupDetailOutVM selectManagerGroupDetail(@Param("id") Long id);
 
     /**
      * 查询预租/合租下的团员
@@ -40,9 +55,18 @@ public interface CotenantGroupBizMapper {
 
     /**
      * 查询该团
+     *
      * @param groupId
      * @return
      */
     Long selectGroupLeader(@Param("groupId") Long groupId);
+
+    /**
+     * 查询是否加入该团
+     *
+     * @param userId
+     * @return
+     */
+    Long selectJoinGroup(@Param("userId") Long userId);
 
 }

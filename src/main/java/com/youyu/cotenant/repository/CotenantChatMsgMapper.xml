@@ -7,7 +7,7 @@
     <result column="send_user_id" jdbcType="BIGINT" property="sendUserId" />
     <result column="receive_user_id" jdbcType="BIGINT" property="receiveUserId" />
     <result column="content" jdbcType="VARCHAR" property="content" />
-    <result column="sned_status" jdbcType="INTEGER" property="snedStatus" />
+    <result column="send_status" jdbcType="INTEGER" property="sendStatus" />
     <result column="receive_status" jdbcType="INTEGER" property="receiveStatus" />
     <result column="send_time" jdbcType="TIMESTAMP" property="sendTime" />
     <result column="receive_time" jdbcType="TIMESTAMP" property="receiveTime" />
@@ -73,7 +73,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, channel, send_user_id, receive_user_id, content, sned_status, receive_status, 
+    id, channel, send_user_id, receive_user_id, content, send_status, receive_status, 
     send_time, receive_time, created_time, updated_time
   </sql>
   <select id="selectByExample" parameterType="com.youyu.cotenant.entity.CotenantChatMsgExample" resultMap="BaseResultMap">
@@ -108,11 +108,11 @@
   </delete>
   <insert id="insert" parameterType="com.youyu.cotenant.entity.CotenantChatMsg">
     insert into cotenant_chat_msg (id, channel, send_user_id, 
-      receive_user_id, content, sned_status, 
+      receive_user_id, content, send_status, 
       receive_status, send_time, receive_time, 
       created_time, updated_time)
     values (#{id,jdbcType=BIGINT}, #{channel,jdbcType=VARCHAR}, #{sendUserId,jdbcType=BIGINT}, 
-      #{receiveUserId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{snedStatus,jdbcType=INTEGER}, 
+      #{receiveUserId,jdbcType=BIGINT}, #{content,jdbcType=VARCHAR}, #{sendStatus,jdbcType=INTEGER}, 
       #{receiveStatus,jdbcType=INTEGER}, #{sendTime,jdbcType=TIMESTAMP}, #{receiveTime,jdbcType=TIMESTAMP}, 
       #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP})
   </insert>
@@ -134,8 +134,8 @@
       <if test="content != null">
         content,
       </if>
-      <if test="snedStatus != null">
-        sned_status,
+      <if test="sendStatus != null">
+        send_status,
       </if>
       <if test="receiveStatus != null">
         receive_status,
@@ -169,8 +169,8 @@
       <if test="content != null">
         #{content,jdbcType=VARCHAR},
       </if>
-      <if test="snedStatus != null">
-        #{snedStatus,jdbcType=INTEGER},
+      <if test="sendStatus != null">
+        #{sendStatus,jdbcType=INTEGER},
       </if>
       <if test="receiveStatus != null">
         #{receiveStatus,jdbcType=INTEGER},
@@ -213,8 +213,8 @@
       <if test="record.content != null">
         content = #{record.content,jdbcType=VARCHAR},
       </if>
-      <if test="record.snedStatus != null">
-        sned_status = #{record.snedStatus,jdbcType=INTEGER},
+      <if test="record.sendStatus != null">
+        send_status = #{record.sendStatus,jdbcType=INTEGER},
       </if>
       <if test="record.receiveStatus != null">
         receive_status = #{record.receiveStatus,jdbcType=INTEGER},
@@ -243,7 +243,7 @@
       send_user_id = #{record.sendUserId,jdbcType=BIGINT},
       receive_user_id = #{record.receiveUserId,jdbcType=BIGINT},
       content = #{record.content,jdbcType=VARCHAR},
-      sned_status = #{record.snedStatus,jdbcType=INTEGER},
+      send_status = #{record.sendStatus,jdbcType=INTEGER},
       receive_status = #{record.receiveStatus,jdbcType=INTEGER},
       send_time = #{record.sendTime,jdbcType=TIMESTAMP},
       receive_time = #{record.receiveTime,jdbcType=TIMESTAMP},
@@ -268,8 +268,8 @@
       <if test="content != null">
         content = #{content,jdbcType=VARCHAR},
       </if>
-      <if test="snedStatus != null">
-        sned_status = #{snedStatus,jdbcType=INTEGER},
+      <if test="sendStatus != null">
+        send_status = #{sendStatus,jdbcType=INTEGER},
       </if>
       <if test="receiveStatus != null">
         receive_status = #{receiveStatus,jdbcType=INTEGER},
@@ -295,7 +295,7 @@
       send_user_id = #{sendUserId,jdbcType=BIGINT},
       receive_user_id = #{receiveUserId,jdbcType=BIGINT},
       content = #{content,jdbcType=VARCHAR},
-      sned_status = #{snedStatus,jdbcType=INTEGER},
+      send_status = #{sendStatus,jdbcType=INTEGER},
       receive_status = #{receiveStatus,jdbcType=INTEGER},
       send_time = #{sendTime,jdbcType=TIMESTAMP},
       receive_time = #{receiveTime,jdbcType=TIMESTAMP},

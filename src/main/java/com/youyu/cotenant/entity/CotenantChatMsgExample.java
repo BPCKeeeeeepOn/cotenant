@@ -425,63 +425,63 @@ public class CotenantChatMsgExample {
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusIsNull() {
-            addCriterion("sned_status is null");
+        public Criteria andSendStatusIsNull() {
+            addCriterion("send_status is null");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusIsNotNull() {
-            addCriterion("sned_status is not null");
+        public Criteria andSendStatusIsNotNull() {
+            addCriterion("send_status is not null");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusEqualTo(Integer value) {
-            addCriterion("sned_status =", value, "snedStatus");
+        public Criteria andSendStatusEqualTo(Integer value) {
+            addCriterion("send_status =", value, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusNotEqualTo(Integer value) {
-            addCriterion("sned_status <>", value, "snedStatus");
+        public Criteria andSendStatusNotEqualTo(Integer value) {
+            addCriterion("send_status <>", value, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusGreaterThan(Integer value) {
-            addCriterion("sned_status >", value, "snedStatus");
+        public Criteria andSendStatusGreaterThan(Integer value) {
+            addCriterion("send_status >", value, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusGreaterThanOrEqualTo(Integer value) {
-            addCriterion("sned_status >=", value, "snedStatus");
+        public Criteria andSendStatusGreaterThanOrEqualTo(Integer value) {
+            addCriterion("send_status >=", value, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusLessThan(Integer value) {
-            addCriterion("sned_status <", value, "snedStatus");
+        public Criteria andSendStatusLessThan(Integer value) {
+            addCriterion("send_status <", value, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusLessThanOrEqualTo(Integer value) {
-            addCriterion("sned_status <=", value, "snedStatus");
+        public Criteria andSendStatusLessThanOrEqualTo(Integer value) {
+            addCriterion("send_status <=", value, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusIn(List<Integer> values) {
-            addCriterion("sned_status in", values, "snedStatus");
+        public Criteria andSendStatusIn(List<Integer> values) {
+            addCriterion("send_status in", values, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusNotIn(List<Integer> values) {
-            addCriterion("sned_status not in", values, "snedStatus");
+        public Criteria andSendStatusNotIn(List<Integer> values) {
+            addCriterion("send_status not in", values, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusBetween(Integer value1, Integer value2) {
-            addCriterion("sned_status between", value1, value2, "snedStatus");
+        public Criteria andSendStatusBetween(Integer value1, Integer value2) {
+            addCriterion("send_status between", value1, value2, "sendStatus");
             return (Criteria) this;
         }
 
-        public Criteria andSnedStatusNotBetween(Integer value1, Integer value2) {
-            addCriterion("sned_status not between", value1, value2, "snedStatus");
+        public Criteria andSendStatusNotBetween(Integer value1, Integer value2) {
+            addCriterion("send_status not between", value1, value2, "sendStatus");
             return (Criteria) this;
         }
 

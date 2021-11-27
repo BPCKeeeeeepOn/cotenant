@@ -28,7 +28,7 @@ public class QiniuController {
         LocalDateTime time = LocalDateTime.now();
         String localTime = df.format(time);
         String key = "cotenant_" + localTime + "_" + new Random().nextInt(100000);
-        String token = auth.uploadToken(qiNiuProperties.getBucket(), key);
+        String token = auth.uploadToken(qiNiuProperties.getBucket(), null);
         return ResponseResult.success().body(new QiniuTokenVM(key, token));
     }
 

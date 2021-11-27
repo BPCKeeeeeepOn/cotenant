@@ -1,5 +1,6 @@
 package com.youyu.cotenant.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -445,6 +446,286 @@ public class CotenantGroupExample {
             return (Criteria) this;
         }
 
+        public Criteria andAddressNameIsNull() {
+            addCriterion("address_name is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameIsNotNull() {
+            addCriterion("address_name is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameEqualTo(String value) {
+            addCriterion("address_name =", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameNotEqualTo(String value) {
+            addCriterion("address_name <>", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameGreaterThan(String value) {
+            addCriterion("address_name >", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameGreaterThanOrEqualTo(String value) {
+            addCriterion("address_name >=", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameLessThan(String value) {
+            addCriterion("address_name <", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameLessThanOrEqualTo(String value) {
+            addCriterion("address_name <=", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameLike(String value) {
+            addCriterion("address_name like", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameNotLike(String value) {
+            addCriterion("address_name not like", value, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameIn(List<String> values) {
+            addCriterion("address_name in", values, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameNotIn(List<String> values) {
+            addCriterion("address_name not in", values, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameBetween(String value1, String value2) {
+            addCriterion("address_name between", value1, value2, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressNameNotBetween(String value1, String value2) {
+            addCriterion("address_name not between", value1, value2, "addressName");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailIsNull() {
+            addCriterion("address_detail is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailIsNotNull() {
+            addCriterion("address_detail is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailEqualTo(String value) {
+            addCriterion("address_detail =", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailNotEqualTo(String value) {
+            addCriterion("address_detail <>", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailGreaterThan(String value) {
+            addCriterion("address_detail >", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailGreaterThanOrEqualTo(String value) {
+            addCriterion("address_detail >=", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailLessThan(String value) {
+            addCriterion("address_detail <", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailLessThanOrEqualTo(String value) {
+            addCriterion("address_detail <=", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailLike(String value) {
+            addCriterion("address_detail like", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailNotLike(String value) {
+            addCriterion("address_detail not like", value, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailIn(List<String> values) {
+            addCriterion("address_detail in", values, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailNotIn(List<String> values) {
+            addCriterion("address_detail not in", values, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailBetween(String value1, String value2) {
+            addCriterion("address_detail between", value1, value2, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressDetailNotBetween(String value1, String value2) {
+            addCriterion("address_detail not between", value1, value2, "addressDetail");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeIsNull() {
+            addCriterion("address_longitude is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeIsNotNull() {
+            addCriterion("address_longitude is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeEqualTo(String value) {
+            addCriterion("address_longitude =", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeNotEqualTo(String value) {
+            addCriterion("address_longitude <>", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeGreaterThan(String value) {
+            addCriterion("address_longitude >", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeGreaterThanOrEqualTo(String value) {
+            addCriterion("address_longitude >=", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeLessThan(String value) {
+            addCriterion("address_longitude <", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeLessThanOrEqualTo(String value) {
+            addCriterion("address_longitude <=", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeLike(String value) {
+            addCriterion("address_longitude like", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeNotLike(String value) {
+            addCriterion("address_longitude not like", value, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeIn(List<String> values) {
+            addCriterion("address_longitude in", values, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeNotIn(List<String> values) {
+            addCriterion("address_longitude not in", values, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeBetween(String value1, String value2) {
+            addCriterion("address_longitude between", value1, value2, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLongitudeNotBetween(String value1, String value2) {
+            addCriterion("address_longitude not between", value1, value2, "addressLongitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeIsNull() {
+            addCriterion("address_latitude is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeIsNotNull() {
+            addCriterion("address_latitude is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeEqualTo(String value) {
+            addCriterion("address_latitude =", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeNotEqualTo(String value) {
+            addCriterion("address_latitude <>", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeGreaterThan(String value) {
+            addCriterion("address_latitude >", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeGreaterThanOrEqualTo(String value) {
+            addCriterion("address_latitude >=", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeLessThan(String value) {
+            addCriterion("address_latitude <", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeLessThanOrEqualTo(String value) {
+            addCriterion("address_latitude <=", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeLike(String value) {
+            addCriterion("address_latitude like", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeNotLike(String value) {
+            addCriterion("address_latitude not like", value, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeIn(List<String> values) {
+            addCriterion("address_latitude in", values, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeNotIn(List<String> values) {
+            addCriterion("address_latitude not in", values, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeBetween(String value1, String value2) {
+            addCriterion("address_latitude between", value1, value2, "addressLatitude");
+            return (Criteria) this;
+        }
+
+        public Criteria andAddressLatitudeNotBetween(String value1, String value2) {
+            addCriterion("address_latitude not between", value1, value2, "addressLatitude");
+            return (Criteria) this;
+        }
+
         public Criteria andCotenantCountIsNull() {
             addCriterion("cotenant_count is null");
             return (Criteria) this;
@@ -562,6 +843,276 @@ public class CotenantGroupExample {
 
         public Criteria andCotenantTypeNotBetween(Integer value1, Integer value2) {
             addCriterion("cotenant_type not between", value1, value2, "cotenantType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeIsNull() {
+            addCriterion("house_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeIsNotNull() {
+            addCriterion("house_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeEqualTo(String value) {
+            addCriterion("house_type =", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotEqualTo(String value) {
+            addCriterion("house_type <>", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeGreaterThan(String value) {
+            addCriterion("house_type >", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("house_type >=", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeLessThan(String value) {
+            addCriterion("house_type <", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeLessThanOrEqualTo(String value) {
+            addCriterion("house_type <=", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeLike(String value) {
+            addCriterion("house_type like", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotLike(String value) {
+            addCriterion("house_type not like", value, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeIn(List<String> values) {
+            addCriterion("house_type in", values, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotIn(List<String> values) {
+            addCriterion("house_type not in", values, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeBetween(String value1, String value2) {
+            addCriterion("house_type between", value1, value2, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHouseTypeNotBetween(String value1, String value2) {
+            addCriterion("house_type not between", value1, value2, "houseType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeIsNull() {
+            addCriterion("toilte_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeIsNotNull() {
+            addCriterion("toilte_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeEqualTo(String value) {
+            addCriterion("toilte_type =", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotEqualTo(String value) {
+            addCriterion("toilte_type <>", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeGreaterThan(String value) {
+            addCriterion("toilte_type >", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("toilte_type >=", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeLessThan(String value) {
+            addCriterion("toilte_type <", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeLessThanOrEqualTo(String value) {
+            addCriterion("toilte_type <=", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeLike(String value) {
+            addCriterion("toilte_type like", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotLike(String value) {
+            addCriterion("toilte_type not like", value, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeIn(List<String> values) {
+            addCriterion("toilte_type in", values, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotIn(List<String> values) {
+            addCriterion("toilte_type not in", values, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeBetween(String value1, String value2) {
+            addCriterion("toilte_type between", value1, value2, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andToilteTypeNotBetween(String value1, String value2) {
+            addCriterion("toilte_type not between", value1, value2, "toilteType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeIsNull() {
+            addCriterion("kitchen_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeIsNotNull() {
+            addCriterion("kitchen_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeEqualTo(String value) {
+            addCriterion("kitchen_type =", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotEqualTo(String value) {
+            addCriterion("kitchen_type <>", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeGreaterThan(String value) {
+            addCriterion("kitchen_type >", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeGreaterThanOrEqualTo(String value) {
+            addCriterion("kitchen_type >=", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeLessThan(String value) {
+            addCriterion("kitchen_type <", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeLessThanOrEqualTo(String value) {
+            addCriterion("kitchen_type <=", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeLike(String value) {
+            addCriterion("kitchen_type like", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotLike(String value) {
+            addCriterion("kitchen_type not like", value, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeIn(List<String> values) {
+            addCriterion("kitchen_type in", values, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotIn(List<String> values) {
+            addCriterion("kitchen_type not in", values, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeBetween(String value1, String value2) {
+            addCriterion("kitchen_type between", value1, value2, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andKitchenTypeNotBetween(String value1, String value2) {
+            addCriterion("kitchen_type not between", value1, value2, "kitchenType");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceIsNull() {
+            addCriterion("house_price is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceIsNotNull() {
+            addCriterion("house_price is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceEqualTo(BigDecimal value) {
+            addCriterion("house_price =", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceNotEqualTo(BigDecimal value) {
+            addCriterion("house_price <>", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceGreaterThan(BigDecimal value) {
+            addCriterion("house_price >", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceGreaterThanOrEqualTo(BigDecimal value) {
+            addCriterion("house_price >=", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceLessThan(BigDecimal value) {
+            addCriterion("house_price <", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceLessThanOrEqualTo(BigDecimal value) {
+            addCriterion("house_price <=", value, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceIn(List<BigDecimal> values) {
+            addCriterion("house_price in", values, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceNotIn(List<BigDecimal> values) {
+            addCriterion("house_price not in", values, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("house_price between", value1, value2, "housePrice");
+            return (Criteria) this;
+        }
+
+        public Criteria andHousePriceNotBetween(BigDecimal value1, BigDecimal value2) {
+            addCriterion("house_price not between", value1, value2, "housePrice");
             return (Criteria) this;
         }
 

@@ -7,8 +7,16 @@
     <result column="province" jdbcType="VARCHAR" property="province" />
     <result column="city" jdbcType="VARCHAR" property="city" />
     <result column="district" jdbcType="VARCHAR" property="district" />
+    <result column="address_name" jdbcType="VARCHAR" property="addressName" />
+    <result column="address_detail" jdbcType="VARCHAR" property="addressDetail" />
+    <result column="address_longitude" jdbcType="VARCHAR" property="addressLongitude" />
+    <result column="address_latitude" jdbcType="VARCHAR" property="addressLatitude" />
     <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount" />
     <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType" />
+    <result column="house_type" jdbcType="VARCHAR" property="houseType" />
+    <result column="toilte_type" jdbcType="VARCHAR" property="toilteType" />
+    <result column="kitchen_type" jdbcType="VARCHAR" property="kitchenType" />
+    <result column="house_price" jdbcType="DECIMAL" property="housePrice" />
     <result column="status" jdbcType="INTEGER" property="status" />
     <result column="cotenant_description" jdbcType="VARCHAR" property="cotenantDescription" />
     <result column="chamber_img_url" jdbcType="VARCHAR" property="chamberImgUrl" />
@@ -77,9 +85,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, title, province, city, district, cotenant_count, cotenant_type, status, cotenant_description, 
-    chamber_img_url, chamber_description, chamber_video_url, created_time, updated_time, 
-    is_deleted
+    id, title, province, city, district, address_name, address_detail, address_longitude, 
+    address_latitude, cotenant_count, cotenant_type, house_type, toilte_type, kitchen_type, 
+    house_price, status, cotenant_description, chamber_img_url, chamber_description, 
+    chamber_video_url, created_time, updated_time, is_deleted
   </sql>
   <select id="selectByExample" parameterType="com.youyu.cotenant.entity.CotenantGroupExample" resultMap="BaseResultMap">
     select
@@ -113,17 +122,21 @@
   </delete>
   <insert id="insert" parameterType="com.youyu.cotenant.entity.CotenantGroup">
     insert into cotenant_group (id, title, province, 
-      city, district, cotenant_count, 
-      cotenant_type, status, cotenant_description, 
-      chamber_img_url, chamber_description, chamber_video_url, 
-      created_time, updated_time, is_deleted
-      )
+      city, district, address_name, 
+      address_detail, address_longitude, address_latitude, 
+      cotenant_count, cotenant_type, house_type, 
+      toilte_type, kitchen_type, house_price, 
+      status, cotenant_description, chamber_img_url, 
+      chamber_description, chamber_video_url, created_time, 
+      updated_time, is_deleted)
     values (#{id,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, 
-      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{cotenantCount,jdbcType=INTEGER}, 
-      #{cotenantType,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{cotenantDescription,jdbcType=VARCHAR}, 
-      #{chamberImgUrl,jdbcType=VARCHAR}, #{chamberDescription,jdbcType=VARCHAR}, #{chamberVideoUrl,jdbcType=VARCHAR}, 
-      #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT}
-      )
+      #{city,jdbcType=VARCHAR}, #{district,jdbcType=VARCHAR}, #{addressName,jdbcType=VARCHAR}, 
+      #{addressDetail,jdbcType=VARCHAR}, #{addressLongitude,jdbcType=VARCHAR}, #{addressLatitude,jdbcType=VARCHAR}, 
+      #{cotenantCount,jdbcType=INTEGER}, #{cotenantType,jdbcType=INTEGER}, #{houseType,jdbcType=VARCHAR}, 
+      #{toilteType,jdbcType=VARCHAR}, #{kitchenType,jdbcType=VARCHAR}, #{housePrice,jdbcType=DECIMAL}, 
+      #{status,jdbcType=INTEGER}, #{cotenantDescription,jdbcType=VARCHAR}, #{chamberImgUrl,jdbcType=VARCHAR}, 
+      #{chamberDescription,jdbcType=VARCHAR}, #{chamberVideoUrl,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
+      #{updatedTime,jdbcType=TIMESTAMP}, #{isDeleted,jdbcType=BIT})
   </insert>
   <insert id="insertSelective" parameterType="com.youyu.cotenant.entity.CotenantGroup">
     insert into cotenant_group
@@ -143,11 +156,35 @@
       <if test="district != null">
         district,
       </if>
+      <if test="addressName != null">
+        address_name,
+      </if>
+      <if test="addressDetail != null">
+        address_detail,
+      </if>
+      <if test="addressLongitude != null">
+        address_longitude,
+      </if>
+      <if test="addressLatitude != null">
+        address_latitude,
+      </if>
       <if test="cotenantCount != null">
         cotenant_count,
       </if>
       <if test="cotenantType != null">
         cotenant_type,
+      </if>
+      <if test="houseType != null">
+        house_type,
+      </if>
+      <if test="toilteType != null">
+        toilte_type,
+      </if>
+      <if test="kitchenType != null">
+        kitchen_type,
+      </if>
+      <if test="housePrice != null">
+        house_price,
       </if>
       <if test="status != null">
         status,
@@ -190,11 +227,35 @@
       <if test="district != null">
         #{district,jdbcType=VARCHAR},
       </if>
+      <if test="addressName != null">
+        #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null">
+        #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressLongitude != null">
+        #{addressLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="addressLatitude != null">
+        #{addressLatitude,jdbcType=VARCHAR},
+      </if>
       <if test="cotenantCount != null">
         #{cotenantCount,jdbcType=INTEGER},
       </if>
       <if test="cotenantType != null">
         #{cotenantType,jdbcType=INTEGER},
+      </if>
+      <if test="houseType != null">
+        #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="toilteType != null">
+        #{toilteType,jdbcType=VARCHAR},
+      </if>
+      <if test="kitchenType != null">
+        #{kitchenType,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null">
+        #{housePrice,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         #{status,jdbcType=INTEGER},
@@ -246,11 +307,35 @@
       <if test="record.district != null">
         district = #{record.district,jdbcType=VARCHAR},
       </if>
+      <if test="record.addressName != null">
+        address_name = #{record.addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressDetail != null">
+        address_detail = #{record.addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressLongitude != null">
+        address_longitude = #{record.addressLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addressLatitude != null">
+        address_latitude = #{record.addressLatitude,jdbcType=VARCHAR},
+      </if>
       <if test="record.cotenantCount != null">
         cotenant_count = #{record.cotenantCount,jdbcType=INTEGER},
       </if>
       <if test="record.cotenantType != null">
         cotenant_type = #{record.cotenantType,jdbcType=INTEGER},
+      </if>
+      <if test="record.houseType != null">
+        house_type = #{record.houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.toilteType != null">
+        toilte_type = #{record.toilteType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.kitchenType != null">
+        kitchen_type = #{record.kitchenType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.housePrice != null">
+        house_price = #{record.housePrice,jdbcType=DECIMAL},
       </if>
       <if test="record.status != null">
         status = #{record.status,jdbcType=INTEGER},
@@ -288,8 +373,16 @@
       province = #{record.province,jdbcType=VARCHAR},
       city = #{record.city,jdbcType=VARCHAR},
       district = #{record.district,jdbcType=VARCHAR},
+      address_name = #{record.addressName,jdbcType=VARCHAR},
+      address_detail = #{record.addressDetail,jdbcType=VARCHAR},
+      address_longitude = #{record.addressLongitude,jdbcType=VARCHAR},
+      address_latitude = #{record.addressLatitude,jdbcType=VARCHAR},
       cotenant_count = #{record.cotenantCount,jdbcType=INTEGER},
       cotenant_type = #{record.cotenantType,jdbcType=INTEGER},
+      house_type = #{record.houseType,jdbcType=VARCHAR},
+      toilte_type = #{record.toilteType,jdbcType=VARCHAR},
+      kitchen_type = #{record.kitchenType,jdbcType=VARCHAR},
+      house_price = #{record.housePrice,jdbcType=DECIMAL},
       status = #{record.status,jdbcType=INTEGER},
       cotenant_description = #{record.cotenantDescription,jdbcType=VARCHAR},
       chamber_img_url = #{record.chamberImgUrl,jdbcType=VARCHAR},
@@ -317,11 +410,35 @@
       <if test="district != null">
         district = #{district,jdbcType=VARCHAR},
       </if>
+      <if test="addressName != null">
+        address_name = #{addressName,jdbcType=VARCHAR},
+      </if>
+      <if test="addressDetail != null">
+        address_detail = #{addressDetail,jdbcType=VARCHAR},
+      </if>
+      <if test="addressLongitude != null">
+        address_longitude = #{addressLongitude,jdbcType=VARCHAR},
+      </if>
+      <if test="addressLatitude != null">
+        address_latitude = #{addressLatitude,jdbcType=VARCHAR},
+      </if>
       <if test="cotenantCount != null">
         cotenant_count = #{cotenantCount,jdbcType=INTEGER},
       </if>
       <if test="cotenantType != null">
         cotenant_type = #{cotenantType,jdbcType=INTEGER},
+      </if>
+      <if test="houseType != null">
+        house_type = #{houseType,jdbcType=VARCHAR},
+      </if>
+      <if test="toilteType != null">
+        toilte_type = #{toilteType,jdbcType=VARCHAR},
+      </if>
+      <if test="kitchenType != null">
+        kitchen_type = #{kitchenType,jdbcType=VARCHAR},
+      </if>
+      <if test="housePrice != null">
+        house_price = #{housePrice,jdbcType=DECIMAL},
       </if>
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
@@ -356,8 +473,16 @@
       province = #{province,jdbcType=VARCHAR},
       city = #{city,jdbcType=VARCHAR},
       district = #{district,jdbcType=VARCHAR},
+      address_name = #{addressName,jdbcType=VARCHAR},
+      address_detail = #{addressDetail,jdbcType=VARCHAR},
+      address_longitude = #{addressLongitude,jdbcType=VARCHAR},
+      address_latitude = #{addressLatitude,jdbcType=VARCHAR},
       cotenant_count = #{cotenantCount,jdbcType=INTEGER},
       cotenant_type = #{cotenantType,jdbcType=INTEGER},
+      house_type = #{houseType,jdbcType=VARCHAR},
+      toilte_type = #{toilteType,jdbcType=VARCHAR},
+      kitchen_type = #{kitchenType,jdbcType=VARCHAR},
+      house_price = #{housePrice,jdbcType=DECIMAL},
       status = #{status,jdbcType=INTEGER},
       cotenant_description = #{cotenantDescription,jdbcType=VARCHAR},
       chamber_img_url = #{chamberImgUrl,jdbcType=VARCHAR},

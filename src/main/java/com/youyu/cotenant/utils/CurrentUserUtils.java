@@ -1,11 +1,8 @@
 package com.youyu.cotenant.utils;
 
-import com.youyu.cotenant.common.ResponseResult;
-import com.youyu.cotenant.common.ResultCode;
 import com.youyu.cotenant.entity.CotenantUser;
-import com.youyu.cotenant.exception.BizException;
+import com.youyu.cotenant.entity.CustomUser;
 import com.youyu.cotenant.service.cache.UserInfoCacheService;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -26,9 +23,9 @@ public class CurrentUserUtils {
      */
     public String getCurrentLoginUserName() {
         String userName = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        if (StringUtils.isBlank(userName)) {
+/*        if (StringUtils.isBlank(userName)) {
             throw new BizException(ResponseResult.fail(ResultCode.INVALID_AUTHTOKEN));
-        }
+        }*/
         return userName;
     }
 
@@ -42,11 +39,20 @@ public class CurrentUserUtils {
     }
 
     /**
-     * 获取当前登录用户的用户信息
+     * 获取前台当前登录用户的用户信息
      *
      * @return
      */
     public CotenantUser getCurrUser() {
         return userInfoCacheService.getUserCache(getCurrentLoginUserName());
+    }
+
+    /**
+     * 获取前台当前登录用户的用户信息
+     *
+     * @return
+     */
+    public CustomUser getManagerCurrUser() {
+        return userInfoCacheService.getUserManagerCache(getCurrentLoginUserName());
     }
 }

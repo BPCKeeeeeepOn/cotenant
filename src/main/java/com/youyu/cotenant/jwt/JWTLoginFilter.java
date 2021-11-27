@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.common.ResultCode;
 import com.youyu.cotenant.entity.CotenantUser;
+import com.youyu.cotenant.security.CustomAuthenticationProvider;
 import com.youyu.cotenant.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -30,6 +31,9 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
     @Autowired
     private RedisUtils redisUtils;
 
+    @Autowired
+    private CustomAuthenticationProvider customAuthenticationProvider;
+
     public JWTLoginFilter(String url, AuthenticationManager authenticationManager) {
         super(new AntPathRequestMatcher(url));
         setAuthenticationManager(authenticationManager);
@@ -42,8 +46,7 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
         Set<GrantedAuthority> authSet = new HashSet<GrantedAuthority>();
         authSet.add(new SimpleGrantedAuthority("1"));
         //返回一个验证令牌
-        return getAuthenticationManager().authenticate(
-                new UsernamePasswordAuthenticationToken(
+        return customAuthenticationProvider.authenticate(new UsernamePasswordAuthenticationToken(
                         user.getMobile(),
                         user.getPassword(),
                         authSet

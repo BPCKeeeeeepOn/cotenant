@@ -63,6 +63,11 @@ public enum ResultCode {
     USER_INFO_ERROR(490, "请补全您的个人信息"),
 
     /**
+     * 个人信息状态审核
+     */
+    USER_INFO_VERIFY(495, "请补全证件信息或证件审核中"),
+
+    /**
      * 服务器异常
      */
     INTERNAL_SERVER_ERROR(500, "服务器异常"),
@@ -75,12 +80,12 @@ public enum ResultCode {
     /**
      * 已参加过租房团
      */
-    EXIST_COTENANT_GROUP(100030, "已加入其他租房团"),
+    EXIST_COTENANT_GROUP(100030, "抱歉，您已加入租房团或已建团"),
 
     /**
      * 该租房团人数已满
      */
-    COTENANT_GROUP_FULL(100050, "该租房团人数已满"),
+    COTENANT_GROUP_FULL(100050, "抱歉，该租房团人数已满"),
 
     /**
      * 无权限操作
@@ -90,7 +95,32 @@ public enum ResultCode {
     /**
      * 用户信息审核未通过
      */
-    UNPASS_USER(100090, "抱歉，您的审毕业证/学生证核未通过");
+    UNPASS_USER(100090, "抱歉，您的审毕业证/学生证核未通过,请重新上传"),
+
+    /**
+     * 即时消息发送失败
+     */
+    SEND_MSG_ERROR(100200, "消息发送失败，请稍后重试"),
+
+    /**
+     * 该用户创建租房团
+     */
+    USER_NO_GROUP(100300, "该用户未创建租房团"),
+
+    /**
+     * 该学校已添加，请重新选择
+     */
+    USER_COLLEGE_EXISZTS(100400, "该学校已添加，请重新选择"),
+
+    USER_COLLEGE_NOT_IS_DEFAULT(100500,"只保留一条学校必须设置为默认"),
+
+    USER_COLLEGE_MUST_ONE(100600,"学校必须保留一条"),
+
+    USER_COLLEGE_MUST_IS_DEFAULT(100700,"请设置默认学校"),
+
+    ADDRESS_LOCATION_NOT_FOUND(100900,"请设置默认学校"),
+
+    ERROR_CODE_100900(101100,"该用户未注册App");
 
 
     ResultCode(Integer code, String msg) {

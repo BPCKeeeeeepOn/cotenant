@@ -2,9 +2,13 @@ package com.youyu.cotenant.repository;
 
 import com.youyu.cotenant.entity.CotenantCollege;
 import com.youyu.cotenant.entity.CotenantCollegeExample;
-import java.util.List;
-import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public interface CotenantCollegeMapper {
     long countByExample(CotenantCollegeExample example);
 

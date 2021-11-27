@@ -7,6 +7,10 @@
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address_name" jdbcType="VARCHAR" property="addressName"/>
+        <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+        <result column="address_longitude" jdbcType="VARCHAR" property="addressLongitude"/>
+        <result column="address_latitude" jdbcType="VARCHAR" property="addressLatitude"/>
         <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount"/>
         <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
@@ -19,28 +23,49 @@
         <result column="is_deleted" jdbcType="BIT" property="isDeleted"/>
     </resultMap>
 
-    <resultMap id="GroupListOutVM" type="com.youyu.cotenant.web.rest.vm.group.GroupListOutVM">
+    <resultMap id="GroupListOutVM" type="com.youyu.cotenant.web.vm.group.GroupListOutVM">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address_name" jdbcType="VARCHAR" property="address"/>
         <result column="leader" jdbcType="VARCHAR" property="leader"/>
+        <result column="leader_id" jdbcType="VARCHAR" property="leaderId"/>
         <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount"/>
         <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType"/>
+        <result column="house_price" jdbcType="DECIMAL" property="housePrice"/>
+        <result column="house_type" jdbcType="VARCHAR" property="houseType"/>
+        <result column="toilte_type" jdbcType="VARCHAR" property="toilteType"/>
+        <result column="kitchen_type" jdbcType="VARCHAR" property="kitchenType"/>
+        <result column="cotenant_description" jdbcType="VARCHAR" property="cotenantDescription"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="chamber_img_url" jdbcType="VARCHAR" property="chamberImgUrl"/>
+        <result column="chamber_description" jdbcType="VARCHAR" property="chamberDescription"/>
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
     </resultMap>
 
-    <resultMap id="GroupDetailOutVM" type="com.youyu.cotenant.web.rest.vm.group.GroupDetailOutVM">
+    <resultMap id="GroupDetailOutVM" type="com.youyu.cotenant.web.vm.group.GroupDetailOutVM">
         <id column="id" jdbcType="BIGINT" property="id"/>
         <result column="title" jdbcType="VARCHAR" property="title"/>
         <result column="province" jdbcType="VARCHAR" property="province"/>
         <result column="city" jdbcType="VARCHAR" property="city"/>
         <result column="district" jdbcType="VARCHAR" property="district"/>
+        <result column="address_name" jdbcType="VARCHAR" property="addressName"/>
+        <result column="address_detail" jdbcType="VARCHAR" property="addressDetail"/>
+        <result column="address_longitude" jdbcType="VARCHAR" property="addressLongitude"/>
+        <result column="address_latitude" jdbcType="VARCHAR" property="addressLatitude"/>
+        <result column="leader" jdbcType="VARCHAR" property="leader"/>
+        <result column="leader_id" jdbcType="VARCHAR" property="leaderId"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
+        <result column="college" jdbcType="VARCHAR" property="college"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
         <result column="cotenant_count" jdbcType="INTEGER" property="cotenantCount"/>
         <result column="cotenant_type" jdbcType="INTEGER" property="cotenantType"/>
+        <result column="house_price" jdbcType="DECIMAL" property="housePrice"/>
+        <result column="house_type" jdbcType="VARCHAR" property="houseType"/>
+        <result column="toilte_type" jdbcType="VARCHAR" property="toilteType"/>
+        <result column="kitchen_type" jdbcType="VARCHAR" property="kitchenType"/>
         <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="cotenant_description" jdbcType="VARCHAR" property="cotenantDescription"/>
         <result column="chamber_img_url" jdbcType="VARCHAR" property="chamberImgUrl"/>
@@ -49,21 +74,35 @@
         <result column="created_time" jdbcType="TIMESTAMP" property="createdTime"/>
     </resultMap>
 
-    <resultMap id="CotenantListOutVM" type="com.youyu.cotenant.web.rest.vm.group.CotenantListOutVM">
+    <resultMap id="CotenantListOutVM" type="com.youyu.cotenant.web.vm.group.CotenantListOutVM">
+        <id column="user_id" jdbcType="BIGINT" property="id"/>
         <result column="role" jdbcType="INTEGER" property="role"/>
         <result column="nick_name" jdbcType="VARCHAR" property="nickName"/>
         <result column="college" jdbcType="VARCHAR" property="college"/>
+        <result column="end_time" jdbcType="VARCHAR" property="endTime"/>
+        <result column="status" jdbcType="INTEGER" property="status"/>
         <result column="interest" jdbcType="VARCHAR" property="interest"/>
+        <result column="sex" jdbcType="INTEGER" property="sex"/>
     </resultMap>
 
     <select id="selectGroupList" resultMap="GroupListOutVM">
-        select cg.id,cg.title,cg.province,cg.city,cg.district,cui.user_name as
-        leader,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.created_time from cotenant_group cg
+        select
+        cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail as
+        address,cg.address_longitude,cg.address_latitude,cui.nick_name
+        as
+        leader,cc.college_name as
+        college,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.house_price,cg.house_type,cg.created_time
+        from cotenant_group cg
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
-        where cgu.status = 10 and cgu.role=1
+        left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+        left join cotenant_college cc on cc.id = cuc.cotenant_college_id
+        where cgu.status = 10
+        and cgu.role=1
+        and cg.status not in (0,40,20)
+        and cg.is_deleted = 0
         <if test="groupQueryInVM != null and groupQueryInVM.college != null">
-            and cui.college = #{groupQueryInVM.college}
+            and (cc.college_name like "%"#{groupQueryInVM.college}"%" or cg.district like "%"#{groupQueryInVM.college}"%")
         </if>
         <if test="groupQueryInVM != null and groupQueryInVM.cotenantType != null">
             and cg.cotenant_type = #{groupQueryInVM.cotenantType}
@@ -80,28 +119,90 @@
         <if test="groupQueryInVM != null and groupQueryInVM.cotenantCount != null">
             and cg.cotenant_count = #{groupQueryInVM.cotenantCount}
         </if>
+        <if test="groupQueryInVM != null and groupQueryInVM.sex != null">
+            and cui.sex = #{groupQueryInVM.sex}
+        </if>
+        <if test="groupQueryInVM != null and groupQueryInVM.houseType != null">
+            and cg.house_type = #{groupQueryInVM.houseType}
+        </if>
+        <if test="groupQueryInVM != null and groupQueryInVM.toilteType != null">
+            and cg.toilte_type = #{groupQueryInVM.toilteType}
+        </if>
+        <if test="groupQueryInVM != null and groupQueryInVM.kitchenType != null">
+            and cg.kitchen_type = #{groupQueryInVM.kitchenType}
+        </if>
+        <if test="groupQueryInVM != null and groupQueryInVM.startPrice != null">
+            and cg.house_price &gt;= #{groupQueryInVM.startPrice}
+        </if>
+        <if test="groupQueryInVM != null and groupQueryInVM.endPrice != null">
+            and cg.house_price &lt;= #{groupQueryInVM.endPrice}
+        </if>
+        <if test="groupQueryInVM.priceSort == 0">
+            order by cg.created_time desc
+        </if>
+        <if test="groupQueryInVM.priceSort == 1">
+            order by cg.house_price asc
+        </if>
+        <if test="groupQueryInVM.priceSort == 2">
+            order by cg.house_price desc
+        </if>
+    </select>
+
+    <select id="selectManagerGroupList" resultMap="GroupListOutVM">
+        select
+        cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail as address,cg.address_longitude,cg.address_latitude,cui.nick_name
+        as
+        leader,cc.college_name as
+        college,cg.cotenant_count,cg.cotenant_type,cg.house_price,cg.house_type,cg.toilte_type,cg.kitchen_type,cg.status,cg.chamber_img_url,cg.created_time,cg.cotenant_description,cg.chamber_description
+        from cotenant_group cg
+        join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
+        join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
+        left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+        left join cotenant_college cc on cc.id = cuc.cotenant_college_id
+        where cgu.role=1
+        <if test="state != null">
+            and cg.status = #{state}
+        </if>
         order by cg.created_time desc
     </select>
 
     <select id="selectGroupDetail" resultMap="GroupDetailOutVM">
-        select
-          cg.id,cg.title,cg.province,cg.city,cg.district,cui.user_name as leader,cg.cotenant_count,cg.cotenant_type,cg.status,cg.chamber_img_url,cg.cotenant_description,cg.chamber_description,cg.chamber_video_url,cg.created_time
+          select
+          cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail,cg.address_longitude,cg.address_latitude,cui.nick_name as leader,cui.user_id as leader_id,cui.sex,cc.college_name as college,cui.end_time,cg.cotenant_count,cg.cotenant_type,cg.house_type,cg.toilte_type,cg.kitchen_type,cg.house_price,cg.status,cg.chamber_img_url,cg.cotenant_description,cg.chamber_description,cg.chamber_video_url,cg.created_time
           from cotenant_group cg
           join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
+          left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+          left join cotenant_college cc on cc.id = cuc.cotenant_college_id
           where cgu.status = 10 and cgu.role=1 and cg.id = #{id}
     </select>
 
-    <select id="selectCotenantList" resultMap="CotenantListOutVM">
-        select role,cui.nick_name,cui.college,cui.interest from cotenant_group_user cgu
+    <select id="selectManagerGroupDetail" resultMap="GroupDetailOutVM">
+          select
+          cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail,cg.address_longitude,cg.address_latitude,cui.nick_name as leader,cui.user_id as leader_id,cui.sex,cc.college_name as college,cui.end_time,cg.cotenant_count,cg.cotenant_type,cg.house_type,cg.toilte_type,cg.kitchen_type,cg.house_price,cg.status,cg.chamber_img_url,cg.cotenant_description,cg.chamber_description,cg.chamber_video_url,cg.created_time
+          from cotenant_group cg
+          join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
-          where cgu.cotenant_group_id = #{id} and cgu.role = 2 and cgu.status = 10
+          left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+          left join cotenant_college cc on cc.id = cuc.cotenant_college_id
+          where cgu.role=1 and cg.id = #{id}
     </select>
 
-    <select id="selectGroupLeader">
+    <select id="selectCotenantList" resultMap="CotenantListOutVM">
+          select cui.user_id,role,cui.nick_name,cgu.status,cc.college_name as college,cuc.end_time,cui.interest,cui.sex from cotenant_group_user cgu
+          join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
+          left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
+          left join cotenant_college cc on cc.id = cuc.cotenant_college_id
+          where cgu.cotenant_group_id = #{id} and cgu.status = 10 order by cgu.role
+    </select>
+
+    <select id="selectGroupLeader" resultType="Long">
         select cotenant_user_id from cotenant_group_user where cotenant_group_id = #{groupId} and role = 1
     </select>
 
+    <select id="selectJoinGroup" resultType="Long">
+        select count(1) from cotenant_group_user where cotenant_user_id = #{userId} and (status = 0 or status = 10)
+    </select>
 
 
 </mapper>

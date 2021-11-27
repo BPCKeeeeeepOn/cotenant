@@ -3,7 +3,8 @@ package com.youyu.cotenant.web.rest;
 
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.service.PersonalService;
-import com.youyu.cotenant.web.rest.vm.personal.GroupExamineInVM;
+import com.youyu.cotenant.web.vm.personal.GroupExamineInVM;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -13,6 +14,7 @@ import javax.validation.Valid;
 public class PersonalController {
 
 
+    @Autowired
     private PersonalService personalService;
 
     @GetMapping("/list")
@@ -40,6 +42,12 @@ public class PersonalController {
     @PostMapping("/group/{id}/cancel")
     public ResponseResult cancel(@PathVariable("id") Long id) {
         personalService.cancel(id);
+        return ResponseResult.success();
+    }
+
+    @GetMapping("/clean/unread/{action_type}")
+    public ResponseResult cleanUnread(@PathVariable("action_type") Integer actionType) {
+        personalService.cleanUnread(actionType);
         return ResponseResult.success();
     }
 

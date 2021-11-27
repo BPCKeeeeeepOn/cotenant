@@ -4,6 +4,11 @@
   <resultMap id="BaseResultMap" type="com.youyu.cotenant.entity.CotenantCollege">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="college_name" jdbcType="VARCHAR" property="collegeName" />
+    <result column="college_department" jdbcType="VARCHAR" property="collegeDepartment" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+    <result column="remark" jdbcType="VARCHAR" property="remark" />
+    <result column="cpllege_level" jdbcType="VARCHAR" property="cpllegeLevel" />
     <result column="created_time" jdbcType="TIMESTAMP" property="createdTime" />
     <result column="updated_time" jdbcType="TIMESTAMP" property="updatedTime" />
   </resultMap>
@@ -66,7 +71,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, college_name, created_time, updated_time
+    id, college_name, college_department, province, city, remark, cpllege_level, created_time, 
+    updated_time
   </sql>
   <select id="selectByExample" parameterType="com.youyu.cotenant.entity.CotenantCollegeExample" resultMap="BaseResultMap">
     select
@@ -99,10 +105,14 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.youyu.cotenant.entity.CotenantCollege">
-    insert into cotenant_college (id, college_name, created_time, 
-      updated_time)
-    values (#{id,jdbcType=BIGINT}, #{collegeName,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, 
-      #{updatedTime,jdbcType=TIMESTAMP})
+    insert into cotenant_college (id, college_name, college_department, 
+      province, city, remark, 
+      cpllege_level, created_time, updated_time
+      )
+    values (#{id,jdbcType=BIGINT}, #{collegeName,jdbcType=VARCHAR}, #{collegeDepartment,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{cpllegeLevel,jdbcType=VARCHAR}, #{createdTime,jdbcType=TIMESTAMP}, #{updatedTime,jdbcType=TIMESTAMP}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.youyu.cotenant.entity.CotenantCollege">
     insert into cotenant_college
@@ -112,6 +122,21 @@
       </if>
       <if test="collegeName != null">
         college_name,
+      </if>
+      <if test="collegeDepartment != null">
+        college_department,
+      </if>
+      <if test="province != null">
+        province,
+      </if>
+      <if test="city != null">
+        city,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="cpllegeLevel != null">
+        cpllege_level,
       </if>
       <if test="createdTime != null">
         created_time,
@@ -126,6 +151,21 @@
       </if>
       <if test="collegeName != null">
         #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeDepartment != null">
+        #{collegeDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="cpllegeLevel != null">
+        #{cpllegeLevel,jdbcType=VARCHAR},
       </if>
       <if test="createdTime != null">
         #{createdTime,jdbcType=TIMESTAMP},
@@ -150,6 +190,21 @@
       <if test="record.collegeName != null">
         college_name = #{record.collegeName,jdbcType=VARCHAR},
       </if>
+      <if test="record.collegeDepartment != null">
+        college_department = #{record.collegeDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="record.province != null">
+        province = #{record.province,jdbcType=VARCHAR},
+      </if>
+      <if test="record.city != null">
+        city = #{record.city,jdbcType=VARCHAR},
+      </if>
+      <if test="record.remark != null">
+        remark = #{record.remark,jdbcType=VARCHAR},
+      </if>
+      <if test="record.cpllegeLevel != null">
+        cpllege_level = #{record.cpllegeLevel,jdbcType=VARCHAR},
+      </if>
       <if test="record.createdTime != null">
         created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       </if>
@@ -165,6 +220,11 @@
     update cotenant_college
     set id = #{record.id,jdbcType=BIGINT},
       college_name = #{record.collegeName,jdbcType=VARCHAR},
+      college_department = #{record.collegeDepartment,jdbcType=VARCHAR},
+      province = #{record.province,jdbcType=VARCHAR},
+      city = #{record.city,jdbcType=VARCHAR},
+      remark = #{record.remark,jdbcType=VARCHAR},
+      cpllege_level = #{record.cpllegeLevel,jdbcType=VARCHAR},
       created_time = #{record.createdTime,jdbcType=TIMESTAMP},
       updated_time = #{record.updatedTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
@@ -176,6 +236,21 @@
     <set>
       <if test="collegeName != null">
         college_name = #{collegeName,jdbcType=VARCHAR},
+      </if>
+      <if test="collegeDepartment != null">
+        college_department = #{collegeDepartment,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="cpllegeLevel != null">
+        cpllege_level = #{cpllegeLevel,jdbcType=VARCHAR},
       </if>
       <if test="createdTime != null">
         created_time = #{createdTime,jdbcType=TIMESTAMP},
@@ -189,6 +264,11 @@
   <update id="updateByPrimaryKey" parameterType="com.youyu.cotenant.entity.CotenantCollege">
     update cotenant_college
     set college_name = #{collegeName,jdbcType=VARCHAR},
+      college_department = #{collegeDepartment,jdbcType=VARCHAR},
+      province = #{province,jdbcType=VARCHAR},
+      city = #{city,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      cpllege_level = #{cpllegeLevel,jdbcType=VARCHAR},
       created_time = #{createdTime,jdbcType=TIMESTAMP},
       updated_time = #{updatedTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

@@ -1,7 +1,7 @@
 package com.youyu.cotenant.repository.biz;
 
-import com.youyu.cotenant.web.rest.vm.group.CotenantListOutVM;
-import com.youyu.cotenant.web.rest.vm.group.GroupListOutVM;
+import com.youyu.cotenant.web.vm.group.CotenantListOutVM;
+import com.youyu.cotenant.web.vm.group.GroupListOutVM;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
