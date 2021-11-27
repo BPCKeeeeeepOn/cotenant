@@ -77,6 +77,7 @@
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
         where cgu.role=#{role} and cg.status in (0,30,40,10)
+        and cg.is_deleted = 0
         and cgu.cotenant_user_id = #{userId}
         order by cg.created_time desc
     </select>
@@ -87,7 +88,7 @@
           from cotenant_group cg
           join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
           join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
-          where cgu.status = 10 and cgu.role=1 and cg.id = #{id}
+          where cgu.status = 10 and cgu.role=1 and cg.id = #{id} and cg.is_deleted = 0
     </select>
 
     <select id="selectCotenantList" resultMap="CotenantListOutVM">

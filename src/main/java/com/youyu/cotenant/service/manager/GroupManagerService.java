@@ -7,12 +7,17 @@ import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.common.ResultCode;
 import com.youyu.cotenant.entity.CotenantGroup;
 import com.youyu.cotenant.entity.CotenantGroupUser;
+import com.youyu.cotenant.entity.CotenantUser;
+import com.youyu.cotenant.entity.CotenantUserInfo;
 import com.youyu.cotenant.exception.BizException;
 import com.youyu.cotenant.repository.CotenantGroupMapper;
 import com.youyu.cotenant.repository.CotenantGroupUserMapper;
 import com.youyu.cotenant.repository.biz.CotenantGroupBizMapper;
+import com.youyu.cotenant.repository.biz.CotenantUserBizMapper;
 import com.youyu.cotenant.service.GroupService;
+import com.youyu.cotenant.service.UserService;
 import com.youyu.cotenant.utils.CommonUtils;
+import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.dto.AddressLocationDTO;
 import com.youyu.cotenant.web.vm.group.*;
 import lombok.extern.slf4j.Slf4j;
@@ -45,6 +50,15 @@ public class GroupManagerService {
     @Autowired
     private GroupService groupService;
 
+    @Autowired
+    private CurrentUserUtils currentUserUtils;
+
+    @Autowired
+    private UserService userService;
+
+    @Autowired
+    private CotenantUserBizMapper cotenantUserBizMapper;
+
 
     /**
      * 查询租房列表
@@ -53,7 +67,7 @@ public class GroupManagerService {
      * @param offset
      * @return
      */
-    public List<GroupListOutVM> list(Integer limit, Integer offset,Integer state) {
+    public List<GroupListOutVM> list(Integer limit, Integer offset, Integer state) {
         List<GroupListOutVM> list =
                 PageHelper.offsetPage(offset, limit).doSelectPage(() -> cotenantGroupBizMapper.selectManagerGroupList(state));
         return list;
@@ -97,7 +111,16 @@ public class GroupManagerService {
      * @param groupInVM
      */
     public void addGroup(GroupInVM groupInVM) {
-        Long userId = 598189994836963328L;
+        CotenantUser currUser = currentUserUtils.getCurrUser();
+        String mobile = currUser.getMobile();
+        CotenantUser cotenantUser = userService.selectUserByUserName(mobile);
+        if (Objects.isNull(cotenantUser)) {
+            throw new BizException(ResponseResult.fail(ResultCode.ERROR_CODE_100900));
+        }
+        CotenantUserInfo cotenantUserInfo = cotenantUserBizMapper.selectUserDetail(cotenantUser.getId());
+        if (Objects.isNull(cotenantUserInfo) || !Objects.equals(cotenantUserInfo.getUserType(), CotenantConstants.USER_TYPE.LANDLORD)) {
+            throw new BizException(ResponseResult.fail(ResultCode.ERROR_CODE_100900));
+        }
         if (StringUtils.isBlank(groupInVM.getAddressDetail())) {
             throw new BizException(ResponseResult.fail(ResultCode.PARAMS_ERROR));
         }
@@ -112,7 +135,7 @@ public class GroupManagerService {
         groupInVM.setProvince(addressLocationDTO.getProvince());
         groupInVM.setCity(addressLocationDTO.getCity());
         groupInVM.setDistrict(addressLocationDTO.getDistrict());
-        groupService.publish(groupInVM, userId);
+        groupService.publish(groupInVM, cotenantUser.getId());
     }
 
     /**

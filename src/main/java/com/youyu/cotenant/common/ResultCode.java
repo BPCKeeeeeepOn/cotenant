@@ -118,7 +118,9 @@ public enum ResultCode {
 
     USER_COLLEGE_MUST_IS_DEFAULT(100700,"请设置默认学校"),
 
-    ADDRESS_LOCATION_NOT_FOUND(100900,"请设置默认学校");
+    ADDRESS_LOCATION_NOT_FOUND(100900,"请设置默认学校"),
+
+    ERROR_CODE_100900(101100,"该用户未注册App");
 
 
     ResultCode(Integer code, String msg) {

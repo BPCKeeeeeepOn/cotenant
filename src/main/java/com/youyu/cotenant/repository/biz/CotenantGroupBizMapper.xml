@@ -97,7 +97,10 @@
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
         left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
         left join cotenant_college cc on cc.id = cuc.cotenant_college_id
-        where cgu.status = 10 and cgu.role=1 and cg.status not in (0,40,20)
+        where cgu.status = 10
+        and cgu.role=1
+        and cg.status not in (0,40,20)
+        and cg.is_deleted = 0
         <if test="groupQueryInVM != null and groupQueryInVM.college != null">
             and (cc.college_name like "%"#{groupQueryInVM.college}"%" or cg.district like "%"#{groupQueryInVM.college}"%")
         </if>
@@ -150,7 +153,8 @@
         cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail as address,cg.address_longitude,cg.address_latitude,cui.nick_name
         as
         leader,cc.college_name as
-        college,cg.cotenant_count,cg.cotenant_type,cg.house_price,cg.house_type,cg.toilte_type,cg.kitchen_type,cg.status,cg.chamber_img_url,cg.created_time,cg.cotenant_description,cg.chamber_description from cotenant_group cg
+        college,cg.cotenant_count,cg.cotenant_type,cg.house_price,cg.house_type,cg.toilte_type,cg.kitchen_type,cg.status,cg.chamber_img_url,cg.created_time,cg.cotenant_description,cg.chamber_description
+        from cotenant_group cg
         join cotenant_group_user cgu on cgu.cotenant_group_id = cg.id
         join cotenant_user_info cui on cui.user_id = cgu.cotenant_user_id
         left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
