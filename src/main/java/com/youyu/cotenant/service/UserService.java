@@ -211,10 +211,12 @@ public class UserService {
             }
             cotenantUserInfoMapper.insertSelective(cotenantUserInfo);
             //首次保存学校信息
-            if (Objects.equals(userInfoInVM.getUserType(), PERSONAL)) {
-                CotenantUserCollege cotenantUserCollege = userInfoInVM.buildCotenantUserCollege();
-                cotenantUserCollege.setCotenantUserId(userId);
-                cotenantUserCollegeMapper.insertSelective(cotenantUserCollege);
+            if (Objects.nonNull(userInfoInVM.getCollegeId())) {
+                if (Objects.equals(userInfoInVM.getUserType(), PERSONAL)) {
+                    CotenantUserCollege cotenantUserCollege = userInfoInVM.buildCotenantUserCollege();
+                    cotenantUserCollege.setCotenantUserId(userId);
+                    cotenantUserCollegeMapper.insertSelective(cotenantUserCollege);
+                }
             }
         } else {
             CotenantUserInfo ins = userInfoInVM.buildCotenantUser();
