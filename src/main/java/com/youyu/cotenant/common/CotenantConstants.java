@@ -81,7 +81,7 @@ public interface CotenantConstants {
         int UNPASS_STATUS = 40; //审核拒绝
         int COMPLETE_STATUS = 10; //完成
         int CANCEL_STATUS = 20; //解散(取消)
-        Set<Integer> groupStatus = Stream.of(PASS_STATUS, UNPASS_STATUS).collect(Collectors.toSet());
+        Set<Integer> groupStatus = Stream.of(PASS_STATUS, UNPASS_STATUS, CANCEL_STATUS).collect(Collectors.toSet());
 
     }
 

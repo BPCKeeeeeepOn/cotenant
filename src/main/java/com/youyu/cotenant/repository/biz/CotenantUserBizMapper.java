@@ -33,6 +33,8 @@ public interface CotenantUserBizMapper {
      *
      * @return
      */
-    List<CotenantUserInfo> selectAllUser(@Param("certificate") String certificate, @Param("state") Integer state);
+    List<CotenantUserInfo> selectAllUser(@Param("certificate") String certificate,
+                                         @Param("state") Integer state,
+                                         @Param("userType") Integer userType);
 
 }

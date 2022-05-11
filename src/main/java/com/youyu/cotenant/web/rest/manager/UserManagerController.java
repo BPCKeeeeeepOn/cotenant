@@ -25,8 +25,9 @@ public class UserManagerController {
     public ResponseResult list(@RequestParam(required = false, defaultValue = "" + DEFAULT_PAGE_OFFSET) int offset,
                                @RequestParam(required = false, defaultValue = "" + DEFAULT_PAGE_SIZE) int limit,
                                @RequestParam(required = false, name = "certificate") String certificate,
-                               @RequestParam(required = false, name = "state") Integer state) {
-        return ResponseResult.success().body(userManagerService.list(limit, offset, certificate, state));
+                               @RequestParam(required = false, name = "state") Integer state,
+                               @RequestParam(required = false, name = "userType") Integer userType) {
+        return ResponseResult.success().body(userManagerService.list(limit, offset, certificate, state, userType));
     }
 
     @PutMapping("/examine/{id}/{status}/{reason}")

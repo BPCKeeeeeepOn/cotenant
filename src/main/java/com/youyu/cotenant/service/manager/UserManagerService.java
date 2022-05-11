@@ -54,9 +54,9 @@ public class UserManagerService {
         return userManagerOutVM;
     }
 
-    public List<CotenantUserInfo> list(Integer limit, Integer offset, String certificate, Integer state) {
+    public List<CotenantUserInfo> list(Integer limit, Integer offset, String certificate, Integer state, Integer userType) {
         List<CotenantUserInfo> list =
-                PageHelper.offsetPage(offset, limit).doSelectPage(() -> cotenantUserBizMapper.selectAllUser(certificate, state));
+                PageHelper.offsetPage(offset, limit).doSelectPage(() -> cotenantUserBizMapper.selectAllUser(certificate, state, userType));
         return list;
     }
 

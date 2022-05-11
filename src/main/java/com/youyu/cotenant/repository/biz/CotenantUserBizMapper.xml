@@ -81,7 +81,7 @@
         select
         cui.user_id, cui.nick_name, cui.user_head, cui.user_name, cui.sex, cc.college_name as college, cui.degree,
         cuc.start_time, cuc.end_time,
-        cui.id_card_url, cui.diploma_url, cui.interest, cui.status, cui.created_time, cui.updated_time, cui.is_deleted
+        cui.id_card_url, cui.diploma_url, cui.interest, cui.status, cui.created_time, cui.updated_time, cui.is_deleted,cui.id_number
         from cotenant_user_info cui
         left join cotenant_user_college cuc on cui.user_id = cuc.cotenant_user_id and cuc.is_default = 1
         left join cotenant_college cc on cc.id = cuc.cotenant_college_id
@@ -91,6 +91,9 @@
             </if>
             <if test="state != null">
                 and cui.status = #{state}
+            </if>
+            <if test="userType != null">
+                and user_type = #{userType}
             </if>
         </where>
         order by cui.created_time desc

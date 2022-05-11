@@ -5,10 +5,7 @@ import com.youyu.cotenant.common.CotenantConstants;
 import com.youyu.cotenant.common.GeneratorID;
 import com.youyu.cotenant.common.ResponseResult;
 import com.youyu.cotenant.common.ResultCode;
-import com.youyu.cotenant.entity.CotenantGroup;
-import com.youyu.cotenant.entity.CotenantGroupUser;
-import com.youyu.cotenant.entity.CotenantUser;
-import com.youyu.cotenant.entity.CotenantUserInfo;
+import com.youyu.cotenant.entity.*;
 import com.youyu.cotenant.exception.BizException;
 import com.youyu.cotenant.repository.CotenantGroupMapper;
 import com.youyu.cotenant.repository.CotenantGroupUserMapper;
@@ -32,6 +29,7 @@ import java.util.*;
 
 import static com.youyu.cotenant.common.CotenantConstants.COTENANT_TYPE.TYPE_3;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_ROLE.LEADER;
+import static com.youyu.cotenant.common.CotenantConstants.GROUP_STATUS.CANCEL_STATUS;
 import static com.youyu.cotenant.common.CotenantConstants.GROUP_STATUS.groupStatus;
 
 @Service
@@ -58,6 +56,9 @@ public class GroupManagerService {
 
     @Autowired
     private CotenantUserBizMapper cotenantUserBizMapper;
+
+    @Autowired
+    private CotenantGroupMapper cotenantGroupMapper;
 
 
     /**
@@ -103,6 +104,15 @@ public class GroupManagerService {
         }
         cotenantGroup.setStatus(status);
         groupMapper.updateByPrimaryKeySelective(cotenantGroup);
+
+        //更改租房下所有成员状态
+        if (Objects.equals(status, CANCEL_STATUS)) {
+            CotenantGroupUserExample cotenantGroupUserExample = new CotenantGroupUserExample();
+            cotenantGroupUserExample.createCriteria().andCotenantGroupIdEqualTo(groupId);
+            CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
+            cotenantGroupUser.setStatus(CotenantConstants.EXAMINE_STATUS.CANCEL);
+            cotenantGroupUserMapper.updateByExampleSelective(cotenantGroupUser, cotenantGroupUserExample);
+        }
     }
 
     /**
