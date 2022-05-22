@@ -95,6 +95,9 @@
             <if test="userType != null">
                 and user_type = #{userType}
             </if>
+            <if test="userId != null">
+                and cui.user_id = #{userId}
+            </if>
         </where>
         order by cui.created_time desc
     </select>

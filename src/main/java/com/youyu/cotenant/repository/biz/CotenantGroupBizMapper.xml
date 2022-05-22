@@ -150,7 +150,7 @@
 
     <select id="selectManagerGroupList" resultMap="GroupListOutVM">
         select
-        cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail as address,cg.address_longitude,cg.address_latitude,cui.nick_name
+        cg.id,cg.title,cg.province,cg.city,cg.district,cg.address_name,cg.address_detail as address,cg.address_longitude,cg.address_latitude,cui.user_id as leader_id,cui.user_name
         as
         leader,cc.college_name as
         college,cg.cotenant_count,cg.cotenant_type,cg.house_price,cg.house_type,cg.toilte_type,cg.kitchen_type,cg.status,cg.chamber_img_url,cg.created_time,cg.cotenant_description,cg.chamber_description
