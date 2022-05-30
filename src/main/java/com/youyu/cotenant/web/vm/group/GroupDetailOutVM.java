@@ -92,4 +92,6 @@ public class GroupDetailOutVM {
     @JsonUnwrapped
     private List<CotenantListOutVM> cotenantList;
 
+    private String mobile;
+
 }

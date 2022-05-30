@@ -64,6 +64,8 @@ public class GroupInVM {
     @JsonProperty("chamber_video_url")
     private String chamberVideoUrl;
 
+    private String mobile;
+
     public CotenantGroup buildCotenantGroup() {
         CotenantGroup cotenantGroup = new CotenantGroup();
         cotenantGroup.setProvince(province);

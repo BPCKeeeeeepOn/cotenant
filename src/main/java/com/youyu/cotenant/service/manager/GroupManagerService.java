@@ -121,8 +121,7 @@ public class GroupManagerService {
      * @param groupInVM
      */
     public void addGroup(GroupInVM groupInVM) {
-        CotenantUser currUser = currentUserUtils.getCurrUser();
-        String mobile = currUser.getMobile();
+        String mobile = StringUtils.isNotBlank(groupInVM.getMobile()) ? groupInVM.getMobile() : currentUserUtils.getCurrUser().getMobile();
         CotenantUser cotenantUser = userService.selectUserByUserName(mobile);
         if (Objects.isNull(cotenantUser)) {
             throw new BizException(ResponseResult.fail(ResultCode.ERROR_CODE_100900));
@@ -159,7 +158,6 @@ public class GroupManagerService {
         if (CollectionUtils.isEmpty(groups)) {
             throw new BizException(ResponseResult.fail(ResultCode.DEFAULT_ERROR));
         }
-        Long userId = 598189994836963328L;
         for (int i = 0; i < groups.size(); i++) {
             Map<String, Object> error = new HashMap<>();
             GroupInVM groupInVM = groups.get(i);
@@ -188,6 +186,14 @@ public class GroupManagerService {
                 result.add(error);
                 continue;
             }
+            //根据手机号查询房东id
+            CotenantUser cotenantUser = userService.selectUserByUserName(groupInVM.getMobile());
+            if(Objects.isNull(cotenantUser)) {
+                error.put("index", i + 2);
+                error.put("message", "手机号绑定的房东未找到");
+                result.add(error);
+                continue;
+            }
             groupInVM.setAddressName(addressLocationDTO.getFormattedAddress());
             groupInVM.setAddressDetail(addressLocationDTO.getFormattedAddress());
             groupInVM.setAddressLongitude(addressLocationDTO.getAddressLongitude());
@@ -204,7 +210,7 @@ public class GroupManagerService {
             CotenantGroupUser cotenantGroupUser = new CotenantGroupUser();
             cotenantGroupUser.setId(GeneratorID.getId());
             cotenantGroupUser.setCotenantGroupId(id);
-            cotenantGroupUser.setCotenantUserId(userId);
+            cotenantGroupUser.setCotenantUserId(cotenantUser.getId());
             cotenantGroupUser.setStatus(CotenantConstants.EXAMINE_STATUS.PASS);
             cotenantGroupUser.setRole(LEADER);
             cotenantGroupUserMapper.insertSelective(cotenantGroupUser);
