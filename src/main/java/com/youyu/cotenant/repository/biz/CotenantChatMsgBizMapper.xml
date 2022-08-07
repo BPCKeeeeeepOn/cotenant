@@ -17,32 +17,66 @@
     </resultMap>
 
     <select id="selectCotenantChatMsgList" resultMap="ChatMessageVM">
-        select send_user_id,receive_user_id,content,send_time from cotenant_chat_msg msg
-        where msg.channel = #{channel} and send_status = 1 order by send_time asc;
-   </select>
+        select send_user_id, receive_user_id, content, send_time
+        from cotenant_chat_msg msg
+        where msg.channel = #{channel}
+          and send_status = 1
+        order by send_time asc;
+    </select>
 
     <select id="selectCommunicationListByUserId" resultMap="ChatMessageListOutVM">
-		SELECT receive_user_id, d.nick_name as receive_user_name,d.user_head as receive_user_head,last_content, last_time
-            FROM (
-                SELECT if(send_user_id = #{userId}, receive_user_id, send_user_id) AS receive_user_id
-                    , content AS last_content, send_time AS last_time
-                FROM cotenant_chat_msg
-                WHERE id IN (
-                    SELECT id
-                    FROM (
-                        SELECT MAX(id) AS id
-                        FROM cotenant_chat_msg a
-                        WHERE a.receive_user_id = #{userId}
-                            OR a.send_user_id = #{userId}
-                        GROUP BY a.channel
-                    ) b
-                )
-            ) c
-	    INNER JOIN cotenant_user_info d ON d.user_id = c.receive_user_id
+        SELECT receive_user_id,
+               d.nick_name as receive_user_name,
+               d.user_head as receive_user_head,
+               last_content,
+               last_time
+        FROM (
+                 SELECT if(send_user_id = #{userId}, receive_user_id, send_user_id) AS receive_user_id
+                      , content                                                     AS last_content
+                      , send_time                                                   AS last_time
+                 FROM cotenant_chat_msg
+                 WHERE id IN (
+                     SELECT id
+                     FROM (
+                              SELECT MAX(id) AS id
+                              FROM cotenant_chat_msg a
+                              WHERE a.receive_user_id = #{userId}
+                                 OR a.send_user_id = #{userId}
+                              GROUP BY a.channel
+                          ) b
+                 )
+             ) c
+                 INNER JOIN cotenant_user_info d ON d.user_id = c.receive_user_id
         ORDER BY c.last_time DESC
-   </select>
+    </select>
 
     <select id="selectChatList" resultType="String">
-        select channel from cotenant_chat_msg group by channel
+        select channel
+        from cotenant_chat_msg
+        group by channel
+    </select>
+
+    <select id="selectChatListByCondition" resultType="com.youyu.cotenant.web.vm.chat.ChatListOutVM">
+        select ccm.id,
+        ccm.send_user_id as sendUserId,
+        ccm.receive_user_id as receiveUserId,
+        cui1.nick_name as sendUserNickName,
+        cui1.user_name as sendUserName,
+        cui2.nick_name as receiveUserNickName,
+        cui2.user_name as receiveUserName,
+        ccm.content,
+        ccm.created_time as createdTime
+        from cotenant_chat_msg ccm
+        inner join cotenant_user_info cui1 on ccm.send_user_id = cui1.user_id
+        inner join cotenant_user_info cui2 on ccm.receive_user_id = cui2.user_id
+        <where>
+            <if test="sendUserId != null">
+                and ccm.send_user_id = #{sendUserId}
+            </if>
+            <if test="receiveUserId != null">
+                and ccm.receive_user_id = #{receiveUserId}
+            </if>
+        </where>
+        order by id desc
     </select>
 </mapper>

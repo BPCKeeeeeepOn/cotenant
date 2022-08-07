@@ -1,5 +1,6 @@
 package com.youyu.cotenant.service;
 
+import com.github.pagehelper.PageHelper;
 import com.youyu.cotenant.common.CotenantConstants;
 import com.youyu.cotenant.common.GeneratorID;
 import com.youyu.cotenant.common.ResponseResult;
@@ -15,11 +16,8 @@ import com.youyu.cotenant.repository.CotenantUserInfoMapper;
 import com.youyu.cotenant.repository.biz.CotenantChatMsgBizMapper;
 import com.youyu.cotenant.utils.CurrentUserUtils;
 import com.youyu.cotenant.utils.RedisUtils;
-import com.youyu.cotenant.web.vm.chat.ChatMessageInVM;
-import com.youyu.cotenant.web.vm.chat.ChatMessageListOutVM;
-import com.youyu.cotenant.web.vm.chat.ChatMessageOutVM;
-import com.youyu.cotenant.web.vm.chat.ChatMessageVM;
-import com.youyu.cotenant.web.vm.chat.CommunicationInVM;
+import com.youyu.cotenant.web.vm.chat.*;
+import com.youyu.cotenant.web.vm.group.GroupListOutVM;
 import io.goeasy.GoEasy;
 import io.goeasy.publish.GoEasyError;
 import io.goeasy.publish.PublishListener;
@@ -27,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import net.logstash.logback.encoder.org.apache.commons.lang.math.NumberUtils;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
@@ -216,12 +215,18 @@ public class ChatService {
         channelList.stream().forEach(channel -> systemService.delCache("chat_receive_key_" + channel));
     }
 
-    public static void main(String[] args) {
-        Map<String, Object> x1 = new HashMap<>();
-        Map<String, Object> x5 = new LinkedHashMap<>();
-        Map<String, Object> x2 = new Hashtable<>();
-        Set<String> x3 = new HashSet<>();
-        List<String> x4 = new LinkedList<>();
+    /**
+     * 后台查询聊天记录
+     * @param offset
+     * @param limit
+     * @param sendUserId
+     * @param receiveUserId
+     * @return
+     */
+    public List<ChatListOutVM> chatList(Integer offset, Integer limit, Long sendUserId, Long receiveUserId) {
+        List<ChatListOutVM> list =
+                PageHelper.offsetPage(offset, limit).doSelectPage(() -> cotenantChatMsgBizMapper.selectChatListByCondition(sendUserId, receiveUserId));
+        return list;
     }
 
 }
